@@ -8,6 +8,36 @@ h1 {
     font-family: Futura;
 }
 
+ul {
+
+   text-decoration: none;
+
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #ccf2ff;
+  border-radius: 5px;
+  width: 525px;
+  font-family: Futura;
+  color: #a64dff;
+}
+
+.ul a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  padding: 8px;
+
+}
 
 @font-face{
   font-family: Futura;
@@ -39,7 +69,7 @@ h1 {
 }
 
 body {
-  margin-top: 50px;
+  margin-top: 0px;
 }
 
 
@@ -65,12 +95,12 @@ p2 {
     font-weight: 500;
     font-family: Futura;
 
+
 }
 
 h2 {
    font-size: 12px;
    top: 10px;
-   margin: 0;
    color: #000000;
    line-height: 2;
    font-family: Futura;
@@ -89,12 +119,13 @@ h2 {
   border-radius: 5px;
 
   background-color: #f2f2f2;
+
 }
 
 div {
   display: flex;
   position: relative;
-
+  margin-top: 50px;
 
 
 }
