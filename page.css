@@ -1,0 +1,101 @@
+
+h1 {
+    font-size: 40px;
+    left: 3px;
+    color: #FF6600;
+    line-height: 2.4;
+    font-weight: 500;
+    font-family: Futura;
+}
+
+
+@font-face{
+  font-family: Futura;
+  src: url('.../FuturaStdRegular.woff') format("WOFF");
+  font-weight: normal;
+}
+
+#main {
+  position: relative;
+  width: 525px;
+  border: 10px solid green;
+  padding:7px;
+  box-shadow: 10px 10px grey;
+
+  margin-top: -20px;
+  margin-bottom: 30px;
+  margin-right: 70px;
+  margin-left: 180px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+#titimage {
+
+
+  margin-left: 10px;
+
+}
+
+body {
+  margin-top: 50px;
+}
+
+
+p {
+    font-size: 15px;
+    top: 10px;
+    left: 4px;
+    margin: 10;
+    color: #a64dff;
+    line-height: 2.4;
+    font-weight: 500;
+    font-family: Futura;
+
+}
+
+p2 {
+    font-size: 15px;
+    top: 10px;
+    left: 4px;
+    margin: 10;
+    color: #FF6600;
+    line-height: 2.4;
+    font-weight: 500;
+    font-family: Futura;
+
+}
+
+h2 {
+   font-size: 12px;
+   top: 10px;
+   margin: 0;
+   color: #000000;
+   line-height: 2;
+   font-family: Futura;
+
+   font-family: "Mate", serif;
+   max-width: 800px;
+   margin: 0 auto;
+   padding: 0;
+   display: block;
+   float: none;
+   font-size: 16px;
+
+  width: 700px;
+  padding: 10px;
+  border-style: inset;
+  border-radius: 5px;
+
+  background-color: #f2f2f2;
+}
+
+div {
+  display: flex;
+  position: relative;
+
+
+
+}
+
