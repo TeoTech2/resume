@@ -8,6 +8,14 @@ h1 {
     font-family: Futura;
 }
 
+h3 {
+    font-size: 20px;
+    color: #FF6600;
+    line-height: 2.4;
+    font-weight: 500;
+    font-family: Futura;
+}
+
 ul {
 
    text-decoration: none;
