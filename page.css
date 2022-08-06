@@ -31,6 +31,11 @@ ul {
   color: #a64dff;
 }
 
+img:hover {
+    webkit-filter: blur(1px); /* Chrome, Safari, Opera */
+    filter: blur(1px);
+}
+
 .ul a {
     color: #FFFFFF;
     text-decoration: none;
@@ -136,6 +141,11 @@ div {
   position: relative;
   margin-top: 50px;
 
-
 }
+
+li:hover {
+    color: #a64dff;
+    text-decoration: underline;
+}
+
 
