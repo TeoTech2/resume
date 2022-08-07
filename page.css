@@ -72,6 +72,7 @@ li a {
 
   display: flex;
   justify-content: space-between;
+
 }
 
 #titimage {
@@ -82,6 +83,7 @@ li a {
 }
 
 body {
+
   margin-top: 0px;
   width: 1200px;
 }
