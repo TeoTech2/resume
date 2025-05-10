@@ -1,25 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><title>Theodore Mollano's Blog</title>
-           </head>
-
-
+<head>
     <meta charset="UTF-8">
-    <title>Blog</title>
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theodore Mollano's Technical Blog</title>
     <link rel="stylesheet" href="page.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Fira+Mono:wght@400;500&display=swap">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .blog-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fafafa;
+        }
+        .blog-entry {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 60px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            padding: 25px;
+            border-left: 4px solid #a64dff;
+        }
+        .blog-entry img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 0 auto 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .blog-entry p {
+            line-height: 1.8;
+            margin: 0;
+            color: #333;
+            font-size: 16px;
+        }
+        .blog-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 16px;
+            font-weight: 600;
+            font-family: 'Roboto', sans-serif;
+        }
+        .blog-meta {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            font-family: 'Fira Mono', monospace;
+        }
+        .tech-tag {
+            display: inline-block;
+            background-color: #f0f0f0;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+            font-family: 'Fira Mono', monospace;
+            font-size: 12px;
+            color: #a64dff;
+            border-left: 2px solid #a64dff;
+        }
+        .equation-container {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        hr {
+            border: none;
+            height: 1px;
+            background-color: #eaeaea;
+            margin: 0;
+        }
+        .blog-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .blog-header h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .blog-header p {
+            color: #666;
+            font-size: 18px;
+        }
+    </style>
 
-<p>
-        <h3> A analysis of optimal raiding in Clash of Clans with Wolfram Language: </h3>
-
-        <iframe width='800' height='400' src='https://www.wolframcloud.com/obj/tfm1/Published/A Magic Threshold' frameborder='0'></iframe>
-</p>
-
-       <a href="https://community.wolfram.com/groups/-/m/t/2618730?p_p_auth=za4HIkDK">
-Human Player vs. NN in GeoGessur</a>
 
 <body>
+    <div class="blog-container">
+        <div class="blog-header">
+            <h1>Technical Projects</h1>
+            <p>Projects which combine my interest in development, physics, and ski racing</p>
+        </div>
+        
+        <div class="blog-entry">
+            <h2 class="blog-title">PiDoc: Scientific Document Editor</h2>
+            <div class="blog-meta">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">LaTeX</span>
+                <span class="tech-tag">Scientific Computing</span>
+                <a class="tech-tag" href="https://pidoc.pro/" target="_blank">Website</a>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                <img src="image/pidoc.png" alt="PiDoc: Scientific Document Editor Interface" style="width: 48%; max-width: 48%;">
+                <img src="image/integralEval.png" alt="PiDoc Integral Evaluation Feature" style="width: 48%; max-width: 48%;">
+            </div>
+            <p>
+                PiDoc is an integrated scientific document editor developed to streamline technical writing. The application implements a number of scientific tools within a unified interface, increasing the speed at which papers and homeworks can be written.
+            <p>
+                The architecture employs a modular design pattern that integrates multiple scientific computing libraries, including:
+            </p>
+            <ul>
+                <li>Real-time LaTeX renderingn</li>
+                <li>Support for images, and graphing</li>
+                <li>Molecular structure visualization and circuit design</li>
+                <li>Proof verifaction, and in-house equation solver</li>
+            </ul>
+        </div>
+        <hr>
+        <div class="blog-entry">
+            <h2 class="blog-title">Gamma Spectra Analysis: Poisson Log-Likelihood Method</h2>
+            <div class="blog-meta">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">SciPy</span>
+                <span class="tech-tag">Particle Physics</span>
+                <span class="tech-tag">Statistical Analysis</span>
+                <a class="tech-tag" href="https://github.com/TeoTech2/majorana" target="_blank">GitHub</a>
+            </div>
+            <img src="image/log-analysis.png" alt="Gamma Spectra Analysis with Log-Likelihood Fitting">
+            <p>
+                This research project implements methods for analyzing low-count gamma ray spectra. The primary objective behind this program was to establish precise signal bounds for calculating the half-life of specific tantalum isotope.
+            </p>
+            <p>
+                We were interested in the question - how many signal counts do we need to see to have a 5 $\sigma$ event? We answered this question by applying the tools of log-likelihood analysis. 
+            </p>
 
+            <div class="equation-container">
+                <p>The Poisson log-likelihood function is defined as:</p>
+                $$\log L = \sum_{i} (n_i \log \lambda_i - \lambda_i - \log n_i!)$$
+                <p>Where $n_i$ represents observed counts and $\lambda_i$ represents the expected counts from our model.</p>
+            </div>
+
+            <p>
+                The liklihood function tells us how likely a given set of fitting parameters are to generate the peaks we see. So, by enumerating parameter space, the log-likelihood analysis gives us a good way to determining the $5 \sigma$ bound. 
+            </p>
+
+            In this program, we see: 
+
+            <ol>
+                <li>Conventional Gaussian peak fitting using SciPy</li>
+                <li>Maximum log-likelihood estimation using Poisson statistics, which provides superior performance in low-signal regimes</li>
+            </ol>
+
+        </div>
+        <hr>
+        <div class="blog-entry">
+            <h2 class="blog-title">Argon-Dewar PID Controller for TPC Scintillation Detection</h2>
+            <div class="blog-meta">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Arduino</span>
+                <span class="tech-tag">PID Control</span>
+                <span class="tech-tag">Particle Physics</span>
+                <span class="tech-tag">SQL</span>
+            </div>
+            <img src="image/pid-controller6.png" alt="PID Controller System Architecture">
+            <p>
+                This project involved the development of a precision control system for a Time Projection Chamber (TPC) used in dark matter detection experiments. The system was implemented as part of a scaled-down version of the DarkSide-20k at Gran Sasso National Laboratory.
+            </p>
+            <p>
+                The control system architecture consists of three primary components:
+            </p>
+            <ol>
+                <li>A proportional-integral-derivative (PID) controller implemented in Arduino C for real-time response</li>
+                <li>A Python interface parameter tuning and system monitoring</li>
+                <li>A SQL database backend for data logging</li>
+            </ol>
+            <p>
+                The controller maintains precise temperature and pressure conditions within the argon-filled TPC by regulating nitrogen gas outflow. This stability is critical for detecting scintillation photons produced by potential dark matter particle interactions.
+            </p>
+        </div>
+        <hr>
+        <div class="blog-entry">
+            <h2 class="blog-title">Computational Isomer Generation: Linear Algebraic Approach</h2>
+            <div class="blog-meta">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">NumPy</span>
+                <span class="tech-tag">Computational Chemistry</span>
+                <span class="tech-tag">Linear Algebra</span>
+                <a class="tech-tag" href="https://community.wolfram.com/groups/-/m/t/2731070" target="_blank">Wolfram Community</a>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                <img src="image/isomer-generation.png" alt="Computational Isomer Generation Results" style="width: 48%; max-width: 48%;">
+                <img src="image/bondingTable.png" alt="Molecular Bonding Table" style="width: 48%; max-width: 48%;">
+            </div>
+            <p>
+                This project implements an efficient algorithm for generating chemical isomers—structurally distinct molecules with identical chemical formulas. The computational approach leverages linear algebra to enumerate possible molecular configurations based on valence constraints.
+            </p>
+            <p>
+                The thermodynamic significance of isomers is captured by their Boltzmann probability distribution:</p>
+            <div class="equation-container">
+                $$P_{i} \sim e^{-G/kT}$$
+                <p>Where $G$ represents the Gibbs free energy, $k$ is Boltzmann's constant, and $T$ is temperature.</p>
+            </div>
+            <p>
+                The algorithm translates Lewis-bonding rules into a system of linear equations, where each atom's valence requirements must be satisfied. This formulation transforms the chemical problem into a linear algebra problem:</p>
+            <div class="equation-container">
+                $$A \vec{x} = \vec{b}$$
+                <p>Where $\vec{b}$ represents the vector of atomic valencies and $A$ is the bonding matrix encoding potential connections between atoms.</p>
+            </div>
+            <p>
+                The implementation uses NumPy's linear algebra routines to efficiently compute the solution space, with each valid solution corresponding to a unique isomer. This approach offers significant computational advantages over traditional graph-based enumeration methods, particularly for molecules with complex bonding patterns.
+            </p>
+        </div>
+        <hr>
+        <div class="blog-entry">
+            <h2 class="blog-title">Nordic Ski Performance Analysis: Technique Optimization Model</h2>
+            <div class="blog-meta">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Data Analysis</span>
+                <span class="tech-tag">Numerical Integration</span>
+                <span class="tech-tag">Sports Science</span>
+                <a class="tech-tag" href="https://github.com/TeoTech2/ski.data-development" target="_blank">GitHub</a>
+            </div>
+            <img src="image/nordic-ski-analysis.png" alt="Nordic Ski Technique Analysis Results">
+            <p>
+                This project develops a computational model for optimizing cross-country skiing technique selection based on course topography and athlete-specific parameters. The analysis utilizes official FIS (International Ski Federation) course data combined with a non-linear model of skiing mechanics.
+            </p>
+            <p>
+                The model incorporates multiple variables affecting skiing performance:</p>
+            <ul>
+                <li>Course slope and terrain features</li>
+                <li>Athlete-specific power output capabilities</li>
+                <li>Technique-specific efficiency factors</li>
+                <li>Equipment characteristics and snow conditions</li>
+            </ul>
+            <p>
+                Race time prediction is accomplished through numerical integration of velocity as a function of course position:</p>
+            <div class="equation-container">
+                $$\tau = \int v(\theta) dt$$
+                <p>Where $v(\theta)$ represents velocity as a function of slope angle $\theta$.</p>
+            </div>
+            <p>
+                The model outputs technique transition points that optimize overall race time, providing strategic insights for athletes and coaches. This analytical approach has applications beyond Nordic skiing, including other racing sports with variable terrain and equipment configurations, such as Formula 1 racing where gear selection and racing line optimization follow similar mathematical principles.
+            </p>
+        </div>
+        
+        <footer>
+            <p> 2025 Theodore Mollano | Technical Research & Projects</p>
+        </footer>
+    </div>
+    <!-- End of blog content -->
 </body>
 </html>

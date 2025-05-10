@@ -2,10 +2,251 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Projects</title>
-    Coming very soon...
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T.F Mollano - Research</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+        
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #fff;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            background-color: #e6f3ff;
+            padding: 15px 0;
+        }
+        
+        nav a {
+            color: #8344e0;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: #d9c2ff;
+            border-radius: 4px;
+        }
+        
+        nav a.active {
+            background-color: #8344e0;
+            color: white;
+            border-radius: 4px;
+        }
+        
+        .profile-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: white;
+        }
+        
+        .profile-name {
+            color: #FF7F50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .profile-links a {
+            color: #0066cc;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        
+        .profile-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .section h2 {
+            color: #8344e0;
+            border-bottom: 2px solid #e6e6e6;
+            padding-bottom: 10px;
+        }
+        
+        .research-item {
+            margin-bottom: 30px;
+        }
+        
+        .research-item h3 {
+            color: #4CAF50;
+        }
+        
+        .research-details {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        ul {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #e6f3ff;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+            
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav a {
+                padding: 8px 12px;
+                margin: 0 2px;
+            }
+        }
+    </style>
 </head>
 <body>
-
+    <header>
+        <div class="container">
+            <div class="profile-section">
+                <div class="profile-info">
+                    <h1 class="profile-name">T.F Mollano</h1>
+                    <div class="profile-links">
+                        Download: <a href="#">CV</a> <a href="#">Random TeX File</a>
+                    </div>
+                </div>
+                <div class="profile-image">
+                    <img src="/api/placeholder/150/150" alt="Theodore Mollano" />
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <a href="index.html">About me</a>
+            <a href="current-projects.html">Current Projects</a>
+            <a href="research.html" class="active">Research</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <section class="section">
+            <h2>Research Experience</h2>
+            
+            <div class="research-item">
+                <h3>Giovanetti Laboratory at Williams College</h3>
+                <div class="research-details">
+                    <span>Physics Research Assistant</span>
+                    <span>2022-2025</span>
+                </div>
+                <ul>
+                    <li>Developed computer programs in Arduino and Python for data analysis of in-house experiments on argon-based scintillation</li>
+                    <li>Built a PID controller for an argon-based Time Projection Chamber (TPC)</li>
+                    <li>Deployed and managed a server using InfluxDB for data storage and Grafana for real-time data visualization</li>
+                    <li>Led 2025 Research Project analyzing gamma ray spectra of tantalum decays</li>
+                </ul>
+            </div>
+            
+            <div class="research-item">
+                <h3>Mathematics Department at Williams College</h3>
+                <div class="research-details">
+                    <span>Mathematics Research Assistant</span>
+                    <span>2024</span>
+                </div>
+                <ul>
+                    <li>Studied Symplectic geometry and invariants under SO(3) transformations under the supervision of Professor Terek</li>
+                    <li>Applied calculus of variations techniques to geometric problems</li>
+                    <li>Explored connections between differential geometry and physical systems</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Professional Experience</h2>
+            
+            <div class="research-item">
+                <h3>Mathematica/Wolfram Research</h3>
+                <div class="research-details">
+                    <span>Chemical Graph Researcher</span>
+                    <span>2021-2023</span>
+                </div>
+                <ul>
+                    <li>Interned for a year implementing programs for computational chemistry using Mathematica software</li>
+                    <li>Developed algorithms for analyzing chemical graphs and molecular structures</li>
+                    <li>Collaborated with a team to improve software tools for chemists and researchers</li>
+                    <li>Applied mathematical principles to solve chemical structure problems</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Teaching Experience</h2>
+            
+            <div class="research-item">
+                <h3>Mathematics Department at Williams College</h3>
+                <div class="research-details">
+                    <span>Mathematics Teaching Assistant</span>
+                    <span>2023-2024</span>
+                </div>
+                <ul>
+                    <li>Assisted in courses: Abstract Algebra (2023) and Measure Theory (2024)</li>
+                    <li>Provided tutoring sessions and facilitated group studies to enhance student understanding of complex mathematical concepts</li>
+                    <li>Developed supplementary materials to illustrate difficult theoretical concepts</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Research Interests</h2>
+            <ul>
+                <li><strong>Physics:</strong> Statistical Mechanics, Scintillation Physics, Particle Detection, Gamma Ray Spectroscopy</li>
+                <li><strong>Mathematics:</strong> Symplectic Geometry, Calculus of Variations, Differential Geometry, SO(3) Transformations</li>
+                <li><strong>Computational:</strong> Scientific Computing, Data Visualization, Real-time Data Analysis, Chemical Graph Theory</li>
+            </ul>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Theodore Mollano, tfm1@williams.edu, 603-491-9497</p>
+        </div>
+    </footer>
 </body>
 </html>
