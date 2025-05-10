@@ -51,9 +51,33 @@ ul.nav li {
 
 ul.nav li a {
   display: block;
-  padding: 12px 16px;
+  padding: 12px 16px 12px 16px;
   font-weight: 500;
   position: relative;
+  transition: color 0.2s cubic-bezier(0.4,0,0.2,1), transform 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+ul.nav li a::after {
+  content: '\2192'; /* Unicode right arrow */
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%) translateX(-10px);
+  opacity: 0;
+  font-size: 1.1em;
+  color: #8a2be2;
+  transition: opacity 0.25s cubic-bezier(0.4,0,0.2,1), transform 0.25s cubic-bezier(0.4,0,0.2,1);
+  pointer-events: none;
+}
+
+ul.nav li a:hover, ul.nav li a:focus {
+  color: #ff6600;
+  transform: scale(1.06) translateX(4px);
+}
+
+ul.nav li a:hover::after, ul.nav li a:focus::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(16px);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Fira+Mono:wght@400;500&display=swap');
