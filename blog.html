@@ -109,6 +109,54 @@
         
 
         <div class="blog-entry">
+            <h2 class="blog-title">Biharmonic Wave Equation: FEM Formulation and Numerical Solution</h2>
+            <div class="blog-meta">
+                <span class="tech-tag">Mathematica</span>
+                <span class="tech-tag">Finite Elements</span>
+                <span class="tech-tag">PDEs</span>
+                <span class="tech-tag">Numerical Methods</span>
+            </div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 16px;">
+                <img src="https://github.com/user-attachments/assets/c514439c-c701-4b79-bc67-cf36bcbfc111" alt="Biharmonic simulation attachment 1" style="width: 32%; min-width: 260px;">
+                <img src="https://github.com/user-attachments/assets/9e61a308-4774-4dd7-9bae-064bbfb1f766" alt="Biharmonic simulation attachment 2" style="width: 32%; min-width: 260px;">
+                <img src="https://github.com/user-attachments/assets/5837cf40-9c15-414c-b5f2-cb96bbb94266" alt="Biharmonic simulation attachment 3" style="width: 32%; min-width: 260px;">
+            </div>
+            <p>
+                The biharmonic wave equation models the vibration of thin elastic plates via the fourth-order operator $\nabla^4$ (the Laplacian of the Laplacian):
+            </p>
+            <div class="equation-container">
+                $$\frac{\partial^2 u}{\partial t^2} + \nabla^4 u = 0, \quad
+                \nabla^4 u = \frac{\partial^4 u}{\partial x^4} + 2\frac{\partial^4 u}{\partial x^2\partial y^2} + \frac{\partial^4 u}{\partial y^4}.$$ 
+            </div>
+            <p>
+                To obtain a variational (weak) formulation suitable for the Finite Elements Method (FEM), we seek $u \in V$ with clamped or simply supported boundary conditions and test with $v \in V$:
+            </p>
+            <div class="equation-container">
+                $$\int_{\Omega} u_{tt} \, v \, dA + \int_{\Omega} (\Delta u)(\Delta v) \, dA = 0.$$
+            </div>
+            <p>
+                Discretize $u(x,y,t) \approx \sum_{i} U_i(t) N_i(x,y)$ with $C^1$-compatible plate elements (for true FEM) or use a finite-difference/finite-volume surrogate for $\Delta^2$ on a structured grid. After spatial discretization, we obtain the semi-discrete system
+            </p>
+            <div class="equation-container">
+                $$M \ddot{\mathbf{U}}(t) + K_b \, \mathbf{U}(t) = 0,$$
+                <p>where $M_{ij} = \int N_i N_j \, dA$ and $(K_b)_{ij} = \int (\Delta N_i)(\Delta N_j) \, dA$ (or their FD analogues). Time-marching uses centered differences for $\partial_t^2$ with a CFL-stable step size.</p>
+            </div>
+            <p>
+                A convenient tensor-product basis on a rectangular domain uses $N_{i,j}(x,y)=N_i(x)N_j(y)$ with piecewise-linear $N_i$ on a grid $\{x_i\}$:
+            </p>
+            <div class="equation-container">
+                $$N_j(x)=\begin{cases}
+                \dfrac{x-x_{j-1}}{x_j-x_{j-1}}, & x_{j-1}\le x\le x_j,\\
+                \dfrac{x_{j+1}-x}{x_{j+1}-x_j}, & x_j\le x\le x_{j+1},\\
+                0, & \text{otherwise.}
+                \end{cases}$$
+            </div>
+            <p>
+                Initial data: a localized displacement (e.g., Gaussian) and zero initial velocity $u_t(x,y,0)=0$. Boundary conditions enforce plate support (e.g., clamped: $u=\partial_n u=0$ on $\partial\Omega$). The figures above show representative numerical solutions.
+            </p>
+        </div>
+
+        <div class="blog-entry">
             <h2 class="blog-title">Gamma Spectra Analysis: Poisson Log-Likelihood Method</h2>
             <div class="blog-meta">
                 <span class="tech-tag">Python</span>
