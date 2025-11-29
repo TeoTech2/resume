@@ -18,7 +18,7 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         .blog-container {
-            max-width: 1000px;
+            max-width: 1500px;
             margin: 0 auto;
             padding: 30px;
             background-color: #fafafa;
@@ -40,6 +40,13 @@
             margin: 0 auto 20px;
             border-radius: 6px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .media-figure { margin: 0; }
+        .media-figure figcaption {
+            text-align: center;
+            font-size: 13px;
+            color: #555;
+            margin-top: 6px;
         }
         .blog-entry p {
             line-height: 1.8;
@@ -78,6 +85,11 @@
             border-radius: 6px;
             overflow-x: auto;
         }
+        /* Center equations in the first article (Biharmonic) */
+        .blog-entry:first-of-type .equation-container { text-align: center; }
+        .blog-entry:first-of-type .equation-container p { text-align: center; }
+        /* MathJax v3 centers: mjx-container is the wrapper */
+        .blog-entry:first-of-type .equation-container mjx-container { display: inline-block; margin: 0 auto; }
         hr {
             border: none;
             height: 1px;
@@ -97,19 +109,64 @@
             color: #666;
             font-size: 18px;
         }
+    /* Table of Contents sidebar */
+        .toc {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            width: 200px;
+            background: #fff;
+            border: 1px solid #e6e6e6;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            padding: 14px 16px;
+            font-family: 'Fira Mono', monospace;
+            z-index: 10;
+        }
+        .toc h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: #555;
+        }
+        .toc ul { list-style: none; padding: 0; margin: 0; }
+        .toc li { margin: 8px 0; }
+        .toc a {
+            text-decoration: none;
+            color: #6a2cff;
+            font-size: 14px;
+        }
+        .toc a:hover { text-decoration: underline; }
+        /* Make space for sidebar on desktop */
+        .blog-header, .blog-entry { margin-right: 200px; }
+        /* Responsive: stack TOC on small screens */
+        @media (max-width: 900px) {
+            .toc { float: none; position: static; width: auto; margin: 0 0 16px 0; }
+            .blog-header, .blog-entry { margin-right: 0; }
+        }
     </style>
 
 
 <body>
     <div class="blog-container">
         <div class="blog-header">
-            <h1>Technical Projects</h1>
-            <p>Projects which combine my interest in maths, physics, and ski racing</p>
+            <h1>Projects</h1>
+            <p>things I've been thinking about... last updated Sat. Nov 29th/2025</p>
         </div>
         
+        <nav class="toc" aria-label="Table of contents">
+            <h3>Contents</h3>
+            <ul>
+                <li><a href="#biharmonic">Biharmonic Wave Equation</a></li>
+                <li><a href="#gamma-spectra">Gamma Spectra Analysis</a></li>
+                <li><a href="#argon-pid">Argon-Dewar PID Controller</a></li>
+                <li><a href="#isomer-generation">Computational Isomer Generation</a></li>
+                <li><a href="#pidoc">PiDoc: Scientific Document Editor</a></li>
+                <li><a href="#nordic-ski">Nordic Ski Performance Analysis</a></li>
+            </ul>
+        </nav>
 
         <div class="blog-entry">
-            <h2 class="blog-title">Biharmonic Wave Equation: FEM Formulation and Numerical Solution</h2>
+            <h2 class="blog-title" id="biharmonic">Biharmonic Wave Equation: FEM Formulation and Numerical Solution</h2>
             <div class="blog-meta">
                 <span class="tech-tag">Mathematica</span>
                 <span class="tech-tag">Finite Elements</span>
@@ -117,32 +174,49 @@
                 <span class="tech-tag">Numerical Methods</span>
             </div>
             <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 16px;">
-                <img src="https://github.com/user-attachments/assets/c514439c-c701-4b79-bc67-cf36bcbfc111" alt="Biharmonic simulation attachment 1" style="width: 32%; min-width: 260px;">
-                <img src="https://github.com/user-attachments/assets/9e61a308-4774-4dd7-9bae-064bbfb1f766" alt="Biharmonic simulation attachment 2" style="width: 32%; min-width: 260px;">
-                <img src="https://github.com/user-attachments/assets/5837cf40-9c15-414c-b5f2-cb96bbb94266" alt="Biharmonic simulation attachment 3" style="width: 32%; min-width: 260px;">
+                <figure class="media-figure" style="width: 32%; min-width: 260px;">
+                    <video style="width: 100%; border-radius: 6px; box-shadow: 0 2px 12px rgba(0,0,0,0.08);" controls muted loop playsinline preload="metadata" title="Asymmetric mode of wave equation">
+                        <source src="image/video-1.mov" type="video/mp4">
+                    </video>
+                    <figcaption>Asymmetric mode of wave equation</figcaption>
+                </figure>
+                <figure class="media-figure" style="width: 32%; min-width: 260px;">
+                    <video style="width: 100%; border-radius: 6px; box-shadow: 0 2px 12px rgba(0,0,0,0.08);" controls muted loop playsinline preload="metadata" title="Symmetric mode of wave equation">
+                        <source src="image/video-2.mov" type="video/mp4">
+                    </video>
+                    <figcaption>Symmetric mode of wave equation</figcaption>
+                </figure>
+                <figure class="media-figure" style="width: 32%; min-width: 260px;">
+                    <video style="width: 100%; border-radius: 6px; box-shadow: 0 2px 12px rgba(0,0,0,0.08);" controls muted loop playsinline preload="metadata" title="Biharmonic equation mode">
+                        <source src="image/video-3.mov" type="video/mp4">
+                    </video>
+                    <figcaption>Biharmonic equation</figcaption>
+                </figure>
             </div>
             <p>
-                The biharmonic wave equation models the vibration of thin elastic plates via the fourth-order operator $\nabla^4$ (the Laplacian of the Laplacian):
+                The biharmonic wave equation models the vibration of thin elastic plates via the fourth-order operator $\nabla^4$ 
             </p>
             <div class="equation-container">
                 $$\frac{\partial^2 u}{\partial t^2} + \nabla^4 u = 0, \quad
                 \nabla^4 u = \frac{\partial^4 u}{\partial x^4} + 2\frac{\partial^4 u}{\partial x^2\partial y^2} + \frac{\partial^4 u}{\partial y^4}.$$ 
             </div>
             <p>
-                To obtain a variational (weak) formulation suitable for the Finite Elements Method (FEM), we seek $u \in V$ with clamped or simply supported boundary conditions and test with $v \in V$:
+                We have the following weak formulation via the Finite Elements Method obtained by integrating by parts. 
             </p>
             <div class="equation-container">
                 $$\int_{\Omega} u_{tt} \, v \, dA + \int_{\Omega} (\Delta u)(\Delta v) \, dA = 0.$$
             </div>
             <p>
-                Discretize $u(x,y,t) \approx \sum_{i} U_i(t) N_i(x,y)$ with $C^1$-compatible plate elements (for true FEM) or use a finite-difference/finite-volume surrogate for $\Delta^2$ on a structured grid. After spatial discretization, we obtain the semi-discrete system
+                Discretize $u(x,y,t) \approx \sum_{i} U_i(t) N_i(x,y)$ with $C^1$-elements.
             </p>
+            <center>
             <div class="equation-container">
-                $$M \ddot{\mathbf{U}}(t) + K_b \, \mathbf{U}(t) = 0,$$
-                <p>where $M_{ij} = \int N_i N_j \, dA$ and $(K_b)_{ij} = \int (\Delta N_i)(\Delta N_j) \, dA$ (or their FD analogues). Time-marching uses centered differences for $\partial_t^2$ with a CFL-stable step size.</p>
+                $$W \ddot{\mathbf{U}}(t) + K\, \mathbf{U}(t) = 0,$$
+                <p>where $W_{ij} = \int N_i N_j \, dA$ and $K_{ij} = \int (\Delta N_i)(\Delta N_j) \, dA$ </p>
             </div>
+            </center>
             <p>
-                A convenient tensor-product basis on a rectangular domain uses $N_{i,j}(x,y)=N_i(x)N_j(y)$ with piecewise-linear $N_i$ on a grid $\{x_i\}$:
+                We use tensor product basis functions $N_{i,j}(x,y)=N_i(x)N_j(y)$ with piecewise-linear $N_i$ on a grid $\{x_i\}$:
             </p>
             <div class="equation-container">
                 $$N_j(x)=\begin{cases}
@@ -152,12 +226,12 @@
                 \end{cases}$$
             </div>
             <p>
-                Initial data: a localized displacement (e.g., Gaussian) and zero initial velocity $u_t(x,y,0)=0$. Boundary conditions enforce plate support (e.g., clamped: $u=\partial_n u=0$ on $\partial\Omega$). The figures above show representative numerical solutions.
+                Initial data: a localized displacement. With zero boundary conditions. 
             </p>
         </div>
 
         <div class="blog-entry">
-            <h2 class="blog-title">Gamma Spectra Analysis: Poisson Log-Likelihood Method</h2>
+            <h2 class="blog-title" id="gamma-spectra">Gamma Spectra Analysis: Poisson Log-Likelihood Method</h2>
             <div class="blog-meta">
                 <span class="tech-tag">Python</span>
                 <span class="tech-tag">SciPy</span>
@@ -193,7 +267,7 @@
         </div>
         <hr>
         <div class="blog-entry">
-            <h2 class="blog-title">Argon-Dewar PID Controller for TPC Scintillation Detection</h2>
+            <h2 class="blog-title" id="argon-pid">Argon-Dewar PID Controller for TPC Scintillation Detection</h2>
             <div class="blog-meta">
                 <span class="tech-tag">Python</span>
                 <span class="tech-tag">Arduino</span>
@@ -219,7 +293,7 @@
         </div>
         <hr>
         <div class="blog-entry">
-            <h2 class="blog-title">Computational Isomer Generation: Linear Algebraic Approach</h2>
+            <h2 class="blog-title" id="isomer-generation">Computational Isomer Generation: Linear Algebraic Approach</h2>
             <div class="blog-meta">
                 <span class="tech-tag">Computational Chemistry</span>
                 <span class="tech-tag">Linear Algebra</span>
@@ -250,7 +324,7 @@
         </div>
         <hr>
         <div class="blog-entry">
-            <h2 class="blog-title">PiDoc: Scientific Document Editor</h2>
+            <h2 class="blog-title" id="pidoc">PiDoc: Scientific Document Editor</h2>
             <div class="blog-meta">
                 <span class="tech-tag">Python</span>
                 <span class="tech-tag">LaTeX</span>
@@ -275,7 +349,7 @@
         </div>
         <hr>
         <div class="blog-entry">
-            <h2 class="blog-title">Nordic Ski Performance Analysis: Technique Optimization Model</h2>
+            <h2 class="blog-title" id="nordic-ski">Nordic Ski Performance Analysis: Technique Optimization Model</h2>
             <div class="blog-meta">
                 <span class="tech-tag">Data Analysis</span>
                 <span class="tech-tag">Numerical Integration</span>
