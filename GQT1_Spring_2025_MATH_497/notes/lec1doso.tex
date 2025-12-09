@@ -1,0 +1,146 @@
+\newpage
+\section{Lecture 1: States and Observables}
+\subsection{Data of states and observables}
+How does one make precise the notion of a physical system? This is a nontrivial question where many different paths can be taken. Freed provides \emph{data of states and observables} \cite{freed} as a formal way to specify the data of a physical system, including those from classical mechanics, statistical physics, quantum mechanics, and quantum field theory.
+
+\begin{definition} \label{defn:DOSO}
+
+\emph{Data of states and observables} (DOSO) consists of:
+\begin{enumerate}
+    \item The \emph{space of states} $\cS$, which is a real convex space [\ref{subsec:real_convex_space}]. The extreme points of $\cS$ are called \emph{pure states}, and $\mathcal{PS}$ is the set of pure states.
+
+    \item A \emph{space of operators}\footnote{This terminology was \textbf{not} in Daniel S. Freed's lecture notes. We introduced it at our own risk and responsibility.} $\cO$, which is complex topological vector space\footnote{A complex vector space that is also a topological space. Moreover, the scalar multiplication map $\C \times \cO \to \cO$ and the vector addition map $\cO \times \cO \to \cO$ are required to be continuous.} equipped with a real structure [\ref{subsec:real_structure}]. The real points of $\cO$ are called \emph{observables}, and the real vector space of observables is denoted by $\cO_\R$. For a Borel function $f \in \textnormal{Borel}(\R, \R)$\footnote{We denote by $\textnormal{Borel}(\R, \R)$ the set of functions $f: \R \to \R$ such that the preimage $f^{-1}(A)$ of every Borel set $A \subseteq \R$ is also a Borel set.} and an element $A \in \cO$, there exists an element $f(A) \in \cO$. There exists a dense subspace $\cO^\infty \subseteq \cO$ equipped with a Lie algebra structure.
+\end{enumerate}
+\end{definition}
+
+Finally, there is a measurement pairing:
+
+$$\mathcal{O}_{\mathbb{R}} \times \mathcal{S} \to \text{Prob}(\mathbb{R})$$
+$$A, \sigma \to \sigma_{A}$$
+
+\begin{example}[Understanding Mixed States vs. Pure States]
+Consider a photon propagating in either a left-circularly polarized state $\vert L \rangle$, or a right-circularly polarized state $\vert R \rangle$.
+Note that:
+
+$$\vert V \rangle = \frac{1}{\sqrt{2}} (\vert L \rangle - \vert R \rangle) $$
+
+$$\vert H \rangle = \frac{1}{\sqrt{2}} (\vert L \rangle + \vert R \rangle $$
+
+Then a pure state would be:
+
+$$\phi = \vert H \rangle \langle H \vert$$
+
+Whereas a mixed state is:
+
+$$\phi = \frac{1}{\sqrt{2}} \vert L \rangle \langle L \vert + \frac{1}{\sqrt{2}} \vert R \rangle \langle R \vert = \frac{1}{\sqrt{2}} \vert H \rangle \langle H \vert + \frac{1}{\sqrt{2}} \vert V \rangle \langle V \vert$$
+Interestingly, this is also the origin of the 'polarization identity'
+\end{example}
+\begin{example}{Understanding the Real Structure of $\mathcal{O}$}
+The space of operators $\mathcal{O}$ is greater than the space of operators which have physically meaningful outputs. The operator space $\mathcal{O}$ comes equipped with a real structure, a map:
+
+$$r: A \to A^{*}$$
+$$A \in \mathcal{O}$$
+Then $r \circ r$ is an antilinear involution of $V$, which has therefore has eigenvalues $1$ and $-1$. Therefore, decompose $V$ it as the sum of eigenspaces.
+
+$$V = V_{+} \oplus V_{-} $$
+Now, note that $r(i V_{+}) = -i r(V_{+}) = - iV_{+}$. Therefore, $iV_{+}$ has eigenvalue $-1$ under $r$, so we deduce $iV_{+} \cong V_{-}$. Then, write:
+
+$$V = V_{+} \oplus i V_{+}$$
+Note that $V_{+}$ can be defined as $V_{\mathbb{R}}$, since this behaves like the 'real numbers' under complex conjugation. Now, in the QM case, something interesting happens. Let $V = \mathcal{O}$: $r(A) = A$, for $A \in \mathcal{O}_{\mathbb{R}}$. Therefore, the spectrum of $A$ is real, that is: $\sigma(A) \in \mathbb{R}$. 
+\end{example}
+
+\begin{example}{Getting a feel for Operator Algebra}
+Given $A \in \mathcal{O}$, we assume that there exists $f(A) \in \mathcal{O}$. This is just an extension of operator calculus in the matrix case. Let $f(x) = a_{0} x + \dots a_{d} x^{d}$. Then:
+
+$$f(A) = a_{0} A + \dots a_{d} A^{d}$$
+Where the coefficients of $f$ are scalars. The main result we would like to show in this chapter is that we can diagonalise $A \in \mathcal{O}$ as an integral:
+
+$$A = \int_{\sigma(A)} \lambda d \pi_{A}$$
+An that any function of $A$, $f(A)$, will reduce to the evaluation of $f$ eigenvalues of $A$, that is:
+
+$$f(A) = \int_{\sigma(A)} f(\lambda) d \pi_{A}$$
+From one perspective, this result is not too bizarre. Consider a matrix $A$ with $n$ eigenvalues $\lambda_{1}, \dots, \lambda_{n}$. Then, consider:
+
+$$f(A) = e^{A}$$
+Is the exponential matrix of $A$, which has eigenvalues $e^{\lambda_{1}}, \dots, e^{\lambda_{n}}$. Clearly, if $A$ is diagonalised, then we have that:
+
+$$e^{A} = \sum_{i} e^{\lambda_{i}} \vert i \rangle \langle i \vert$$
+Just as the above theorem would suggest. 
+\end{example} 
+
+Also interesting is that we evolve both operators and observables in time. For $H \in \mathcal{O}^{\infty}_{\mathbb{R}}$ consider:
+$$\sigma \to \sigma^{t}$$
+$$A \to A^{t}$$
+Then both $\sigma$ and $A$ evolve in time according to:
+$$\frac{d A^{t}}{dt} = - [H, A^{t}]$$
+$$\sigma^{t}_{A} = \sigma_{A^{t}}$$
+In the QM mechanical case, reconcile $\sigma$ as the Born Rule:
+$$\sigma_{A} = \tr \left[ \rho F_{i} \right ]$$
+In the case of a pure state:
+$$\sigma_{A} = \bra{\phi} A \ket{ \phi}$$
+
+\begin{example}
+In the case of the pure state, let's verify that both definitions agree. 
+Should follow for the mixed state by linearity. Let's make the ansatz that the right way to time evolve an operator is to pull the state it acts on back in time, apply the operator, and evolve the state. 
+$$A^{t} = U(t) A U(t)^{\dag}$$
+Now calculate $\frac{d A^{t}}{dt}$. This is:
+
+$$\frac{dA}{dt} (\dots) + U'(t) A U(t)^{\dag} + U(t) A U'(t)^{\dag} $$
+First term vanishes. Then, $U'(t) = \frac{i}{\hbar} H(t) U(t)$, ${U^{\dag}}'(t) = -\frac{i}{\hbar} U(t)^{\dag} H(t)$. Then:
+
+$$\frac{d A^{t}}{dt} = \frac{i}{\hbar} \left[ H(t) U(t) A U(t)^{\dag} - U(t) A U^{\dag}(t) H(t) \right]$$
+
+$$\frac{d A^{t}}{dt} = \frac{i}{\hbar} \left[H A^{t} - A^{t} H \right] = -[H, A^{t}]$$
+Therefore, we have shown that our notion of time evolution follows right from the Schrödinger equation. Clearly, this is what we get if we evolve each $\phi$ as well. 
+$$\sigma_{A^{t}} = \bra{\phi(0)} A^{t} \ket{ \phi(0)}$$
+$$\sigma_{A^{t}} = \bra{\phi(t)} U(t) A U(t)^{\dag} \ket{ \phi(t)}$$
+\end{example}
+
+% \begin{example}
+% Another interesting observation is how the expression:
+
+% $$\frac{d A^{t}}{dt} = - [H, A^{t}]$$
+% Generalises the Schrödinger equation. The answer is this: the Hamilitonian, acting via the Possion-Bracket is the generator of time translation. Therefore, in classical mechanics:
+
+% $$\frac{dA}{dt} = -\{H, A\}= \{A, H\}$$
+% Becomes promoted to in QM the following: where we set $\{\cdot, \cdot \} \to [\cdot, \cdot]$
+
+% $$\frac{d A^{t}}{dt} = - \{H, A^{t} \}$$
+% Now, consider the expression evalulated on a pure state:
+
+% $$\frac{d \vert \phi \rangle \langle \phi \vert}{dt} = H \vert \phi \rangle \langle \phi \vert  - \vert \phi \rangle \langle \phi \vert H = 0$$
+% Therefore, a pure state does not evolve in time. 
+% \end{example}
+
+
+\subsection{Problems}
+\begin{problem}
+Verify the axioms of Definition \ref{defn:DOSO} (DOSO) for a classical-mechanical system.
+\end{problem}
+
+Recall from the lecture notes that $N$ is the manifold of trajectories that satisfy Newton's second law. Let the space of states $\cS$ be the set of probability measures on $N$ that map Borel sets to positive real numbers,
+\begin{equation*}
+    \sigma: E \mapsto [0, 1],
+\end{equation*}
+and let the set of pure states be the set of Dirac measures -- that is, a measure $\sigma$ is a pure state if
+\begin{equation*}
+    \sigma(E) = \begin{cases}
+        1 & x \in E\\
+        0 & \text{otherwise}
+    \end{cases}
+\end{equation*}
+for some $x \in N$. The state $\sigma$ is a probabilistic description of a classical system, while a trajectory $x \in N$ is a \dq{certain} description. That is, given a collection $E$ of possible trajectories (which is a Borel set, so that only \dq{reasonable} collections of trajectories are allowed), $\sigma(E)$ is the probability that the system follows one of the trajectories in $E$. A system that is known with certainty to be in a certain configuration is described by a Dirac measure.
+
+Let the operator space $\cO$ be the set of functions $\textnormal{Borel}(N; \C)$ of complex-valued functions on the phase space of the system. It forms a complex vector space under the usual operations
+\begin{align*} \begin{split}
+    & (f + g)(x) = f(x) + g(x),\\
+    & (\lambda \, f)(x) = \lambda \, f(x),
+\end{split} \end{align*}
+where $f, g \in \cO$ and $\lambda \in \C$. A real structure on this complex vector space is given by the usual complex conjugation of functions,
+\begin{equation*}
+    (f^*)(x) = (f(x))^*.
+\end{equation*}
+In particular, observables are just real-valued Borel functions $\textnormal{Borel}(N; \R)$.
+
+If $A \in \textnormal{Borel}(N; \C)$ is an observable and $f \in \textnormal{Borel}(\R; \R)$ a function, $f(A)$ is the observable $f \circ A$. If $\sigma \in \textnormal{Prob}(N)$ is a state, the probability distribution $\sigma_A \in \textnormal{Prob}(\R)$ is the pushforward measure $A_* \sigma$: for a Borel set $E \subseteq \R$, the probability $A_* \sigma(E)$ of measuring $f(A)$ to be in $E$ is equal to $\sigma(f^{-1} E)$. Indeed, for a Borel set $E \subseteq \R$, we measure $f(A)$ to be in $E$ if and only if we measure $A$ to be in $f^{-1}(E)$, which happens with probability $\sigma(f^{-1} E)$.
+

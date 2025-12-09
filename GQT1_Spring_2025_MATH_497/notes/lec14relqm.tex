@@ -1,0 +1,60 @@
+\section{Relativistic quantum mechanics}
+What is a particle? Is it a wavefunction, an operator, a probability density? One helpful perspective is, \emph{a particle is a representation}! Specifically, it is a representation of the Poincare group, the group of isometries of Minkowski spacetime. The intuition is that a particle is \dq{something that can be moved around.}
+
+\subsection{What is the Poincare group}
+It is good and righteous to think of Minkowski space abstractly as an affine space. But let us indulge in the guilty pleasure of regarding Minkowski space as $\R^4$ where the \dq{absolute value squared} of a vector $(t, x, y, z)$ is
+\begin{equation*}
+    s^2 \coloneqq t^2 - x^2 - y^2 - z^2.
+\end{equation*}
+This \dq{absolute value-squared} is not always positive, hence it is not the square of a real number. We define the \emph{Minkowski metric} $\eta$ as
+\begin{equation*}
+    \eta = \begin{pmatrix}
+        1 & & & \\
+        & -1 & &\\
+        & & -1 & \\
+        & & & -1
+    \end{pmatrix},
+\end{equation*}
+where the omitted non-diagonal entries are zero. The interval-squared between two spacetime points $x, y \in \R^4$ is then
+\begin{equation*}
+    s^2(x, y) = (x - y)^T \, \eta \, (x - y).
+\end{equation*}
+\begin{definition}[Poincare group]
+The \emph{Poincare group} $\cP$ is the group of isometries of Minkowski spacetime. Specifically, every element $g$ of the Poincare group is an affine transformation that acts on a point $x = (t, x, y, z) \in \R^4$ as
+\begin{equation}
+    x \; \longmapsto \; L \, x + a,
+\end{equation}
+where $a \in \R^4$ is any vector and $L: \R^4 \to \R^4$ is a matrix satisfying $L^T \, \eta \, L^T = \eta$. These are precisely the conditions $g$ has to satisfy so that $s^2(g(x), g(y)) = s^2(x, y)$ for all $x, y \in \R^4$. The group operation on $\cP$ is the usual composition of functions, namely,
+\begin{equation*}
+    (g_2 \, g_1)(x) \coloneqq g_2(g_1(x)).
+\end{equation*}
+\end{definition}
+Informally, the elements of the Poincare group are combinations of the following.
+\begin{itemize}
+    \item Translations in space.
+    \item Translations in time.
+    \item Spatial rotations.
+    \item Boosts (Lorentz transformations mixing space and time; hyperbolic rotations).
+    \item Spatial reflections (elements of $O(3)$ with determinant $-1$).
+    \item Time reversal.
+\end{itemize}
+
+\subsubsection{Isomorphism to $O(1, 3) \rtimes \R^4$}
+Each Poincare transformation includes a linear transformation $L$ and a translation $a$, and it can be identified with the element $(L, a)$ of the Cartesian product of sets $O(1, 3) \times \R^4$. (Here, $O(1, 3)$ refers to the group of matrices $L$ satisfying $L^T \, \eta \, L = \eta$.) The group law one must define on $O(1, 3) \times \R^4$ to agree with the composition product on $\cP$ is
+\begin{equation} \label{eq:poincare_product}
+    (L_2, a_2) \, (L_1, a_1) = (L_2 \, L_1, a_2 + L_2 \, a_1).
+\end{equation}
+Thus, we see that the Poincare group $\cP$ is isomorphic to the \emph{semidirect product} of groups $O(1, 3) \rtimes \R^4$, with the multiplication law given by equation \ref{eq:poincare_product}.
+
+
+\subsection{Why represent the Poincare group?}
+There is an argument that the fuzzy physical notion of an elementary particle should be identified with the surprisingly precise and succinct notion of an irreducible representation of the Poincare group. We summarize this argument here.
+
+We wish to have a physical theory where the state of a quantum system correspond to unit vectors in a Hilbert space $\cH$. Suppose the system is initially in state $\ket{\psi}$. If the system is acted upon by an element $g$ of the Poincare group, it goes into a new state $U_g \, \ket{\psi}$, where $U_g$ is a unitary operator on $\cH$ determined by the Poincare group element $g$. Clearly, composition of Poincare group elements should correspond to composition of the corresponding unitaries:
+\begin{equation*}
+    U{g_2 \, g_1} = U_{g_2} \, U_{g_1}.
+\end{equation*}
+This means that we have a \emph{representation} of the Poincare group, where $g \in \cP$ is represented as the operator $U_g$ on $\cH$. Moreover, this representation should be continuous.
+
+[WHY IRREDUCIBLE]
+

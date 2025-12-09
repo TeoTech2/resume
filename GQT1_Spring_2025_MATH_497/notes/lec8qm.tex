@@ -1,0 +1,454 @@
+\newpage 
+
+\section{Lecture 8}
+\begin{quote}
+\textit{The quantum harmonic oscillator serves as the foundation for quantum field theory and provides deep insights into the mathematical structure of quantum mechanics. This chapter explores the rich interplay between physics and mathematics, from field operators and commutation relations to supersymmetry and topological effects.}
+\end{quote}
+
+\subsection{Field Operators and Commutation Relations}
+
+The quantum harmonic oscillator serves as the fundamental building block for understanding quantum field theory. We begin by examining how field operators satisfy similar commutation relations as their discrete counterparts.
+
+\subsubsection{Fundamental Commutation Relations}
+
+Field operators satisfy the following commutation relations:
+\begin{equation}
+[a_i, a_j^\dagger] = \delta_{ij}
+\end{equation}
+
+This fundamental relation encodes the canonical commutation relations between creation and annihilation operators. In the Fock space formalism, raising and lowering operators are replaced by creation and annihilation operators that act on multi-particle states.
+
+In the Fock space—raising and lowering are replaced by creation/annihilation:
+\begin{align}
+\phi^+(x) &= \frac{1}{i\hbar}\sum_p a_p^\dagger e^{ipx} \\
+\phi^-(x) &= \frac{1}{i\hbar}\sum_p a_p e^{-ipx}
+\end{align}
+
+\subsection{Harmonic Oscillator Formalism}
+
+\subsubsection{Continued Investigation of the Harmonic Oscillator}
+
+We continue our exploration of the quantum harmonic oscillator by examining its ladder operator formulation. The creation and annihilation operators are defined as:
+
+\begin{align}
+\hat{a} &= \sqrt{\frac{m\omega}{2\hbar}}\left(\hat{x} + \frac{i}{m\omega}\hat{p}\right) \\
+\hat{a}^\dagger &= \sqrt{\frac{m\omega}{2\hbar}}\left(\hat{x} - \frac{i}{m\omega}\hat{p}\right)
+\end{align}
+
+These operators act on energy eigenstates as follows:
+\begin{align}
+\hat{a}^\dagger|n\rangle &= \sqrt{n+1}|n+1\rangle \\
+\hat{a}|n\rangle &= \sqrt{n}|n-1\rangle
+\end{align}
+
+The Hamiltonian can be factorized in terms of these operators:
+\begin{equation}
+\hat{H} = \hbar\omega\left(\hat{a}^\dagger\hat{a} + \frac{1}{2}\right) = \hbar\omega\left(\hat{n} + \frac{1}{2}\right)
+\end{equation}
+where $\hat{n} = \hat{a}^\dagger\hat{a}$ is the number operator.
+
+\subsection{Canonical Quantization and Heisenberg Algebra}
+
+\subsubsection{The Heisenberg Algebra}
+
+The Heisenberg algebra arises naturally from the commutation relations between position and momentum operators. For discrete systems (such as harmonic oscillators), the commutation relations are:
+\begin{align}
+[\hat{x}, \hat{p}] &= i\hbar \\
+[\hat{x}, \hat{x}] &= [\hat{p}, \hat{p}] = 0
+\end{align}
+
+From a mathematical perspective, the Heisenberg algebra can be viewed as a quotient:
+\begin{equation}
+\mathfrak{h} = \left[ W \oplus W^{*} \right]/\mathbb{R}
+\end{equation}
+
+Alternatively, it can be characterized by its short exact sequence:
+\begin{equation}
+0 \longrightarrow \mathbb{R} \longrightarrow \mathfrak{h} \longrightarrow W\oplus W^* \longrightarrow 0
+\end{equation}
+
+The quotient by $\mathbb{R}$ effectively removes the fundamental constant $\hbar$ from the physics, allowing us to focus on the algebraic structure.
+
+\subsubsection{Canonical Quantization}
+
+Canonical quantization is the procedure that transforms a classical theory into a quantum theory while preserving its algebraic structure. There are two equivalent approaches:
+
+\textbf{Dirac Quantization}
+Replaces Poisson brackets with commutators:
+\begin{equation}
+\{A, B\} \rightarrow \frac{1}{i\hbar}[\hat{A}, \hat{B}]
+\end{equation}
+
+\textbf{Heisenberg Quantization}
+Postulates commutation relations directly:
+\begin{align}
+[x_i, p_j] &= i\hbar\delta_{ij} \\
+[x_i, x_j] &= [p_i, p_j] = 0
+\end{align}
+
+For fields, the quantization procedure replaces classical fields with operators:
+\begin{align}
+\phi(x) &\rightarrow \hat{\phi}(x) \\
+\pi(x) &\rightarrow \hat{\pi}(x)
+\end{align}
+
+With commutation relations:
+\begin{align}
+[\hat{\phi}(x), \hat{\pi}(y)] &= i\hbar\delta(x-y) \\
+[\hat{\phi}(x), \hat{\phi}(y)] &= [\hat{\pi}(x), \hat{\pi}(y)] = 0
+\end{align}
+
+The quantum field can be expanded in terms of creation and annihilation operators:
+\begin{align}
+\hat{\phi}(x) &= \int \frac{dp}{\sqrt{2\omega_p}} (a_p e^{ipx} + a_p^\dagger e^{-ipx}) \\
+\hat{\pi}(x) &= i\int \sqrt{\frac{\omega_p}{2}} (a_p^\dagger e^{-ipx} - a_p e^{ipx})
+\end{align}
+
+\subsection{Fock Space Construction}
+
+\subsubsection{Definition and Structure}
+
+The Fock space is defined as the direct sum of symmetrized tensor products:
+\begin{equation}
+\mathcal{F} = \bigoplus_{N=0}^{\infty} \mathcal{F}_N = \mathcal{F}_0 \oplus \mathcal{F}_1 \oplus \mathcal{F}_2 \oplus \ldots
+\end{equation}
+
+Where:
+\begin{itemize}
+\item $\mathcal{F}_0 = \mathbb{C}$ (the vacuum state)
+\item $\mathcal{F}_1 = \mathcal{H}$ (single-particle states)
+\item $\mathcal{F}_N = \text{Sym}^N \mathcal{H}$ (symmetrized N-particle states)
+\end{itemize}
+
+The space is symmetrized when dealing with bosons. For fermionic systems, we would instead antisymmetrize each space due to the Pauli exclusion principle.
+
+\subsubsection{Field Operators in Fock Space}
+
+Field operators move us between states in the Fock space. The creation operator $a_p^\dagger$ creates a particle with momentum $p$, while the annihilation operator $a_p$ destroys a particle with momentum $p$.
+
+The action of these operators on the vacuum state generates the entire Fock space:
+\begin{align}
+|0\rangle &\text{ (vacuum state)} \\
+|1_p\rangle &= a_p^\dagger|0\rangle \text{ (one-particle state)} \\
+|1_p, 1_q\rangle &= a_p^\dagger a_q^\dagger|0\rangle \text{ (two-particle state)} \\
+|1_p, 1_q, 1_r\rangle &= a_p^\dagger a_q^\dagger a_r^\dagger|0\rangle \text{ (three-particle state)}
+\end{align}
+
+\subsection{Vector Space as a Quotient and Operator Algebra}
+
+\subsubsection{Complexification and Operator Algebra}
+
+Consider the complexification of a vector space $W$: $W_\mathbb{C} = W \otimes \mathbb{R}$. Let $F(W) = \operatorname{Sym} W_{\mathbb{C}}^{*}$ be the algebra of complex-valued polynomial functions on $W$. For $l \in W^{*}$ and $w \in W$, we define operators $A_w$ and $M_\ell$ of degrees $-1$ and $+1$ respectively:
+
+\begin{align}
+A_w(\theta) &= \theta(w), \quad \theta \in \text{Sym}^1 W_\mathbb{C}^* \\
+M_\ell(p) &= \ell \cdot p, \quad p \in F(W)
+\end{align}
+
+Furthermore, $A_{w}$ is a derivation:
+\begin{equation}
+A_w(p_1 \cdot p_2) = A_w(p_1) \cdot p_2 + p_1 \cdot A_w(p_2)
+\end{equation}
+
+These operators satisfy the commutation relation:
+\begin{equation}
+[A_w, M_\ell] = \ell(w)
+\end{equation}
+
+which corresponds to scalar multiplication by $\ell(w)$, while other commutators vanish.
+
+\subsubsection{The $W = \mathbb{R}^2$ Case}
+
+Let's examine a concrete example with $W = \mathbb{R}^2 = \langle e_{1}, e_{2} \rangle$. The dual basis is $W^{*} = \langle l^{1}, l^{2} \rangle$.
+
+For linear functionals $l, l_{1}, l_{2}$ in the dual space, $A_{w}$ lowers the degree:
+\begin{equation}
+A_{w}(l_{1} l_{2}) = l_{1}(w) l_{2} + l_{1} l_{2}(w)
+\end{equation}
+
+While $M_{l}$ increases the degree of polynomial functions:
+\begin{equation}
+M_{l}(l_{1}) = l \cdot l_{1}
+\end{equation}
+
+We can verify that the commutation relation holds:
+\begin{align}
+A_{w} M_{l} (l_{1}) &= l(w) l_{1} \\
+M_{l} A_{w} (l_{1}) &= l \cdot l_{1}(w) \\
+\Rightarrow [A_{w}, M_{l}] &= l(w)
+\end{align}
+
+\subsection{Supersymmetric Quantum Mechanics}
+
+\subsubsection{Motivation for Supersymmetry}
+
+Supersymmetry introduces a framework where fermionic and bosonic degrees of freedom are unified. Consider a Lagrangian with both bosonic (coordinate $x$) and fermionic (Grassmann variables $\psi, \psi^{\dagger}$) components:
+
+\begin{equation}
+\mathcal{L} = \frac{1}{2}\dot{x}^2 + i\psi^{\dagger}\dot{\psi} - \frac{1}{2}h'^2 + h''\psi^{\dagger}\psi
+\end{equation}
+
+The corresponding action is:
+\begin{equation}
+S = \int dt \, \mathcal{L} = \int dt \left[\frac{1}{2}\dot{x}^2 + i\psi^{\dagger}\dot{\psi} - \frac{1}{2}h'^2 + h''\psi^{\dagger}\psi\right]
+\end{equation}
+
+From this Lagrangian, we derive the supercharges:
+\begin{equation}
+Q = \left[ p - i h'(x) \right] \psi
+\end{equation}
+
+The classical Hamiltonian $H = p^2/2$ becomes:
+\begin{equation}
+H = \frac{1}{2} \{Q, Q^{\dagger} \}
+\end{equation}
+
+where $\{\cdot, \cdot\}$ denotes the anti-commutator.
+
+\subsubsection{Supersymmetric Transformations}
+
+The action $S$ is invariant under the following transformations that mix fermionic and bosonic states:
+\begin{align}
+\delta x &= \epsilon^\dagger \psi - \epsilon \psi^\dagger \\
+\delta \psi &= \epsilon(-i \dot{x} + h') \\
+\delta \psi^\dagger &= \epsilon^\dagger(i \dot{x} + h')
+\end{align}
+
+\subsubsection{Supersymmetric Quantum Mechanics}
+
+In supersymmetric quantum mechanics, we consider a Hamiltonian of the form:
+\begin{equation}
+H = \frac{1}{2} \{Q, Q^{\dagger} \}, \quad Q^2 = 0
+\end{equation}
+
+The supercharges $Q$ are fermionic operators, meaning they are nilpotent ($Q^2 = 0$), similar to Grassmann numbers.
+
+Let $E = \frac{1}{2} \{Q, Q^{\dagger} \}$, and define $c = Q/\sqrt{E}$. This algebra has a 2-dimensional representation:
+\begin{align}
+c |0\rangle &= 0 \\
+c^{\dagger} |1\rangle &= 0 \\
+c^{\dagger} |0\rangle &= |1\rangle
+\end{align}
+
+In supersymmetric quantum mechanics, the Hilbert space decomposes into bosonic and fermionic sectors:
+\begin{equation}
+\mathcal{H} = \mathcal{H}_{B} \oplus \mathcal{H}_{F}
+\end{equation}
+
+\subsubsection{Particle in a Potential and Minimal Coupling}
+
+Consider a particle in a potential $h(x)$. Its Hilbert space $\mathcal{H} = \mathcal{L}^2(\mathbb{R}) \otimes \mathbb{C}^{2}$ has an extra degree of freedom to account for spin. The supercharge $Q$ is:
+
+\begin{equation}
+Q = (p - ih'(x)) \otimes \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}
+\end{equation}
+
+and the Hamiltonian becomes:
+\begin{equation}
+H = \frac{1}{2}(QQ^{\dagger} + Q^{\dagger}Q) = \frac{1}{2}(p^2 + h'^2) \mathbf{1} - \frac{1}{2}h'' \sigma^3
+\end{equation}
+
+Note that $Q$ is just a modified momentum operator, as designated by minimal coupling:
+\begin{equation}
+\mathbf{p} \rightarrow \mathbf{p} - e\mathbf{A}(\mathbf{x})
+\end{equation}
+
+\subsubsection{Ground State Solutions}
+
+To be a zero-energy ground state ($E = 0$), states must be annihilated by both supercharges:
+\begin{equation}
+Q\Psi = Q^\dagger\Psi = 0
+\end{equation}
+
+This leads to the differential equations:
+\begin{align}
+-i \left( \frac{d}{dx} + h' \right) \psi &= 0 \\
+-i \left( \frac{d}{dx} - h' \right) \phi &= 0
+\end{align}
+
+with solutions:
+\begin{align}
+\psi(x) &= e^{-h} \\
+\phi(x) &= e^{+h}
+\end{align}
+
+For a harmonic oscillator potential $V = h(x)$, the energy levels are:
+\begin{align}
+E_{B} &= \omega n \\
+E_{F} &= \omega (n+1)
+\end{align}
+where $n \in \{0, 1, 2, \ldots\}$.
+
+\subsection{Topological Quantum Theories}
+
+\subsubsection{Aharonov-Bohm Effect and Topology}
+
+Consider a quantum particle moving around a solenoid. The vector potential in cylindrical coordinates is:
+\begin{equation}
+A_\rho = 0, \quad A_\phi = \frac{\Phi}{2\pi \rho}, \quad A_z = 0
+\end{equation}
+
+The Hamiltonian of the system is:
+\begin{equation}
+H = \frac{1}{2mR^2} \left[ p - q R A_\phi \right]^2 = \frac{1}{2mR^2} \left[ p - \frac{q}{2\pi} \Phi \right]^2
+\end{equation}
+
+The canonical angular momentum, given by minimal coupling, is:
+\begin{equation}
+p = L_z + \frac{q}{2\pi} \Phi
+\end{equation}
+
+After quantization, we find:
+\begin{align}
+L_z &= n\hbar - \frac{q}{2\pi} \Phi \\
+E_n &= \frac{1}{2mR^2} \left[ n\hbar - \frac{q}{2\pi} \Phi \right]^2
+\end{align}
+
+with eigenfunctions:
+\begin{equation}
+\phi_{n} = e^{inx}
+\end{equation}
+
+This system is analogous to quantum mechanics on $S^1$, reflecting the $U(1)$ symmetry of electromagnetism, which is diffeomorphic to $S^1$.
+
+\subsubsection{Berry Phase and Gauge Invariance}
+
+As the particle traverses the potential $A = q \Phi$, it acquires a phase:
+\begin{equation}
+\alpha = -\frac{q}{\hbar} \int A \cdot dr
+\end{equation}
+
+Although the equations of motion are invariant under gauge transformations:
+\begin{equation}
+A \to A + \nabla \chi
+\end{equation}
+
+The phase difference between two paths remains gauge-invariant:
+\begin{equation}
+\delta = \frac{q}{\hbar} \int A \cdot dr
+\end{equation}
+
+\subsection{Projective Representations and Klein Geometry}
+
+\subsubsection{Projective Representations}
+
+The dynamics of the system are invariant under:
+\begin{align}
+\Theta &\to -\Theta \\
+p &\to -p
+\end{align}
+
+However, reflections and rotations do not satisfy the expected group law for $S^1$:
+\begin{equation}
+R T_{c} R^{-1} = T_{-c}
+\end{equation}
+
+Instead, we have:
+\begin{equation}
+R T_{c} R^{-1} = e^{i c} T_{-c}
+\end{equation}
+
+This extra phase reflects the projective nature of quantum mechanical representations, where the Berry phase introduces additional structure.
+
+\subsubsection{Klein's Erlangen Program}
+
+Klein's Erlangen Program provides a framework for understanding geometries through group actions:
+
+\begin{definition}
+\begin{enumerate}
+\item A \emph{geometric type} is a group action \( G \curvearrowright F \).
+\item A \emph{geometry of type \( G \curvearrowright F \)} is a right \( G \)-torsor \( T \).
+\item A \emph{family of geometries of type \( G \curvearrowright F \) parametrized by \( S \)} is a fiber bundle of right \( G \)-torsors \( P \to S \).
+\end{enumerate}
+\end{definition}
+
+\subsubsection{Right $G$-Torsor Acting on $F$ Geometry}
+
+Let \( G \) be a group and \( F \) a set equipped with a left \( G \)-action. For every right \( G \)-torsor \( T \), there is an associated mixing construction:
+\begin{equation}
+FT = T \times_G F = (T \times F)/G
+\end{equation}
+
+The \( G \)-action on \( T \times F \) is given by:
+\begin{equation}
+(t, f) \cdot g = (t \cdot g, g^{-1} \cdot f)
+\end{equation}
+
+Each point of \( T \) induces an isomorphism \( F \cong FT \):
+\begin{equation}
+t \mapsto [t,f]
+\end{equation}
+
+The mixing construction \( T \times_G F \) is also called a \emph{sandwich}: the group \( G \) is sandwiched between right and left \( G \)-torsors to eliminate the \( G \)-action.
+
+\subsection{Vector Space Quotients and Short Exact Sequences}
+
+% \subsubsection{The Vector Space as a Quotient}
+
+% Examining the mathematical structure more deeply, we can link the Poisson bracket and the Lie bracket by considering two short exact sequences and merging them via inclusion:
+
+% \begin{equation}
+% \begin{array}{ccccccccc}
+% 0 & \rightarrow & \mathbb{R} & \rightarrow & \mathfrak{h} & \rightarrow & W\otimes W^* & \rightarrow & 0 \\
+%  & & \downarrow & & \downarrow & & \downarrow & & \\
+% 0 & \rightarrow & \mathbb{R} & \rightarrow & \Omega_A^0 & \rightarrow & \text{Sym}(\mathfrak{h}, \Omega_A^0) & \rightarrow & 0
+% \end{array}
+% \end{equation}
+
+% The Heisenberg algebra $\mathfrak{h}$ appears as a quotient in both short exact sequences. By exponentiating $\mathfrak{h}$, we obtain the Heisenberg group $H$, which provides the framework for quantized mechanics.
+
+\subsubsection{Canonical Quantization and Short Exact Sequences}
+
+The short exact sequence framework elegantly captures the essence of quantization. Consider the sequence:
+\begin{equation}
+0 \rightarrow \mathbb{R} \rightarrow \mathfrak{h} \rightarrow W\oplus W^* \rightarrow 0
+\end{equation}
+
+This sequence encodes how the classical phase space structure $W\oplus W^*$ is extended by the real line $\mathbb{R}$ to form the quantum mechanical Heisenberg algebra $\mathfrak{h}$. The extension by $\mathbb{R}$ corresponds to the introduction of Planck's constant $\hbar$ into the theory.
+
+\subsection{Harmonic Oscillator III: Short Exact Sequences}
+
+\subsubsection{Short Exact Sequences and Characterization}
+
+The vector space structure of the quantum harmonic oscillator can be characterized by the short exact sequence:
+\begin{equation}
+0 \rightarrow \mathbb{R} \rightarrow \mathfrak{h} \rightarrow V \rightarrow 0
+\end{equation}
+
+where $V$ is a symplectic vector space and $\mathfrak{h}$ is the Heisenberg Lie algebra. The short exact sequence gives $\mathfrak{h}$ as a central extension of $V$ by $\mathbb{R}$.
+
+In the context of our discussion, short exact sequences characterize Hamilton vector fields as functions or constants:
+\begin{equation}
+\text{Short exact sequence gives } \mathfrak{h}(A) = 1 \otimes P
+\end{equation}
+
+The Lie structure on $\mathfrak{h}(A)$ is equal to the symplectic structure on $\Omega_A^0$. We can exponentiate the short exact sequence in (1) with matrix exponential to get the Heisenberg group.
+
+\subsection{Conideration of Weyl Algebras and Canonical Commutation}
+
+\subsubsection{Weyl Algebra Approach}
+
+Consider $C \in W^* \oplus W$ where $W$ is a finite-dimensional vector space. We can define:
+\begin{equation}
+\hat{C} = \sum_i M_{u_i} \otimes A_{v_i}
+\end{equation}
+
+Where $M$ is the operator increasing the degree by 1 and $A$ is the operator decreasing the degree by 1. This gives us:
+\begin{equation}
+M = \hat{C} + \frac{1}{2}
+\end{equation}
+
+\subsubsection{Canonical Quantization}
+
+In the context of a Weyl algebra $W \oplus W^*$, the canonical quantization is characterized by:
+\begin{equation}
+\{A, B\} = \frac{1}{i\hbar}[A, B]
+\end{equation}
+
+\subsection{The Geometry of Quantum States}
+
+\subsubsection{Short Exact Sequences and Quantum Geometry}
+
+The geometric structure of quantum mechanics can be understood through the lens of short exact sequences and the Klein Erlangen program. The commutation relations between quantum mechanical operators induce a symplectic structure on the state space.
+
+This geometric perspective reveals that quantum mechanics is fundamentally about the relationship between symmetry groups and their representations. The projective representations that arise in quantum mechanics reflect the topological structure of the underlying state space.

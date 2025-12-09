@@ -1,0 +1,185 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{authblk}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{physics}
+\usepackage{longtable}
+\usepackage{needspace}
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{empheq}
+%\usepackage[T2A]{fontenc}
+\usepackage{graphicx}
+\usepackage{braket}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{braket}
+%\usepackage{subfig}
+\usepackage{mathtools}
+\usepackage{etoc}
+\setlength{\parindent}{0pt}
+
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{parskip}
+
+\usepackage{physics}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{mathdots}
+\usepackage{yhmath}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage{extarrows}
+\usepackage{booktabs}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shadows.blur}
+\usetikzlibrary{shapes}
+\usepackage{ wasysym }
+\usepackage{csquotes}
+
+
+\addtolength{\topsep}{\baselineskip}
+
+\usepackage{quiver}
+
+\usepackage[bibencoding=utf8]{biblatex}
+\bibliography{bib}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\bs}{\backslash}
+\newcommand{\pd}{\partial}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dq}[1]{\lq\lq{#1}\rq\rq}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\sqlr}[1]{\left[#1\right]}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\PS}{\mathcal{PS}} % Pure States
+\newcommand{\mcS}{\mathcal{S}} % States
+\newcommand{\mcO}{\mathcal{O}} % Observables algebra
+\newcommand{\mcH}{\mathcal{H}} % Hilbert space
+\newcommand{\mcF}{\mathcal{F}} % Space of smooth
+%\newcommand{\tr}{\text{tr}}
+\newcommand{\mcOR}{\mathcal{O}_{\R}}
+\newcommand{\mcOinfty}{\mathcal{O}^{\infty}}
+\newcommand{\mcORinfty}{\mathcal{O}_{\R}^{\infty}}
+
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\On}{\mathrm{O}} % O_n for orthogonal group
+\newcommand{\Sp}{\mathrm{Sp}} % Sp_{2m} for symplectic group
+\DeclareMathOperator{\Met}{Met}
+\DeclareMathOperator{\Symp}{Symp}
+\DeclareMathOperator{\SymBil}{SymBil}
+\DeclareMathOperator{\dimv}{dim} % Use \dimv instead of \dim if needed
+
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cP}{\mathcal{P}}
+
+\newcommand{\iprod}[2]{\langle #1, #2 \rangle}
+
+\newcommand{\rauan}[1]{\textcolor{ForestGreen}{#1}}
+
+\newcounter{dummy} \numberwithin{dummy}{section}
+\newtheorem{lemma}[dummy]{Lemma}
+\newtheorem{proposition}[dummy]{Proposition}
+\newtheorem{theorem}[dummy]{Theorem}
+\newtheorem{corollary}[dummy]{Corollary}
+\newtheorem{remark}[dummy]{Remark}
+\newtheorem{problem}[dummy]{Problem}
+\theoremstyle{definition} \newtheorem{definition}[dummy]{Definition}
+\theoremstyle{definition} \newtheorem{example}[dummy]{Example}
+
+\numberwithin{equation}{section}
+
+\usepackage[bibencoding=utf8]{biblatex}
+\bibliography{bib}
+
+\title{Companion Notes on Daniel Freed's \\ 
+\textit{Quantum Theory from a Geometric Viewpoint}}
+
+\author{
+  Brennan Halcomb, Gary Hu, Rauan Kaldybayev, Theodore Mollano\\
+  \vspace{0.5em}
+  
+  Supervised by Ivo Terek\\
+}
+
+% \title{Companion Notes on Freed's Quantum Theory from a Geometric Viewpoint}
+
+% \author{Brennan Halcomb, Gary Hu, Rauan Kaldybayev, Theodore Mollano\\Supervised by Ivo Terek\\Based on Lecture Notes From Daniel Freed}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\noindent This work aims to fill in the gaps and provide additional details in the first four chapters of Daniel Freed's notes \cite{freed}, offering a more complete and accessible treatment of the material presented there. \\ 
+
+\noindent We begin by introducing the Data of States and Observables (DOSO) framework, an axiomatic structure encoding states as convex sets and observables as complex topological vector spaces, linking measurement, dynamics, and probability in a common language applicable to both classical and quantum theories.\\
+
+\noindent Building upon this, we develop the geometric foundations through a study of Riemannian and symplectic manifolds, highlighting their algebraic structures, global topological constraints, and canonical examples such as cotangent bundles. The theory of symmetries and moment maps is explored, emphasizing their role in conserved quantities and connections to geometric quantization. \\
+
+\noindent The foundations of Hamiltonian and Lagrangian mechanics are then examined from a geometric and variational viewpoint. We rigorously formulate Hamiltonian flows on symplectic phase spaces and variational principles on path spaces, showcasing the connection between the Lagrangian and Hamiltonian formalisms via differential forms, conserved quantities, and symplectic structures on solution spaces.\\
+
+\noindent Finally, we present an introduction to spectral theory, bridging finite-dimensional linear algebra and infinite-dimensional operator analysis. Key results include spectral decompositions via projection-valued measures, functional calculi, and the spectral theorem for self-adjoint operators. These concepts underpin the mathematical formulation of quantum observables and dynamics, linking to unitary group representations and $C^*$-algebraic structures.
+
+\end{abstract}
+
+\newpage
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\input{notes/about}
+
+
+\input{notes/lec1dosogary}
+\input{notes/lec2symplectic}
+\input{notes/lec3hamiltonian}
+\input{notes/lec4spectral}
+% \input{notes/lec5quantum}
+% \input{notes/lec8qm}
+% \input{notes/lec9superalgebra}
+% \input{notes/lec11wick}
+% \input{notes/lec14relqm}
+
+% \newpage
+% \input{notes/problems}
+
+% \newpage
+% \input{notes/appendix} 
+
+
+%\bibliographystyle{apsrev}
+\newpage
+\printbibliography
+
+
+\end{document}

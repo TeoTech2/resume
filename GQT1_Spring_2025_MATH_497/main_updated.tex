@@ -1,0 +1,392 @@
+\documentclass{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{authblk}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{physics}
+\usepackage{empheq}
+\usepackage{graphicx}
+\usepackage{braket}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+
+\usepackage{hyperref} % For clickable links
+
+% Remove red boxes around hyperlinks
+\hypersetup{
+    colorlinks=true, % Colored links instead of boxes
+    linkcolor=blue,  % Color for internal links
+    citecolor=blue,  % Color for citations
+    urlcolor=blue,   % Color for URLs
+    pdfborder={0 0 0} % Remove border around links
+}
+
+% Define examplebox environment
+\newtcolorbox{example}[1]{
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=0pt,
+    outer arc=0pt,
+    boxrule=0.5pt,
+    toprule=0.5pt,
+    bottomrule=0.5pt,
+    leftrule=0.5pt,
+    rightrule=0.5pt,
+    boxsep=5pt,
+    left=5pt,
+    right=5pt,
+    top=5pt,
+    bottom=5pt
+}
+
+% Define a "question" environment with a colored box
+\newtcolorbox{question}[1][]{
+    colback=green!5!white, % Light blue background
+    colframe=green!75!black, % Dark blue frame
+    fonttitle=\bfseries, % Bold title
+    title=Question, % Default title
+    #1 % Optional arguments for customization
+}
+
+
+
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+
+\usepackage[bibencoding=utf8]{biblatex}
+\bibliography{bib}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% Mathematical commands
+%\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\bs}{\backslash}
+\newcommand{\pd}{\partial}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dq}[1]{\lq\lq{#1}\rq\rq}
+\newcommand{\lr}[1]{\left(#1\right)}
+\newcommand{\sqlr}[1]{\left[#1\right]}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cO}{\mathcal{O}}
+
+\setlength{\parindent}{0pt}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{problem}[theorem]{Problem}
+\pagestyle{plain}
+
+% Title and authors
+\title{Companion notes to Quantum Theory from a Geometric Viewpoint}
+\author{Rauan Kaldybayev, Theodore Mollano, Brennan Halcomb, Gary Hu}
+\author{Supervised by Ivo Terek}
+\author{Lecture notes a courtesy of Daniel S. Freed}
+\date{Spring 2025, Rauan Kaldybayev, Theodore Mollano, Brennan Halcomb, Gary Hu. Supervised by Ivo Terek}
+
+\begin{document}
+
+\maketitle
+
+% Table of contents
+\tableofcontents
+\newpage
+
+% \begin{abstract}
+% We study Daniel S. Freed's lecture notes for a course titled \dq{Quantum Theory from a Geometric Viewpoint, Part I} \cite{freed}.
+% \end{abstract}
+
+
+\section*{Lecture 1: States and Observables}
+
+How does one make precise the notion of a physical system? This is a nontrivial question where many different paths can be taken. Freed provides \emph{data of states and observables} as a formal way to specify the data of a physical system, including those from classical mechanics, statistical physics, quantum mechanics, and quantum field theory.
+
+\begin{definition} \label{defn:DOSO}
+
+\emph{Data of states and observables} (DOSO) consists of:
+\begin{enumerate}
+    \item The \emph{space of states} $\cS$, which is a real convex space. The extreme points of $\cS$ are called \emph{pure states}, and $\mathcal{PS}$ is the set of pure states.
+
+    \item A \emph{space of operators} $\cO$ \footnote{This terminology was \textbf{not} in Daniel S. Freed's lecture notes. We introduced it at our own risk and responsibility.}, which is complex topological vector space equipped with a real structure. The real points of $\cO$ are called \emph{observables}, and the real vector space of observables is denoted by $\cO_\R$. For a Borel function $f \in \textnormal{Borel}(\R, \R)$ and an element $A \in \cO$, there exists an element $f(A) \in \cO$.
+    \begin{equation*}
+        f(g(A)) = (f \circ g)(A).
+    \end{equation*}
+    There exists a dense subspace $\cO^\infty \subseteq \cO$ equipped with a Lie algebra structure.
+\end{enumerate}
+\end{definition}
+
+Finally, there is a measurement pairing:
+
+$$\mathcal{O}_{\mathbb{R}} \times \mathcal{S} \to \text{Prob}(\mathbb{R})$$
+$$A, \sigma \to \sigma_{A}$$
+
+This measurement pairing corresponds intuitively to extracting the probability of a wavefunction $\phi$ being in the eigenspace $A$, although this probability is quickly generalized in the context of Projective-Operator-Valued-Measurements. 
+
+\begin{example}{Understanding Mixed States vs. Pure States}
+Consider a photon propagating in either a left-circularly polarized state $\vert L \rangle$, or a right-circularly polarized state $\vert R \rangle$.
+Note that:
+
+$$\vert V \rangle = \frac{1}{\sqrt{2}} (\vert L \rangle - \vert R \rangle) $$
+$$\vert H \rangle = \frac{1}{\sqrt{2}} (\vert L \rangle + \vert R \rangle $$
+
+Then a pure state would be:
+$$\phi = \vert H \rangle \langle H \vert$$
+Whereas a mixed state is:
+
+$$\phi = \frac{1}{\sqrt{2}} \vert L \rangle \langle L \vert + \frac{1}{\sqrt{2}} \vert R \rangle \langle R \vert = \frac{1}{\sqrt{2}} \vert H \rangle \langle H \vert + \frac{1}{\sqrt{2}} \vert V \rangle \langle V \vert$$
+Interestingly, this is also the origin of the 'polarization identity'
+\end{example}
+
+\begin{example}{Understanding the Real Structure of $\mathcal{O}$}
+The space of operators $\mathcal{O}$ is greater than the space of operators which have physically meaningful outputs. The operator space $\mathcal{O}$ comes equipped with a real structure, a map:
+
+$$r: A \to A^{*}$$
+$$A \in \mathcal{O}$$
+Then $r \circ r$ is an antilinear involution of $V$, which has therefore has eigenvalues $1$ and $-1$. Therefore, decompose $V$ it as the sum of eigenspaces.
+
+$$V = V_{+} \oplus V_{-} $$
+Now, note that $r(i V_{+}) = -i r(V_{+}) = - iV_{+}$. Therefore, $iV_{+}$ has eigenvalue $-1$ under $r$, so we deduce $iV_{+} \cong V_{-}$. Then, write:
+
+$$V = V_{+} \oplus i V_{+}$$
+Note that $V_{+}$ can be defined as $V_{\mathbb{R}}$, since this behaves like the 'real numbers' under complex conjugation. Now, in the QM case, something interesting happens. Let $V = \mathcal{O}$: $r(A) = A$, for $A \in \mathcal{O}_{\mathbb{R}}$. Therefore, the spectrum of $A$ is real, that is: $\sigma(A) \in \mathbb{R}$. 
+\end{example}
+
+\begin{example}{Getting a feel for Operator Algebra}
+Given $A \in \mathcal{O}$, we assume that there exists $f(A) \in \mathcal{O}$. This is just an extension of operator calculus in the matrix case. Let $f(x) = a_{0} x + \dots a_{d} x^{d}$. Then:
+
+$$f(A) = a_{0} A + \dots a_{d} A^{d}$$
+Where the coefficients of $f$ are scalars. The main result we would like to show in this chapter is that we can diagonalise $A \in \mathcal{O}$ as an integral:
+
+$$A = \int_{\sigma(A)} \lambda d \pi_{A}$$
+An that any function of $A$, $f(A)$, will reduce to the evaluation of $f$ eigenvalues of $A$, that is:
+
+$$f(A) = \int_{\sigma(A)} f(\lambda) d \pi_{A}$$
+From one perspective, this result is not too bizarre. Consider a matrix $A$ with $n$ eigenvalues $\lambda_{1}, \dots, \lambda_{n}$. Then, consider:
+
+$$f(A) = e^{A}$$
+Is the exponential matrix of $A$, which has eigenvalues $e^{\lambda_{1}}, \dots, e^{\lambda_{n}}$. Clearly, if $A$ is diagonalised, then we have that:
+
+$$e^{A} = \sum_{i} e^{\lambda_{i}} \vert i \rangle \langle i \vert$$
+Just as the above theorem would suggest. 
+\end{example} 
+
+Also interesting is that we evolve both operators and observables in time. For $H \in \mathcal{O}^{\infty}_{\mathbb{R}}$ consider:
+$$\sigma \to \sigma^{t}$$
+$$A \to A^{t}$$
+Then both $\sigma$ and $A$ evolve in time according to:
+$$\frac{d A^{t}}{dt} = - [H, A^{t}]$$
+$$\sigma^{t}_{A} = \sigma_{A^{t}}$$
+In the QM mechanical case, reconcile $\sigma$ as the Born Rule:
+$$\sigma_{A} = \tr \left[ \rho F_{i} \right ]$$
+In the case of a pure state:
+$$\sigma_{A} = \bra{\phi} A \ket{ \phi}$$
+
+\begin{example}{Time evolution of $A$ and $\sigma$}
+In the case of the pure state, let's verify that both definitions agree. 
+Should follow for the mixed state by linearity. Let's make the ansatz that the right way to time evolve an operator is to pull the state it acts on back in time, apply the operator, and evolve the state. 
+$$A^{t} = U(t) A U(t)^{\dag}$$
+Now calculate $\frac{d A^{t}}{dt}$. This is:
+
+$$\frac{dA}{dt} (\dots) + U'(t) A U(t)^{\dag} + U(t) A U'(t)^{\dag} $$
+First term vanishes. Then, $U'(t) = \frac{i}{\hbar} H(t) U(t)$, ${U^{\dag}}'(t) = -\frac{i}{\hbar} U(t)^{\dag} H(t)$. Then:
+
+$$\frac{d A^{t}}{dt} = \frac{i}{\hbar} \left[ H(t) U(t) A U(t)^{\dag} - U(t) A U^{\dag}(t) H(t) \right]$$
+
+$$\frac{d A^{t}}{dt} = \frac{i}{\hbar} \left[H A^{t} - A^{t} H \right] = -[H, A^{t}]$$
+Therefore, we have shown that our notion of time evolution follows right from the Schrödinger equation. Clearly, this is what we get if we evolve each $\phi$ as well. 
+$$\sigma_{A^{t}} = \bra{\phi(0)} A^{t} \ket{ \phi(0)}$$
+$$\sigma_{A^{t}} = \bra{\phi(t)} U(t) A U(t)^{\dag} \ket{ \phi(t)}$$
+\end{example}
+
+
+\begin{example}{Generalisation of Schrödinger Equation}
+Another interesting observation is how the expression:
+
+$$\frac{d A^{t}}{dt} = - [H, A^{t}]$$
+Generalises the Schrödinger equation. The answer is this: the Hamilitonian, acting via the Possion-Bracket is the generator of time translation. Therefore, in classical mechanics:
+
+$$\frac{dA}{dt} = -\{H, A\}= \{A, H\}$$
+Becomes promoted to in QM the following: where we set $\{\cdot, \cdot \} \to [\cdot, \cdot]$
+
+$$\frac{d A^{t}}{dt} = - \{H, A^{t} \}$$
+Now, consider the expression evalulated on a pure state:
+
+$$\frac{d \vert \phi \rangle \langle \phi \vert}{dt} = H \vert \phi \rangle \langle \phi \vert  - \vert \phi \rangle \langle \phi \vert H = 0$$
+Therefore, a pure state does not evolve in time. 
+\end{example}
+
+\begin{definition}
+Let $V$ be a real topological vector space. An affine space over $V$ is a topological space equipped with a transitive $V$ action. A subset $\mathcal{S} \subset A$ is convex if for all $x_{0}, \dots, x_{k} \in \mathbb{R}$ that sum to unity, $x^{i} \sigma_{i} \in \mathcal{S}$. A point $\sigma \in \mathcal{S}$ is extreme when $\sigma = x \sigma' + (1-x) \sigma''$, then $\sigma = \sigma'$ or $\sigma = \sigma''$
+\end{definition}
+
+In QM, elements of $\mathcal{S}$ are states, and non-extreme points are pure states. Intuitively, the $P \mathcal{S}$ might also suggest that we can take the projectivization of our convex space $\mathcal{S}$ which is diffeomorphic to its boundary, the pure states.
+
+\begin{example}{Use Case of the Spectral Measure}
+Let $\mathcal{H} = L^2(\mathbb{R}, \mathbb{C})$ and suppose $f \in L^{\infty}(\mathbb{R}, \mathbb{R})$ is real valued. Let $M_{f} (\cdot) = f (\cdot)$. Then the Spectral Measure of $M_{f}$ is:
+
+$$\pi_{M_{f}}: L^2(\mathbb{R}, \mathbb{C}) \to L^2(f^{-1} E, \mathbb{C}) \to L^2(\mathbb{R}, \mathbb{C})$$
+Which is the composition of restriction followed by an extension to $0$. 
+
+Therefore, the spectral measure:
+
+$$\pi_{M_{f}} = \mathbf{1}_{f^{-1} (E)}$$
+
+Note that the eigenspectrum of multiplication by $f$ is just $f(\mathbb{R})$. Therefore, for each $r \in \mathbb{R}$, $\lambda(r) = f(r)$. 
+
+The spectral decomposition of $M_{f}$ is therefore:
+
+$$M_{f}(E) = \int_{\mathbb{R}} f d \mathbf{1}_{f^{-1}(E)} $$
+\end{example}
+
+How do we generalize the conjugation map $a+bi \mapsto a-bi$ to an arbitrary vector space? Let $V$ be an $n$-dimensional complex vector space, and let $e_1, \dots, e_n$ be a basis. Suppose there exists an $\R$-linear\footnote{$C(\lambda v) = \lambda \, C v$ whenever $v \in V$ and $\lambda \in \R$, although not necessarily if $\lambda \in \C$.} map $C: V \to V$ such that $C^2 = 1$ that we will interpret as the \emph{conjugation} operator.
+
+Since $C$ is $\R$-linear, it is natural to consider the $2n$-dimensional vector space $V'$ with basis 
+
+$$\mathcal{B} = \{e_1, \dots, e_n, i \, e_1, \dots, i \, e_n\}$$
+
+Since $C$ is a linear operator over $V'$ satisfies the polynomial equation $(C - 1)(C + 1) = 0$, we may diagonalize $C$ over $V'$, and the eigenvalues will be $\pm 1$. Let $V_+$ be the eigenspace of $C$ over $V'$ with eigenvalue $1$, and let $V_-$ be the eigenspace of $C$ over $V'$ with eigenvalue $-1$. We may write $V$ as the direct sum
+$$V = V_+ \oplus V_- $$
+where $V_+$ is the space of \emph{real} elements $v \in V$ satisfying $Cv = v$ and $V_-$ is the space of imaginary elements $v \in V$ satisfying $Cv = -v$. That is, every $v \in V$ may be written as $v = a + b$, with $Ca = a$ and $Cb = -b$. 
+
+
+\begin{example}{Usual Complex Conjugation}
+Suppose $V = \C$ is the field of complex numbers and $C$ is the map $a+bi \mapsto a-bi$. Then $V_+ = \R$ is the real line and $V_- = i \, \R$ is the imaginary line.
+\end{example}
+
+\begin{example}{Even and Odd Functions}
+Suppose $V$ is the vector field of complex-valued functions $f: \R \to \C$ and $C$ is the \dq{reflection} map that takes in a function $f(x)$ and outputs the function $f(-x)$ reflected around the $y$ axis, $(C f)(x) = f(-x)$. Then $V_+$ is the space of even functions and $V_-$ is the space of odd functions.
+\end{example}
+
+The spaces $V_+$ and $V_-$ need not have the same dimension. As a trivial example, if $C = 1$ is the identity, then $V_+ = V$ and $V_- = \{0\}$. As another example, suppose $V = \C^3$ and $C$ is a $\C$-linear operator with eigenvalues $1, 1, -1$. Then, $V_+$ is a real vector space of dimension $4$ while $V_-$ is a real vector space of dimension $2$.
+
+\begin{example}{Complex Structure} \label{subsec:complex_structure}
+Certain real vector spaces are \dq{secretly} also complex vector spaces. For example, $\R^2$ can be identified with $\C$ via $(a, b) \leftrightarrow a + b \, i$, and the multiplication of $(a, b) \in \R^2$ by $c + d \, i \in \C$ can be defined as $(a c - b d, a d + b c)$. Suppose $V$ is a real vector space and $J: V \to V$ is a linear operator satisfying $J^2 = -1$. For $v \in V$ and $\lambda = a + b \, i \in \C$, we may define $\lambda \, v \in V$ as
+\begin{equation*}
+    \lambda \, v \coloneqq a \, v + b \, J v.
+\end{equation*}
+Clearly this assignment is linear in both $\lambda$ and $v$, and it also satisfies $\lambda (\mu \, v) = (\lambda \, \mu) v$ for any $\lambda, \mu \in \C$ and $v \in V$. Endowed with this multiplication map $\C \times V \to V$, $V$ is a complex vector space.
+\end{example}
+
+\begin{example}{Complex Number Multiplication}
+Suppose $V = \R^2$, and let $J$ be the counterclockwise right-angle rotation
+\begin{equation*}
+J = \begin{pmatrix}
+    0 & -1\\
+    1 & 0
+\end{pmatrix}.
+\end{equation*}
+Then, $i \, (a, b) = (-b, a)$ replicates complex number multiplication $i \, (a + b \, i) = -b + a\, i$, and $V$ basically becomes $\C$.
+\end{example}
+
+Let the space of states $\cS$ be the set of probability measures on $M$ that map Borel sets to positive real numbers,
+\begin{equation*}
+    \sigma: E \mapsto [0, 1],
+\end{equation*}
+and let the set of pure states be the set of Dirac measures. That is, a measure $\sigma$ is a pure state if
+\begin{equation*}
+    \sigma(E) = \begin{cases}
+        1 & (x, p) \in E\\
+        0 & \text{otherwise}
+    \end{cases}
+\end{equation*}
+for some $(x, p) \in M$. The state $\sigma$ is a probabilistic description of a classical system, while a position-momentum configuration $(x, p) \in M$ is a \dq{certain} description; in statistical physics, the former would be called a macrostate, the latter a microstate. That is, for any \dq{reasonable} (e.g., Borel) subset $E \subseteq M$ of the phase space, the state $\sigma$ associates the probability that the system is found to be in one of the configurations in $E$. Put another way, given a collection $E$ of possible configurations (consisting of positions and momenta), $\sigma(E)$ is the probability that the system is in one of the configurations in $E$. A system that is known with certainty to be in a certain configuration is described by a Dirac measure.
+
+Let the operator space $\cO$ be the set of functions $f: M \to \C$ of complex-valued functions on the phase space of the system. It forms a complex vector space under the usual operations
+\begin{align*} \begin{split}
+    & (f + g)(x) = f(x) + g(x),\\
+    & (\lambda \, f)(x) = \lambda \, f(x),
+\end{split} \end{align*}
+where $f, g \in \cO$ and $\lambda \in \C$, and a real structure on this complex vector space is given by the usual complex conjugation of functions,
+\begin{equation*}
+    (f^*)(x) = (f(x))^*.
+\end{equation*}
+In particular, observables are just real-valued functions $f: M \to \R$. 
+
+Now, onto the problems.
+
+\section*{Problems}
+
+\begin{question}
+Verify the axioms of Definition \ref{defn:DOSO} (DOSO) for a classical-mechanical system.
+\end{question}
+
+\section*{Symplectic Geometry}
+
+Consider the symplectic form $\omega$ on the manifold $N$. It is a differential two form which reproduces the Poisson-bracket when evaluated on fundamental vector fields:
+
+$$\omega \in H^2_{dRham}(N): \{f, g \} = \omega(X_{f}, X_{g})$$
+
+As a non-degenerate two form, it induces naturally an isomorphism between vector fields and covector fields on $N$:
+
+$$X \leftrightarrow H^{1}_{dRham}(N)$$
+
+
+%\begin{example}[Hermitian conjugate]
+%Suppose $W$ is a complex vector space endowed with an inner product $\langle \cdot, %\cdot \rangle: W^2 \to \C$ satisfying
+%\begin{equation*}
+%    \langle u, \lambda \, v \rangle = \lambda \langle u, v \rangle \text{ and } \langle v, u \rangle = \langle u, v \rangle^*
+%\end{equation*}
+%for all $u, v \in W$ and $\lambda \in \C$, where $(a + b \, i)^* = a - b \, i$ denotes the usual complex conjugation. Let
+%\begin{equation*}
+%    V = \{\text{$A : W \to W$ linear}\}
+%\end{equation*}
+%be the space of $\C$-linear operators on $W$. 
+%\end{example}
+
+
+% \section*{Lecture 2: Riemannian and Symplectic Manifolds}
+
+% \section*{Problems}
+
+\section{Lecture 5: Quantum mechanics; finite dimensional systems}
+Motivating and physically describing the formalism of quantum theory is a challenge for the physics instructor due to the multitude of uniquely quantum phenomena, such as entanglement, nondeterminism, and wavefunction collapse [REF]. However, the mathematical formalism of quantum mechanics is surprisingly simple. We outline the formalism for unitary time evolution and describe measurement later.
+
+\begin{definition}
+The \emph{unitary data}\footnote{In this lecture, we outline a formulation of quantum mechanics where physically meaningful wavefunctions are required to have unit norm. In Lecture 8, we will discuss an equivalent formulation where the normalization condition is no longer imposed, but two wavefunctions are declared the same up to scaling by a nonzero complex number. This will be referred to as \emph{projective data}.} of a \emph{quantum mechanical (QM)} system is a pair $(\cH, U)$ consisting of a complex separable Hilbert space [WHAT IS IT] $\cH$ and an evolution map $U: \R^2 \times \cH \to \cH$, which we write as $U(t_1, t_0, v) = U_{t_0, t_1}(v)$ for $t_0, t_1 \in \R$ and $v \in \cH$. We think of $U_{t_1, t_0}$ as follows. If $v \in \cH$ is the state of the system at time $t_0$, then $U_{t_1, t_0} v$. In this interpretation, it is natural to require that
+\begin{equation*}
+    U_{t_0, t_0} = 1, \quad U_{t_2, t_1} U_{t_1, t_0} = U_{t_2, t_0}
+\end{equation*}
+for all $t_0, t_1, t_2 \in \R$. A vector $v \in \cH$ is called \emph{normalized} if $||v|| = 1$. We assert that $v$ can represent a physical state if and only if it is normalized. In order for time evolution to be possible in this interpretation, $U$ must map normalized states to normalized states, so we require the linear operator
+\begin{equation*}
+    U_{t_0, t_1}: \cH \to \cH
+\end{equation*}
+to be unitary for all $t_0, t_1$. Last but not least, we require that $U(t_0, t_1, v)$ is differentiable with respect to $t_0$ and $t_1$ [MAKE PRECISE], capturing the intuition that time evolution happens in a smooth matter.\footnote{Later we will talk about wavefunction collapse. In the present formulation of quantum mechanics, wavefunction collapse happens discontinuously.}
+\end{definition}
+
+The reader who has heard of quantum mechanics before has probably heard of the Hamiltonian. Where does it come into our picture? Pick some time $t_0 \in \R$, and suppose the system at time $t_0$ is described by the vector $v_0$. At time $t$, the state is $v(t) = U_{t, t_0}v_0$. Since we have required time evolution to be smooth, we may take the derivative $\pd_t U_{t, t_0}$, and we may define the operator $A(t)$ by $A(t) \coloneqq \left(\pd_t U_{t, t_0}\right)U_{t_0, t}$\footnote{One can verify that $A$ is independent from $t_0$.}. Then, [CITE MIT OCW NOTES OR SOMETHING]
+\begin{equation*}
+    \pd_t v(t) = \left(\pd_t U_{t, t_0}\right) v_0 = A(t) v(t),
+\end{equation*}
+and the rate of change of the norm-squared $||v||^2 = v^\dag v$ is
+\begin{equation*}
+    \pd_t \left(v^\dag v\right) = (A v)^\dag v + v^\dag A v = v^\dag(A^\dag + A) v.
+\end{equation*}
+But $||v|| = 1$ is constant, so the time-derivative is zero. Since $v^\dag(A^\dag + A) v$ is zero for all normalized vectors $v$, we see that $A^\dag + A = 0$, so $A$ is anti-hermitian. Defining $H \coloneqq i A$, we see that $H$ is Hermitian and
+\begin{equation*}
+    \pd_t v(t) = H(t) v(t).
+\end{equation*}
+This is the \emph{Schrodinger equation}, derived from the condition of unitarity. The exact value of the \emph{Hamiltonian} depends $H$, of course, on the particular system in question, and it cannot be deduced from these general principles. Due to time translation invariance in physics, $H$ is very often time-independent\footnote{Time-dependent Hamiltonians may arise if we are modelling a system subjected to external time-dependent forces, such as a nuclear spin precessing in an external time-dependent magnetic field.}. In that case, the family of operators $\tilde U_t = U_{t, 0}$ for $t \in \R$ forms a representation of $\R$, and we recover the description of quantum-mechanical systems that Dan Freed has provided.
+
+
+\nocite{*}
+\printbibliography
+
+\end{document}

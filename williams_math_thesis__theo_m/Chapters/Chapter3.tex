@@ -1,0 +1,342 @@
+\section{Delzant's Theorem}
+
+In this section we cover the following:
+\begin{enumerate}
+    \item What is the statement and proof of Delzant's Theorem
+    \item Delzant in the $[-1, 1] = \Delta$ case
+    \item Delzant's Theorem and uniqueness modulo toric equivariant symplectomorphism
+\end{enumerate}
+\subsection{Toric Actions and Moment Maps}
+
+Toric actions are the most elementary Lie group actions because they are abelian. Let's see the definition of a toric action on complex $\mathbb{C}^{d}$-space:   
+\begin{example}[Toric Action $T^{n} \circlearrowright \mathbb{C}^{n}$]
+\label{ToricAction}
+One common Lie group action is that of the torus, $T^{n}$ acting on $\mathbb{C}^{n}$: 
+\begin{equation}
+(e^{i \beta_{1}}, \dots, e^{i \beta_{n}}) \cdot (e^{i \theta_{1}}, \dots, e^{i \theta_{n}}) = (e^{i (\theta_{1} + \beta_{1})}, \dots, e^{i (\theta_{n} + \beta_{n})})
+\end{equation}
+The toric action is given by phase rotation in each of the complex coordinates. 
+\end{example}
+
+\noindent A toric action will also have a corresponding vector field. This is important to study as it will be used to find the moment map $\mu_{c}$
+
+\begin{lemma}[Fundamental Vector Field $X^{\#}$ of Toric Action] 
+Given a toric action as in \ref{ToricAction}, $$X^{\#}_{\theta_{1}, \dots \theta_{n}} = \frac{\partial}{\partial \theta_1} + \dots + \frac{\partial}{\partial \theta_n}$$
+\end{lemma}
+
+\begin{proof}
+We take the derivative and observe:
+
+\begin{align}
+\left[ d \sigma_{\theta_{1}, \dots, \theta_{n}} \right]_{e} = (i e^{i \theta_{1}}, \dots, i e^{i \theta_{n}})
+\end{align}
+
+\noindent But this is the vector field tangent to $e^{i \theta_{1}}, e^{i \theta_{2}}, \dots e^{i \theta_{n}}$. This is, in local coordinates:
+
+$$X^{\#}_{\theta_{1}, \dots \theta_{n}} = \frac{\partial}{\partial \theta_1} + \dots + \frac{\partial}{\partial \theta_n}$$
+\end{proof}
+
+Now, we must compute the symplectic form in polar coordinates. This is:
+
+\begin{lemma}[A Symplectic Form on $\mathbb{C}^{n}$]
+We choose a symplectic form:
+$$\omega = \sum_{i} dz_{i} \wedge d\overline{z_{i}} = \sum_{i} |z_i| d \theta_{i} \wedge d|z_{i}|$$
+\end{lemma}
+
+\begin{proof}
+In \ref{ComplexForm}, we proved that: $\omega_{\mathbb{C}^{k}} = \frac{-i}{2} \sum_{k} dz \wedge \overline{dz}$ was a symplectic form for $(\mathbb{C}^{k}, \omega_{\mathbb{C}^{k}})$. We choose a multiple of this form to be our form:
+
+$$\omega = \sum_{j \geq 1} dz_{j} \wedge d\overline{z_{j}} $$
+
+\noindent Then, we use polar coordinates $dz_{j} = |z_{j}| d \theta_{j}$, and find
+
+$$\omega = \sum_{j \geq 1} |z_j| d \theta_{i} \wedge d|z_{j}|$$
+\end{proof}
+
+Now, with a symplectic form $\omega$, and a fundamental vector field, we compute the moment map $\mu_{c}$ on $\mathbb{C}^{d}$. This is:
+
+\begin{lemma}[Moment Map for $(\mathbb{C}^{d}, \omega, T^{d})$]
+\label{ComplexMomentMap}
+\begin{equation}
+\left (\mu (z_{1}, \dots, z_{n}) \right)_{j} = \frac{|z_{j}|^2}{2} + \lambda_{j}
+\end{equation}
+
+\noindent Where $\lambda_{j} \in \mathbb{R}^{*}$
+\end{lemma}
+
+\begin{proof}
+According to $d \mu_{c} = \omega(X^{\#}, \cdot)$, we observe that: 
+$\left (d \mu_{c} \right)_{j} = \left[ \omega(X^{\#}_{\theta_{1}, \dots \theta_{n}}, \cdot) \right]_{j} = |z_{j}| \cdot d|z_{j}|$. We integrate both sides to find: $\left (\mu \right )_{j} = \frac{|z_{j}|^2}{2} + \lambda_{j} \in (\mathbb{R}^{d})^{*}$
+\end{proof}
+
+\noindent \textbf{References:} \textcite{Guillemin1994} \textcite{Terek2020}, \textcite{Silva2001}
+
+\subsection{Definitions Concerning the Delzant Construction}
+
+\begin{remark}
+Now, with basic results behind us for the toric action $T^{d} \circlearrowright M$, we can study the geometry of the image of the moment map as in \textcite{Delzant1988}. 
+\end{remark}
+
+Delzant's construction is an association between a symplectic manifold with toric action: $(M_{\Delta}, \omega_{\Delta}, T^{d})$ to each Delzant space $\Delta$, where $\Delta$ is a type of polytope, called a Delzant polytope. Delzant's construction links $M_{\Delta} \leftrightarrow \Delta$ via the Delzant moment map. Now, we will study the construction:
+
+\begin{remark}
+In this case, we denote the Delzant construction moment map: $J: M_{\Delta} \to (\mathbb{R}^{d})^{*}$, where as the moment map $\mu_{c}$ denotes the one here $\ref{ComplexMomentMap}$.
+\end{remark}
+
+\begin{defn}[Delzant Polytope]
+A Delzant polytope $(\Delta, n, d)$ is a convex polytope in $(\mathbb{R}^{n})^{*}$. There are $d$-faces of a Delzant polytope $\Delta$, and $n$ edges meeting in each vertex $p$. The edges meeting at each $p$ are rational. Furthermore, $v_{1}, \dots, v_{n}$ can be chosen to be a basis of $(\mathbb{Z}^{n})^{*}$. Each one of these faces is defined by a normal equation, where $u_{i}$ is the inward pointing normal vector to each face \textcite{Delzant1988}
+
+\begin{equation}
+\langle u_{i}, x \rangle \geq \lambda_{i}, \; i \in \{1, \dots, d \}
+\end{equation}
+\end{defn}
+
+\noindent Now, we define several maps used in the Delzant construction:
+
+\begin{lemma}[Delzant Quotient Map]
+Let $e_{1}, \dots, e_{d}$ be standard basis vectors of $\mathbb{R}^{d}$. There exists a linear map $\pi'$: 
+
+$$\pi': T^{d} \to T^{n}$$
+\end{lemma}
+
+\begin{proof}
+Let $e_{1}, \dots, e_{d}$ be standard basis vectors of $\mathbb{R}^{d}$ and consider the map:
+\begin{equation}
+\pi: \mathbb{Z}^{d} \to \mathbb{Z}^{n} 
+\end{equation}
+Consider its natural extension by inclusion:
+\begin{equation}
+\pi: \mathbb{R}^{d} \to \mathbb{R}^{n} 
+\end{equation}
+Then, there exists a quotient map: $\pi': T^{d} \to T^{n}$, such that the diagram commutes. The quotient map: $\pi'$ does the following:
+\begin{equation}
+\pi': [r] \mapsto [\pi(r)] 
+\end{equation}
+\begin{center}
+\begin{tikzcd}
+    \mathbb{Z}^{d} \arrow[r, "\pi"] \arrow[d, hook] & \mathbb{Z}^{n} \arrow[d, hook] \\
+    \mathbb{R}^{d} \arrow[r, "\pi"] \arrow[d, two heads] & \mathbb{R}^{n} \arrow[d, two heads] \\
+    T^{d} \arrow[r, "\pi'"] & T^{n}
+\end{tikzcd}
+\end{center}
+\end{proof}
+
+\begin{remark}
+\label{NSpaceRemark}
+It is an instructive exercise that $\pi'$ has a less obvious form. Let the coordinates of each normal vector be $u_{i} = (u_{i,1}, \dots, u_{i,n})$. Then,
+\begin{equation}
+\pi'(z_{1}, \dots, z_{d}) \mapsto (\prod_{i=1}^{d} z_{i}^{u_{i,1}}, \dots, \prod_{i=1}^{d} z_{i}^{u_{i,n}})
+\end{equation}
+\end{remark}
+
+Since $\pi'$ is a linear map, we study its kernel, which we define here:
+
+\begin{defn}[Delzant $N$ Space]
+Let the kernel of $\pi'$ be $N$. 
+\end{defn}
+
+\begin{lemma}[Exact Sequence Defining $N$]
+$\mathfrak{n}$ can equivalently be defined by the exact sequence:
+
+$$0 \to \mathfrak{n} \to \mathbb{R}^{d} \to \mathbb{R}^{n} \to 0  $$
+\end{lemma}
+\begin{proof}
+This follows from the exact sequence:
+$$0 \to N \to T^{d} \to T^{n} \to 0$$
+\noindent Now we take the differential of each map and move to the Lie algebra level:
+
+$$0 \to \mathfrak{n} \to \mathbb{R}^{d} \to \mathbb{R}^{n} \to 0  $$
+\noindent The conclusion follows
+\end{proof}
+
+\noindent \textbf{References}: \textcite{Silva2001} \textcite{Guillemin1994}, \textcite{Terek2020}
+
+\subsection{Construction of Delzant Space $M_{\Delta}$ given $\Delta$}
+
+Now, for a polytope $\Delta \in (\mathbb{R}^{n})^{*}$, we will construct a symplectic manifold $M_{\Delta}$, such that its moment map $J: M_{\Delta} \to \Delta$. First we need a few definitions:
+
+\begin{defn}[Delzant Inclusion Map]
+$$i: N \to T^{d}$$
+\end{defn}
+
+\begin{defn}[Dual Inclusion Map]
+Define: 
+\begin{align}
+i^{*}: (\mathbb{R}^{d})^* \to \mathfrak{n}^{*} \text{ where } i^{*} \text{ is the derivative transpose of } i
+\end{align}
+\end{defn}
+
+\begin{lemma}[Almost $M_{\Delta}$] 
+The set $(i^{*} \circ J)^{-1}(0)$ is a compact subset of $\mathbb{C}^{d}$, \\
+and $N$ acts freely on this set.
+\end{lemma}
+
+\begin{proof}
+From the exact sequence:
+\begin{equation}
+0 \to \mathfrak{n} \to \mathbb{R}^{d} \to \mathbb{R}^{n} \to 0  
+\end{equation}
+we conclude that $\ker i^{*} = \operatorname{Im} \pi^{*}$. Furthermore, it is an observation that:  
+\begin{equation}
+\label{ImageofMDelta}
+(i^{*} \circ \mu_{c})^{-1}(0) = \mu_{c}^{-1}(\pi^{*}(\Delta))
+\end{equation}
+Note that the stabilizer group of $z$ in $T^{d}$ is $T^{I}$, where $I$ is the number of $0$'s in the coordinate expansion of $z$. Note when $p$ is in the interior of $\Delta$, the number of $0$'s for a given $z_{i}$ is zero. This is because:
+\begin{equation}
+p \in \operatorname{Int} \Delta \Longleftrightarrow \langle u_{i}, p \rangle > \lambda_{i}
+\end{equation}
+When $p$ a vertex of the polygon, assume $p=0$, so that:
+\begin{equation}
+\langle u_{i}, p \rangle = 0, \; i \in \{1, \dots, n \}
+\end{equation}
+Then, we note that $\pi(T^{I}) \cong T^{n}$ and therefore, we have that $T^{I} \cap N = \emptyset$. Since $T^{I}$ is also the stabilizer group, we have that $N$ acts freely at $z$. Furthermore, note that since $J$ is proper, $(i^{*} \circ J)^{-1}(0)$ is compact.  
+\end{proof}
+
+\begin{remark}
+In order to define the Delzant Space $M_{\Delta}$, we need to remove the free action of $N$ on $(i^{*} \circ \mu_{c})^{-1}(0)$. For this, we cite the following Theorem. 
+\end{remark}
+
+\begin{theorem}[Marsden-Weinstein] 
+\label{Marsden-Weinstein}
+Let $(M, \omega, G, \mu)$ be a Hamiltonian $G$-space and $p \in \mathfrak{g}^*$ be a regular value for $\mu$. Assume that the action $G_p \circlearrowright \mu^{-1}(p)$ is free and proper. Then the quotient $\mu^{-1}(p)/G_p$ has a unique symplectic form $\omega_0$ characterized by the relation $\pi^*\omega_0 = i^*\omega$, where $\pi: \mu^{-1}(p) \rightarrow \mu^{-1}/G_p$ is the quotient projection and $i: \mu^{-1}(p) \hookrightarrow M$ is the inclusion. We call $(\mu^{-1}(p)/G_p, \omega_0)$ the reduction of $(M, \omega)$ to level $p$. For more details, see \textcite{MarsdenWeinstein1974} and \textcite{Terek2020}
+\end{theorem}
+
+The following lemma is important as we reduce:
+
+\begin{lemma}[Moment Map of Lie Subalgebra]
+\label{MomentMapLieSubAlgebra}
+Let $\mathfrak{g}$ be a Lie algebra and $\mathfrak{h} \subseteq \mathfrak{g}$ a Lie subalgebra. Suppose a symplectic manifold $(M, \omega)$ is equipped with a Hamiltonian action of a Lie group $G$ with moment map 
+\[
+\mu_c: M \to \mathfrak{g}^*.
+\]
+Let $H \subseteq G$ be a Lie subgroup with Lie algebra $\mathfrak{h}$, and consider the restricted action $H \circlearrowright M$. Then the dual of the inclusion map $i: \mathfrak{h} \hookrightarrow \mathfrak{g}$ induces a projection
+\[
+i^*: \mathfrak{g}^* \to \mathfrak{h}^*,
+\]
+and the composition
+\[
+\mu_H := i^* \circ \mu: M \to \mathfrak{h}^*
+\]
+is a moment map for the $H$-action.
+\end{lemma}
+
+\begin{proof}
+Since Hamiltonian functions arising from the restricted action $H \circlearrowright M$ are restrictions of Hamiltonian functions arising from $G \circlearrowright M$, it follows that:
+\begin{align}
+\mu_{H, c}: \mathfrak{h} \to C^{\infty}(M) &&  \mu_{c}: \mathfrak{g} \to C^{\infty}(M) 
+\end{align}
+\noindent are related by $\mu_{H, c} = \mu_{c} \circ i$. Then, we note that: $\langle \mu, i \circ X \rangle = \mu_{H,c}(X)$. Therefore, $\langle i^{*} \circ \mu, X \rangle = \mu_{H,c}(X)$, and we note that: $\mu_{H} = i^{*} \circ \mu$. 
+\end{proof}
+
+\begin{theorem}[Construction of $M_{\Delta}$]
+Given $\Delta \in( \mathbb{R}^{n})^{*}$ a Delzant Polytope, there exists: 
+$(M_{\Delta}, \omega_{0}, T^{n})$ such that $J(M_{\Delta}) = \Delta$
+\end{theorem}
+
+\begin{proof}
+From the Marsden-Weinstein Theorem \ref{Marsden-Weinstein}, 
+we reduce $\mathbb{C}^{d}$ with respect to $N$. Since $N$ acts freely on $(i^{*} \circ J)^{-1}(0)$, the reduced space is a smooth symplectic manifold, which we declare $M_{\Delta}$. The symplectic manifold $M_{\Delta}$ admits a $T^{n}$ action after reduction. Define $\mu_{c}$ to be the moment map $\mu_{c}$ arising from the action of $T^{n}$ on $M_{\Delta}$. Consider the inclusion $i': \mathbb{R}^{n} \to \mathbb{R}^{d}$ and its transpose, $(i')^{*}: (\mathbb{R}^{d})^{*} \to (\mathbb{R}^{n})^{*}$. By \ref{MomentMapLieSubAlgebra}, the moment image of $M_{\Delta}$ is by $\ref{ImageofMDelta}$, $J(M_{\Delta}) = \Delta$
+\begin{align}
+J = (i')^{*} \circ \mu_{c} && M_{\Delta} = (i^{*} \circ \mu_{c})^{-1}(0)/N && J(M_{\Delta}) &\cong \Delta \in \mathbb{R}^{n}^{*}
+\end{align} 
+\end{proof}
+
+\noindent \textbf{References}: \textcite{Silva2001} \textcite{Guillemin1994}, \textcite{Terek2020}
+
+\subsection{Delzant Construction for $\Delta = [-1,1]$}
+
+We will do the Delzant Construction for $\Delta = [-1,1]$. 
+
+\begin{question}[What is $N$ given $\Delta$]
+Claim: $N = \{(t, t) : t \in [0, 2\pi)\}$.
+\end{question}
+\begin{proof}
+When $\Delta = [-1,1]$, the normal vectors are $u_{1} = -1$ and $u_{2} = 1$. In this case, $N = \ker \pi'$ where:
+\begin{equation}
+\pi'(z_{1}, z_{2}) = z_{1}^{-1} z_{2}
+\end{equation}
+\noindent We use Remark \ref{NSpaceRemark}, and observe that $N = \{(t, t) : t \in [0, 2\pi)\}$.
+\end{proof}
+\begin{question}[What is $\mu$ given $\Delta$]
+Claim: $J(z) = \frac{(|z_{1}|^2, |z_{2}|^2)}{2} + (-1, -1) $
+\end{question}
+\begin{proof}
+Since the interval $\Delta$ can also be seen as $x \geq -1$ and $-x \geq -1$ we have that $\lambda_{1} = -1$ and $\lambda_{2} = -1$.
+Using \ref{ComplexForm}, the complex space $\mathbb{C}^{2}$ has moment map: $\mu(z) = \frac{(|z_{1}|^2, |z_{2}|^2)}{2} + (-1, -1)  $
+\end{proof}
+\begin{question}[What is $J$ given $\Delta$]
+Claim: $J = i^{*} \circ J = \frac{|z_{1}|^2 + |z_{2}|^2}{2} - 2$
+\end{question}
+\begin{proof}
+Note that $i: \mathfrak{n} \to \mathbb{R}^2$, given by $v \mapsto (v,v)$. Note that $\langle i^{*}(z_{1}, z_{2}), v \rangle = \langle (z_{1}, z_{2}), (v, v) \rangle = (z_{1} + z_{2}) v$. We use the property that $\langle a^{*} w, v \rangle = \langle w, av \rangle$.
+Therefore, $i^{*}(z_{1}, z_{2}) = z_{1} + z_{2}$, and we note that:
+$$i^{*} \circ J = \frac{|z_{1}|^2 + |z_{2}|^2}{2} - 2$$
+\end{proof}
+\begin{question}[What is $M_{\Delta}$]
+Claim: $M_{\Delta} \cong \mathbb{C} P^{1}$
+\end{question}
+\begin{proof}
+We note that $N \cong U(1)$. Therefore, $X_{\Delta} \cong S^{3}/N \cong S^{3}/U(1) \cong \mathbb{CP}^{1}$. 
+\end{proof}
+
+\subsection{Convexity of Moment Maps}
+For the other direction, we use the \textcite{AtiyahGS1982}. Following the treatment in \textcite{Silva2001}, we sketch only one part of the proof. 
+\begin{theorem}[Atiyah-Guillemin-Sternberg] 
+Let \((M, \omega)\) be a compact connected symplectic manifold, and let \(T^{m}\) be an \(m\)-torus. Suppose that \(\psi: T^{m} \to \operatorname{Symp}(M, \omega)\) is a Hamiltonian action with moment map \(\mu: M \to \mathbb{R}^{m}\). Then:
+\begin{enumerate}
+    \item the levels of \(\mu\) are connected;
+    \item the image of \(\mu\) is convex;
+    \item the image of \(\mu\) is the convex hull of the images of the fixed points of the action.
+\end{enumerate}
+\end{theorem}
+Consider the statements:
+\begin{enumerate}
+    \item $A_{n}$ - the levels of $\mu$ are connected for any $T^{n}$ action
+    \item $B_{n}$ - the image of $\mu$ is convex for any $T^{n}$ action
+\end{enumerate} From Morse Theory, we have that $A_{1}$ and $B_{1}$ hold.
+
+\begin{theorem}[Part of Proof of AGS]
+$A_{m-1}$ implies $B_{m}$
+\end{theorem}
+
+\begin{proof}
+\noindent Consider a moment map $\mu$ from a toric action $T^{n} \circlearrowright M$. We can consider the toric action of an $(n-1)$-dimensional sub-torus on $M$, $T^{n-1} \circlearrowright M$, by using an injective matrix $A \in \mathbb{Z}^{n \times (n-1)}$ and defining:
+\begin{align}
+\psi_{A}: T^{n-1} &\to \operatorname{Symp}(M, \omega) && \theta \mapsto \psi_{A\theta}
+\end{align}
+
+\noindent Since $A^{T}: \mathbb{R}^{n} \to \mathbb{R}^{n-1}$ is a linear map from the Lie algebra of the torus onto the Lie algebra of its subgroup, the moment map of $\psi_{A}$ is $\mu_{A} = A^{T} \mu$. Consider $p, p_{0} \in \mu_{A}^{-1}(\xi)$, then $A^{T} \mu(p) = \xi = A^{T} \mu(p_{0})$. Now it follows that:
+
+\begin{equation}
+\mu_{A}^{-1}(\xi) = \{p \in M: \mu(p) - \mu(p_{0}) \in \operatorname{Ker}(A^{T}) \}
+\end{equation}
+\noindent Since $\mu_{A}^{-1}(\xi)$ is a connected manifold for regular value $\xi$ and is locally path connected, the inverse image is path connected. Therefore, for a path $t \mapsto p_{t} \in \mu_{A}^{-1}(\xi)$, there also exists a path $t \mapsto \mu(p_{t}) - \mu(p_{0}) \in \operatorname{Ker}(A^{T})$. Since $\operatorname{Ker}(A^{T})$ is $1$-dimensional, it follows that all elements $\mu(p_{t})$ must be a linear superposition of $\mu(p_{0})$ and $\mu(p_{1})$ - two points determine a line!
+
+\begin{equation}
+(1-t) \mu(p_{0}) + t \mu(p_{1}) \in \mu(M), \; t \in [0,1]
+\end{equation}
+Choosing points $p_{0}$ and $p_{1}$ closely approximated by rational $p_{0}'$ and $p_{1}'$ we run this argument again - finding a matrix which contains $\mu(p_{0}') - \mu(p_{1}')$ in its kernel. Taking limits, we find that $\mu(M)$ is convex.
+\end{proof}
+
+\noindent \textbf{References}: \textcite{Silva2001}, \textcite{Delzant1988}, \textcite{Terek2020}
+
+\subsection{Uniqueness of Delzant Spaces}
+Now, we have shown that for each Delzant polytope, there exists a corresponding Delzant space, and given a Delzant space, we may find the polytope. Actually, the association of $\Delta$ and $M_{\Delta}$ is unique, up to toric-equivariant symplectomorphism as in  \textcite{Delzant1988}.
+
+\begin{defn}
+Given a Delzant polytope $\Delta$, if there exist moment maps $\mu_1$ and $\mu_2$, and Delzant spaces, $X_{\Delta, 1}$ and $X_{\Delta, 2}$, such that there exists an isomorphism $\gamma: \operatorname{Im}(\mu_1) \to \operatorname{Im}(\mu_2)$ and $\phi: X_{\Delta, 1} \to X_{\Delta, 2}$ is a $\gamma$-equivariant symplectomorphism, then $\phi$ is called a $\gamma$-equivariant symplectomorphism, which is a diffeomorphism in the symplectic category that respects the moment maps.
+\end{defn}
+\begin{center}
+\begin{tikzcd}
+X_{\Delta, 1} \arrow[r, "\phi"] \arrow[d, "\mu_1"'] & X_{\Delta, 2} \arrow[d, "\mu_2"] \\
+\operatorname{Im}(\mu_1) \arrow[r, "\gamma"'] & \operatorname{Im}(\mu_2)
+\end{tikzcd}
+\end{center}
+
+\noindent Now, we would like to extend these results to the non-Abelian case $G \circlearrowright M$. It turns out that so long as the action of $G$ has regular values, the uniqueness of the moment map image is determined by the toric (Abelian) part of $G$, which is known as the maximal torus of $G$. 
+
+\noindent \textbf{References: } \textcite{Blaom1996}, \textcite{GuilleminSternberg1982}.
+
+\newpage
+
+\setcounter{section}{4}

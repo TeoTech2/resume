@@ -1,0 +1,48 @@
+\section*{Executive Summary: Delzant-Type Correspondence For Hamiltonian $\rm{SO}(3)$-actions}
+\subsubsection*{Background and Context}
+\noindent Although classical mechanics was once done using Newtonian Mechanics $m \ddot{x} = \sum_{i} \vec{F}_{i}$, it is more elegantly formulated in terms of Hamiltonian mechanics, which describes the time evolution of position $q^{i}$ and momentum $p_{i}$ of a solid body via the dynamics of a scalar function, called the Hamiltonian $H(q,p)$. This occurs via the set of differential equations: 
+
+\begin{align}
+H \text{ determines dynamics via} && \dot{q}^{i} = \frac{\partial H}{\partial p_{i}} \text{ and } \dot{p}_{i} = -\frac{\partial H}{\partial q^{i}}
+\tag{Hamilton's Equations}
+\end{align}
+
+\noindent This approach to classical mechanics is readily formulated on manifolds via Hamiltonian vector fields. When additional structure is added to the manifold, such as a Hamiltonian Lie group action $G$, we define a function $\mu$, the moment map, which captures the conserved quantities associated with symmetry induced by $G \circlearrowright M$. 
+\noindent For toric manifolds with actions of the torus group $T^n$, Delzant's theorem provides a complete classification: there exists a one-to-one correspondence between compact connected symplectic manifolds with effective Hamiltonian $T^n$ actions and Delzant polytopes in $\mathbb{R}^n$, and this correspondence is given by the moment map $\mu(M_{\Delta}) = \Delta$.
+\subsubsection*{Research Problem}
+\noindent While Delzant's theorem provides a complete classification for Abelian group actions, \textcite{Guillemin1994} identified the situation for non-Abelian groups as complex and less understood.
+\subsubsection*{Key Results}
+Our main result establishes that for Hamiltonian $\rm{SO}(3)$ spaces with regular momenta (where the moment map avoids the origin), there exists a classification similar to Delzant's theorem. Specifically, based on \textcite{Blaom1996} we show:
+\begin{enumerate}
+\item Two Hamiltonian $\rm{SO}(3)$-spaces with moment map image avoiding the origin are equivalent if and only if their associated maximal torus ($T \cong S^1$) spaces are equivalent.
+\item For 4-dimensional compact Hamiltonian $\rm{SO}(3)$ spaces whose moment images do not contain the origin, if the rotation actions in $S^1_{xy}$ are faithful on the preimage of the $z$-axis, then these spaces are equivalent up to equivariant symplectomorphism.
+\end{enumerate}
+\subsubsection*{Classification Results}
+We provide a complete classification of possible Hamiltonian $\rm{SO}(3)$-actions on symplectic manifolds:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{Dim} & \textbf{Faithful} & \textbf{Manifold} & \textbf{Action} & \textbf{Moment Image} \\
+    \hline
+    2 & Y & $S^2(r)$ & $A \cdot p = Ap$ & Sphere $S^2(r)$ \\
+    \hline
+    4 & Y & $S^2(r_1) \times S^2(r_2)$ & $A \cdot (p,q) = (Ap,Aq)$ & Hollow ball \\
+    \hline
+    4 & Y & $S^2(r) \times S^2(r)$ & $A \cdot (p,q) = (Ap,Aq)$ & Closed ball \\
+    \hline
+    2 & N & $S^2$ & $A \cdot p = p$ & Origin $\{0\}$ \\
+    \hline
+    4 & Y & $S^2(r) \times S^2$ & $A \cdot (p,q) = (Ap,q)$ & Sphere $S^2(r)$ \\
+    \hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{Necessity of Regular Condition}
+Regular momenta is a requirement for this correspondence to hold. We demonstrate this through a counterexample: the $\rm{SO}(3)$-action on $\mathbb{CP}^2$ produces a closed ball as its moment image, which suggests it is equivalent to $S^2(r) \times S^2(r)$. However, these manifolds have different cohomology groups: $H^2_{\rm{dR}}(\mathbb{CP}^2) = \mathbb{R}$ vs. $H^2_{\rm{dR}}(S^2 \times S^2) = \mathbb{R}^2$, proving they cannot be equivalent.
+\subsubsection*{Implications and Future Work}
+Our results extend Delzant's fundamental work to the non-Abelian setting, which is a step towards understanding Hamiltonian group actions beyond the toric case. Future directions include:
+\begin{enumerate}
+\item Determining which Melvin-Parker manifolds admit symplectic forms compatible with $\rm{SO}(3)$-actions.
+\item Extending the classification to other non-Abelian Lie groups.
+\end{enumerate}

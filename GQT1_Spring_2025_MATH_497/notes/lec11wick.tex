@@ -1,0 +1,167 @@
+\newpage
+\section{Lecture 11: Wick rotation, algebras of observables, and correlation functions}
+
+\subsection{Heisenberg picture of QM}
+
+The \dq{usual} picture of quantum mechanics (QM), the Schrodinger picture, is states $v \in \cH$ living in a Hilbert space evolve in time according to the time-translation operator $\exp(-i H t)$, while observables $O \in \text{End}(\cH)$, $O^\dag = O$ are Hermitian operators. In the Schrodinger picture, states evolve in time while operators are fixed. The \emph{Heisenberg picture} of QM is where operators evolve in time while states are fixed.
+
+Consider a state $\ket{\psi} \in \cH$ and observable $A \in \text{End}(\cH)$. The expectation value of $A$ is $\langle A \rangle = \bra{\psi} A \ket{\psi}$. We can also define $\langle A \rangle(t)$ as the expectation value of $A$ after time $t$ has passed. Recall that as the amount of time $t$ passes, $\ket{\psi}$ evolves to $U(t) \ket{\psi}$, where $U(t) = \exp(-i H t)$. Thus,
+\begin{equation*}
+    \langle A \rangle(t) = \bra{\psi} U^\dag(t) A U(t) \ket{\psi}.
+\end{equation*}
+Instead of thinking about $\langle A \rangle(t)$ as the expectation value of the time-independent operator $A$ at the time-dependent state $\ket{\psi(t)} = U(t) \ket{\psi}$, we define the \emph{Heisenberg-picture\footnote{The \dq{usual} formulation of quantum mechanics is referred to as the \emph{Schrodinger picture}.} operator $A_H(t)$} as
+\begin{align} \begin{split} \label{eq:heisenberg_operator_defn}
+    A_H(t) &\coloneqq U^\dag(t) \, A \, U(t)\\
+        &= \exp(i \, H \, t) \, A \, \exp(-i \, H \, t).
+\end{split} \end{align}
+This way, $\langle A \rangle(t)$ equals $\bra{\psi} A_H(t) \ket{\psi}$, the expectation value of the time-evolved operator $A_H(t)$ at the original state $\ket{\psi}$. Why bother, the reader might ask, define the Heisenberg picture when it is only a small variation of the Schrodinger picture of quantum mechanics? The Heisenberg picture often turns out to be more convenient and easy to work with, as illustrated in the harmonic oscillator example in Subsubsection \ref{subsub:qho_heisenberg}.
+
+\subsubsection{Time-evolution equation for operators}
+Taking the time derivative of equation \ref{eq:heisenberg_operator_defn}, we get\footnote{We are assuming that the Schrodinger-picture $H$ and $A$ are both time independent. The case where they do have time dependence can be treated in a similar way.}
+\begin{align*} \begin{split}
+    \frac{d}{dt}A_H(t) = &\left(i \, H \, \exp(i \, H \, t)\right) \, A \, \exp(-i \, H \, t)\\
+    + &\exp(i \, H \, t) \, A \, \left(-i \, H \, \exp(-i \, H \, t)\right)\\
+     = &i \, H \, U^\dag(t) \, A \, U(t)
+    - i \, U^\dag(t) \, A \, U(t) \, H\\
+    =& i \, \left(H \, A_H(t) - A_H(t) \, H \right),
+\end{split} \end{align*}
+where we use that $H$ commutes with $\exp(-i \, H \, t)$. Therefore, we arrive at the Heisenberg picture operator time evolution equation
+\begin{equation} \label{eq:operator_time_evolution}
+    \boxed{\frac{d}{dt} A_H(t) = i \left[H, A_H(t)\right],}
+\end{equation}
+a differential equation that expresses Schrodinger time evolution $\ket{\psi} \mapsto U(t) \ket{\psi}$ in a language where $A_H(t)$ is evolving while $\ket{\psi}$ is stationary. Here, $[A, B] = A B - B A$ is of course the commutator of two linear operators. It is nice to note that time-evolution of operators works out nicely with their addition and multiplication.
+\begin{proposition}[Time evolution respects addition and multiplication] \label{prop:op_time_evolution_add_mult}
+If $A, B \in \text{End}(H)$ are operators, then
+\begin{enumerate}
+    \item $(A + B)_H(t) = A_H(t) + B_H(t)$,
+    \item $(A \, B)_H(t) = A_H(t) \, B_H(t)$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+See equation \ref{eq:heisenberg_operator_defn}.
+\end{proof}
+
+\begin{remark}[Conservation of energy] \label{rem:time_evolution_energy}
+When the original Schrodinger-picture operator $A$ is the Hamiltonian $A = H$, equation \ref{eq:operator_time_evolution} states that $H_H(t)$, the time-evolved energy operator, is constant. This is precisely the law of conservation of energy! Indeed, with any initial state $\ket{\psi}$, the expectation value $\langle H \rangle(t) = \bra{\psi} H_H(t) \ket{\psi}$ is constant.
+\end{remark}
+
+\begin{remark}
+Though we motivate the introduction of Heisenberg-picture operators as the time-evolution of observables, the definition of $A_H(t)$ as $U^\dag(t) \, A \, U(t)$ works perfectly fine even if $A$ is not Hermitian.
+\end{remark}
+
+\begin{remark} \label{rem:op_time_ev_H_heisenberg}
+By Remark \ref{rem:time_evolution_energy}, equation \ref{eq:operator_time_evolution} can equivalently be written as
+\begin{equation}
+    \frac{d}{dt} A_H(t) = i \left[H_H(t), A_H(t)\right].
+\end{equation}
+In other words, we are free to time-evolve the Hamiltonian; it's just that $H$ is unchanged anyway.
+\end{remark}
+
+\subsubsection{A treatment of the Harmonic oscillator} \label{subsub:qho_heisenberg}
+As an example of the Heisenberg picture formalism, consider the quantum harmonic oscillator with Hamiltonian
+\begin{equation*}
+    H = \frac{p^2}{2} + \frac{x^2}{2},
+\end{equation*}
+where we set both the mass and the frequency characterizing the oscillator to $1$ for convenience. By Remark \ref{rem:time_evolution_energy} and Proposition \ref{prop:op_time_evolution_add_mult}, we might as well express the energy in terms of the time-evolved position and momentum operators,
+\begin{equation*}
+    H = \frac{p_H(t)^2}{2} + \frac{x_H(t)^2}{2}.
+\end{equation*}
+The commutator of $p$ and $x$ is $[x, p] = i$. Since it is a constant, it commutes with the Hamiltonian, so per equation \ref{eq:operator_time_evolution}, the canonical commutation relation is preserved in time:
+\begin{equation}
+    [x_H(t), p_H(t)] = i.
+\end{equation}
+Therefore, equation \ref{eq:operator_time_evolution} tells us that
+\begin{align*} \begin{split}
+    \frac{d}{dt} x_H(t) &= i \, \left[\frac{p_H(t)^2}{2} + \frac{x_H(t)^2}{2}, x_H(t)\right] = p_H(t),\\
+    \frac{d}{dt} p_H(t) &= i \, \left[\frac{p_H(t)^2}{2} + \frac{x_H(t)^2}{2}, p_H(t)\right] = -x_H(t).
+\end{split} \end{align*}
+These look exactly like the classical equations of motion for the harmonic oscillator! The difference is that now they are written in terms of position and momentum \emph{operators}. The solutions are
+\begin{align*} \begin{split}
+    x_H(t) &= x_H(0) \, \cos(t) + p_H(0) \, \sin(t),\\
+    p_H(t) &= -x_H(0) \, \sin(t)  +p_H(0) \, \cos(t).
+\end{split} \end{align*}
+Immediately we can see that if the oscillator starts with position expectation value $\langle x \rangle$ and momentum expectation value $\langle p \rangle$, its expectation value of position as a function of time is given by $\langle x \rangle \, \cos(t) + \langle p \rangle \, \sin(t)$, very much resembling the classical case. This is how the connection between classical and quantum harmonic oscillators can be seen very directly using the Heisenberg picture.
+
+Oftentimes, the Heisenberg picture can be more convenient to apply than the Schrodinger picture. In particular, it enjoys great popularity in quantum field theory. So-called \emph{coherent states} of the harmonic oscillators are well-understood using the Heisenberg picture.
+
+\subsubsection{Putting observables before states}
+Recall how in our axiomatization of physical systems in \ref{defn:DOSO}, we postulated that states $\sigma$ and observables $A$ are related by a measurement pairing
+\begin{equation*}
+    \sigma, A \;\longmapsto \sigma_A,
+\end{equation*}
+where $\sigma_A \in \text{Prob}(\R)$ is the probability distribution of what value we might measure for the observable $A$ given that the system is in the state $\sigma$. We often treat an observable as an object that, given a state $\sigma$, produces a probability distribution $\sigma_A$. We can take the other perspective, treating a state as an object that, given an operator $A$, produces a probability distribution $\sigma_A$. This way, observables are treated as primary. The Schrodinger formulation of quantum mechanics can be viewed as putting states first, while the Heisenberg formulation can be viewed as putting observables first. The two formulations are logically equivalent.
+
+
+\subsection{Correlation functions}
+Correlation functions are numbers that encode much of the physical information we want to get out of operators. In the Heisenberg picture, the correlation function of operators $A_1, \dots, A_l$ in state $\psi \in \cH$, where $A_l$ is interpreted as being at time $t_l$, is defined as
+\begin{equation*}
+    \langle U(t_f - t_0) \psi, \, A_l(t_l) \dots A_1(t_1) \, \psi \rangle \in \C,
+\end{equation*}
+where $t_0$ and $t_f$ are some final and initial time, and where we also require $t_0 < t_1 < \dots < t_l < t_f$. Informally, the correlation function encodes the correlation between $A_1, \dots, A_l$ in a similar way to how the expectation value $\mathbb{E}(X Y)$ encodes the correlation of two random variables $X$ and $Y$. While the state $\psi$ in the correlation function can be anything, very often one considers correlation functions where $\psi$ is the ground state.
+
+In the Schrodinger picture, the correlation function is expressed as
+\begin{equation*}
+    \langle \psi, U(t_f - t_l) A_l \dots A_2 U(t_2 - t_1) A_1 U(t_1 - t_0) \psi\rangle.
+\end{equation*}
+Basically, the right-hand side involves applying $A_1, \dots, A_l$ to $\psi$ while time-evolving in the appropriate way, while the left-hand side just has the original state $\psi$.
+
+
+\subsection{Algebras of observables}
+Why do we want to mathematically study quantum mechanics? One reason is to rigorously establish some results informally known to physicists. Another reason is to understand \emph{quantum field theory}, the grand beast that has largely evaded the conquest ambitions of Arthur Jaffe and many others. It appears that so-called \emph{$C^*$ algebras} appear on both avenues.
+
+Basically, a $C^*$ algebra is an abstract way to think about the space of all observables of a quantum system without relying on any particular Hilbert space.
+\begin{definition}
+Let $\cO$ be a complex algebra.
+\begin{itemize}
+    \item[1.] A \emph{Banach structure} on $\cO$ is a Banach norm compatible with the algebra structure,
+    \begin{align*} \begin{split}
+        & ||A_1 \circ A_2|| \le ||A_1|| \, ||A_2||,\\
+        & ||1|| = 1.
+    \end{split} \end{align*}
+    \item[2.] If $\cO$ is a $*$-algebra, then the Banach norm induces the structure of a \emph{Banach $*$-algebra} if
+    \begin{equation*}
+        ||A^*|| = ||A||.
+    \end{equation*}
+    \item[3.] A Banach algebra is a \emph{$C^*$-algebra} if
+    \begin{equation*}
+        ||A^* A|| = ||A||^2.
+    \end{equation*}
+\end{itemize}
+\end{definition}
+The reader might object -- how can $C^*$ algebras be the right axiomatization of quantum mechanics if an operator as basic as the momentum, $p = -i \, \pd_x$, is unbounded? By physical reasons, we can restrict to considering a appropriate families of bounded operators \cite{strocchi_2005_qm}(\S 1.3).
+
+The \emph{Gelfand–Naimark–Segal construction} establishes that every $C^*$ algebra is isomorphic to the algebra of operators on some Hilbert space. More precisely every $C^*$ algebra is isomorphic to a closed $*$-subalgebra of $\text{End}(\cH)$ for some Hilbert space $\cH$. That is, every $C^*$ algebra has a representation as the algebra of operators on a Hilbert space.
+
+% ADD CITATIONS https://math.ucr.edu/home/baez/cstar.html
+Representations of a $C^*$ algebra are generally not unique, any of the infinities of quantum field theory come from assuming that all representations of a $C^*$ algebra as algebras of operators are equivalent [CITE BAEZ]. Something as simple as the quantum field theory of a non-interacting massive spin-0 particle is already an example -- [ELABORATE OR NOT MENTION THIS].
+
+Luckily, there are also uniqueness results such as the Stone-von Neumann theorem, which show that all representations of the canonical commutation relation $[x, p] = i$ as operators on a Hilbert space are equivalent. This means that at least in the case of \dq{usual} quantum mechanics, things work out in a simple way.
+
+
+\subsection{Wick rotation}
+Before we start with Wick rotation proper, consider the following integral:
+\begin{equation*}
+    \int_{-\infty}^{\infty}{\cos{(x^2)} dx}.
+\end{equation*}
+How do we compute it? The $x^2$ in the cosine makes it a quickly oscillating function as $x$ gets large. We observe that when $\alpha$ is a positive real number, we can compute the Gaussian integral as
+\begin{equation*}
+    \int_{-\infty}^{\infty}{\exp{(- \alpha x^2)}} dx = \int_{-\infty}^{\infty}{\exp{(- x^2)} (dx / \sqrt{\alpha})} = \sqrt{\pi / \alpha}.
+\end{equation*}
+By analytic continuation, we extend this expression from $\alpha \in \R^+$ to $\alpha \in \C$. In particular, using $\alpha = -i$, we get
+\begin{equation*}
+    \int_{-\infty}^{\infty}{\cos{(x^2)} dx} = \Re \int_{-\infty}^{\infty}{\exp{(i x^2)}} dx = \Re \sqrt{i \pi} = \pm\sqrt{\pi / 2}.
+\end{equation*}
+Since $\cos(x^2)$ starts out positive near $x = 0$ and then becomes quickly oscillatory, at a physicist level of rigor we are justified in picking the positive branch $+ \sqrt{\pi / 2}$. Using analytic continuation, we have computed the highly oscillatory integral of $\cos(x^2)$ by converting it to a Gaussian $\exp(\alpha \, x^2)$.
+
+Speaking very roughly, Wick rotation is analytic continuation applied to quantum mechanics. It converts wave-type processes often arising in quantum mechanics into diffusion-type ones, and the latter are easier to work with. And although it is not exactly equivalent to the analogy above, it seems similar in that oscillatory Gaussians are converted into decaying ones. The time-evolution operator one often encounters in quantum mechanics is
+\begin{equation*}
+    U(t) = \exp(-i H t),
+\end{equation*}
+where $H$ is the Hamiltonian. Since the exponential of a Hermitian operator is sufficiently well-behaved, the function $U(t)$ is meromorphic, and it can be extended to the entire complex plane $\C$. In particular, for $t = -i \, \tau$ for $\tau \in \R^+$, we may consider the \emph{Wick-rotated} operator
+\begin{equation*}
+    U(-i \, \tau) = \exp(- H \tau).
+\end{equation*}
+If $H$ only has nonnegative eigenvalues\footnote{$H$ having no negative eigvenvalues corresponds to having no physical states with negative energy. Even if there are states with negative energy, just finitely many, we may subtract the lowest energy from $H$ to make sure the energies are non-negative (adding a constant to $H$ does not change the physics). The only situation when all eigenvalues of $H$ cannot be made non-negative is when the spectrum of $H$ is not bounded below -- i.e., the unusual case when states of arbitrarily low energy exist.}, then the eigenvalues $\exp(-H \tau)$ either stay fixed or decay exponentially as $\tau \to \infty$. The Wick-rotated evolution operator $U(-i \, \tau)$ is often better behaved analytically than $U(t)$. For correlation functions in quantum field theory, the difference is especially pronounced.
+\begin{example}
+When $H = -\Delta$ is minus the Laplacian operator, $U(t)$ describes the Schrodinger equation, while $U(-i \, \tau)$ describes the heat equation. The first describes wavelike solutions, while the second describes diffusion.
+\end{example}

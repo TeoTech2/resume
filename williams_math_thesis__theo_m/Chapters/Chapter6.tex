@@ -1,0 +1,247 @@
+\section{Generalizing Delzant to the $\mathrm{SO}(3)$ Case}
+Now, let's begin outlining a Delzant correspondence, where the Lie group acting on our manifold is no longer $T^{n}$, but rather $G = \mathrm{SO}(3)$. The key to our approach will be developing several tools:
+\begin{enumerate}
+    \item Understanding $\mathrm{SO}(3)$ as a composition of shells and rays as in  \textcite{Blaom1996}.
+    \item Ultimately, these two points will allow us to build the bundle: $\pi_{\mathcal{O}}: P \to \mathcal{O}$. This allows us to study how a Delzant-type correspondence relates abelian toric actions and nonabelian rotation $\mathrm{SO}(3)$ actions.
+\end{enumerate}
+
+First, we would like to establish that $S^{1}$ is the maximum torus of $\rm{SO}(3)$. 
+
+\subsection{Maximal Tori of $\rm{SO}(3)$}
+
+\begin{lemma}[No $2$-Dimensional Subalgebras]
+There is no $2$-dimensional Lie-subalgebra of $\mathbb{R}^{3}$
+\end{lemma}
+\begin{proof}
+If $\mathfrak{h}$ is a $2$-dimensional subalgebra of $(\mathbb{R}^{3}, \times)$ and $\{v, w \}$ is a basis for $\mathfrak{h}$ then $v \times w \in \mathfrak{h} \cap \mathfrak{h}^{\perp} = \{0\}$, so $v \times w = 0$ and $\{v, w \}$ is linearly dependent, a contradiction.
+\end{proof}
+
+Now, this will be used to prove that: 
+
+\begin{lemma}[Maximal Torus of $\rm{SO}(3)$]
+$S^{1}$ is tha maximal torus of $\rm{SO}(3)$
+\end{lemma}
+
+\begin{proof}
+We note that $(\mathfrak{so}(3), [\cdot, \cdot]) \cong (\mathbb{R}^{3}, \times)$, and that $S^{1}$ is a tori of $\rm{SO}(3)$.Suppose there existed a torus $T$ inside $\rm{SO}(3)$. Then, we find that on the Lie-algebra level, $\mathfrak{t} \subset \mathbb{R}^{2}$ is a $2$-dimensional subalgebra. Contradiction, so $S^{1}$ is the maximum torus of $\rm{SO}(3)$. 
+\end{proof}
+
+\noindent \textbf{References:} \textcite{WangZuoqinLieGroups2013}
+
+\subsection{Weyl Chambers and Coadjoint Orbits}
+
+Now, we would like to decompose $\mathfrak{so}(3)$ using spherical coordinates 
+
+\begin{theorem}\label{thm:weyl-chamber-unique}
+For each point $\mu_{0} \in \mathfrak{g}_{reg}^{*}$, there passes a unique Weyl chamber. Furthermore, the intersection of an orbit and Weyl chamber is transverse. 
+\end{theorem}
+
+\begin{proof}
+Equipped with the isomorphism, for each point $p \in (\mathbb{R}^{3}) \setminus \{0\}$, take the line in the dual space passing through $p$. Therefore, Weyl chambers are rays from the origin. The coadjoint orbits are spheres, and it suffices to note that the intersection of a ray and a sphere is transverse. 
+\end{proof}
+
+\begin{theorem}\label{thm:weyl-chamber-stabilizer}
+If $\mathcal{W}$ is a Weyl chamber in $\mathfrak{g}^{*}$, then $G_{w_{1}} = G_{w_{2}}$, for $w_{1}, w_{2} \in \mathcal{W}$
+\end{theorem}
+
+\begin{proof}
+Since $w_{1}, w_{2}$ are in the same Weyl chamber, one is a positive scalar multiple of the other. Then, taking exponentials, their stabilizer subgroups are the same. 
+\end{proof}
+
+\begin{theorem}\label{thm:spherical-coordinates}
+The following is a diffeomorphism:
+\begin{equation}
+\gamma: \mathbb{R}^{3} \setminus \{0\} \to (0, \infty) \times S^{2}
+\end{equation}
+\begin{equation}
+\gamma(x) = \left( \|x\|, \frac{x}{\|x\|} \right)
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The diffeomorphism is spherical coordinates taking on $\mathbb{R}^{3}$. To each point we identify a direction and a radius. Therefore, there exists a diffeomorphism between the product of a Weyl chamber and an associated orbit. 
+\end{proof}
+
+\noindent \textbf{References:} \textcite{Blaom1996}
+
+\subsection{Moment Maps and Fibre Bundles}
+\begin{theorem}\label{thm:stabilizer-dimension}
+If $(P, \omega, \mathrm{SO}(3), J)$ is a Hamiltonian $\mathrm{SO}(3)$-space with regular momenta, then $\dim \mathrm{SO}(3)_{x} \leq 1$ for each $x \in P$
+\end{theorem}
+\begin{proof}
+By $\mathrm{SO}(3)$-equivariance of $J$, we know that $dJ_{x}(X_{p}^{\#}(x)) = X^{\#}_{\mathfrak{so}(3)^{\#}}(J(x))$ for all $x \in P$. If $X \in \mathfrak{so}(3)_{x}$, then $X_{P}^{\#}(x) = 0$, and so:
+\begin{equation}
+X^{\#}_{\mathfrak{so}(3)^{\#}}(J(x)) = 0 \in \mathfrak{so}(3)_{J(x)}
+\end{equation}
+Now, $\mathfrak{so}(3)_{J(x)}$ cannot have dimension $3$ by the regular momentum assumption, and since $\mathbb{R}^{3}$ does not admit two-dimensional subalgebras, it has dimension less than or equal to $1$:
+\begin{equation}
+\mathfrak{so}(3)_{x} \subset \mathfrak{so}(3)_{J(x)} \Rightarrow \dim \mathfrak{so}(3)_{x} \leq 1
+\end{equation}
+\end{proof}
+
+Define the two key projections:
+
+\begin{align}
+\pi_{\mathcal{O}}: P \to S^{2}, \; \pi_{\mathcal{O}}(x) = \frac{J(x)}{\|J(x)\|} && \pi_{\mathcal{W}}: P \to \mathbb{R}^{+}, \; \pi_{\mathcal{W}}(x) = \|J(x)\|
+\end{align}
+
+\begin{lemma}
+$\pi = \pi_{\mathcal{O}}$ is surjective
+\end{lemma}
+
+\begin{proof}
+Since the momentum image is not trivial, there exists elements $g \in G$, $w \in \mathcal{W}$, and $x \in P$ such that $J(x) = g \cdot w$, where $J$ is the momentum map. This implies that $G \cdot w \in \operatorname{Im}(J)$. Now, we note that $\pi_{\mathcal{O}}$ maps each coadjoint orbit diffeomorphically onto $\mathcal{O}$. Therefore: there exists $h \in G \cdot w$ such that $\pi_{\mathcal{O}} (h) = \mu$. Furthermore, there exists $x' \in P$ such that $J(x') = \nu$. This proves that $\pi_{\mathcal{O}} \circ J$ is surjective.
+\end{proof}
+
+\begin{theorem}
+$\pi^{-1}(\mu)$ is a fibre bundle $P \to \mathcal{O}$:
+\end{theorem}
+
+\begin{proof}
+We can verify that the differential map $d\pi_{\mathcal{O}}|_{J(x)} \circ dJ_x$ is surjective. Therefore, each fibre $\pi^{-1}(\mu)$ forms a submanifold of $P$. Now, we must construct local trivializations to complete the proof. Consider a point $\mu_0 \in \mathcal{O}$ and its isotropy subgroup $G_{\mu_0}$. For any neighborhood $U$ of $\mu_0$, we construct a $G_{\mu_0}$-invariant neighborhood:
+\begin{equation}
+U' = \bigcup_{h \in G_{\mu_0}} h(U)
+\end{equation}
+Since the actions of $G$ by left multiplication and its inverse are continuous, the following sets are open:
+\begin{align}
+U_1' &= \bigcup_{g \in G} g \cdot U'\\
+U_2' &= \bigcup_{g \in G} g^{-1} \cdot U'
+\end{align}
+Taking the intersection $U = U_1' \cap U_2'$, we obtain a neighborhood with two important properties:
+\begin{enumerate}
+\item $U$ is $G_{\mu_0}$-invariant
+\item If $g \cdot \mu_0 \in U$, then $g^{-1} \cdot \mu_0 \in U$
+\end{enumerate}
+Now, choose $s$ to be a local section of the principal $G_{\mu_0}$-bundle $G \to G/G_{\mu_0}$ such that:
+\begin{equation}
+s(g G_{\mu_0}) = g
+\end{equation}
+Also, define the diffeomorphism:
+\begin{equation}
+\phi_{\mu_0}(g G_{\mu_0}) = g \cdot \mu_0
+\end{equation}
+
+\noindent The map $\psi: U \times F \to \pi^{-1}(U)$ defined by:
+\begin{equation}
+\psi(\mu, x) = s(\phi^{-1}_{\mu_0}(\mu)) \cdot x
+\end{equation}
+is a local bundle chart, where $F$ denotes the fibre. First, we verify that $\psi$ maps correctly by examining its composition with $\pi$:
+\begin{equation}
+\pi(\psi(\mu, x)) = \pi(s(\phi_{\mu_0}^{-1}(\mu)) \cdot x) = \phi_{\mu_0}(\phi_{\mu_0}^{-1}(\mu)) = \mu
+\end{equation}
+This shows that $\psi$ preserves the fibres of $\pi$. Next, we show that $\psi$ is well-defined and invertible. For any $y \in \pi^{-1}(U)$:
+\begin{equation}
+\psi(\psi^{-1}(y)) = s \circ \phi^{-1}_{\mu_0} \circ \pi \circ \phi_{\mu_0} \circ s^{-1}(y) = y
+\end{equation}
+Since both $\psi$ and $\psi^{-1}$ are smooth maps, we conclude that $\psi$ is a diffeomorphism and thus a local bundle chart. The inverse map can be expressed as:
+\begin{equation}
+\psi^{-1}(y) = (\pi(y), (s(\phi_{\mu_0}^{-1}(\pi(y))))^{-1} \cdot y)
+\end{equation}
+
+\noindent The local charts for our bundle are:
+\begin{equation}
+U_{\mu} = \{g \cdot U: g \in \phi_{\mu_0}^{-1}(\mu) \}
+\end{equation}
+Recall that $\phi_{\mu_0}^{-1}(\mu) = g G_{\mu_0}$ corresponds to elements satisfying $g \cdot \mu_0 = \mu$. Since $\mathcal{O}$ is compact, we can extract a finite subcover $\{U_{\mu_k}\}_{k=1}^n$ of these sets.
+For each $k$, we define the local trivialization:
+\begin{equation}
+\psi_k: U_{\mu_k} \times F \to \pi^{-1}(U_{\mu_k})
+\end{equation}
+\begin{equation}
+\psi_k(\mu, x) = g_k \cdot \psi(g_k^{-1} \cdot \mu, x)
+\end{equation}
+where $g_k \in G$ satisfies $g_k \cdot \mu_0 = \mu_k$. The transition functions between overlapping charts are:
+\begin{align}
+\psi_j^{-1} \circ \psi_k&: (U_{\mu_j} \cap U_{\mu_k}) \times F \to (U_{\mu_j} \cap U_{\mu_k}) \times F\\
+\psi_j^{-1} \circ \psi_k(\mu, x) &= (\mu, g_j^{-1} g_k \cdot x)
+\end{align}
+These transition functions take values in a subgroup of the maximal torus $T$, which completes the proof that $\pi: P \to \mathcal{O}$ is a fibre bundle with structure group contained in $T$.
+\end{proof}
+
+\begin{theorem}[\textcite{Blaom1996}] \label{thm:fibre-bundle}
+$\pi: P \to \mathcal{O}$ is a fibre bundle, with the structure group of the bundle being a subgroup of the maximal torus, $T$. 
+\end{theorem}
+
+\subsection{Symplectic Properties of Moment Maps}
+\begin{theorem}[Guillemin and Sternberg]\label{thm:transverse-symplectic}
+Let $Z$ be a submanifold of $\mathfrak{g}^*$ such that $J$ is transverse to $Z$ and:
+$T_{z} Z \oplus T_{z}(G \cdot z) = \mathfrak{g}^* $. Then $J^{-1}(Z)$ is a symplectic submanifold of $P$. 
+\end{theorem}
+
+\begin{lemma}
+By equivariance, $dJ_{x}$ spans the tangent space to a coadjoint orbit $\mathcal{O}$. Since $Z = \mathcal{W}$ is transverse to $\mathcal{O}$, it follows that $dJ_{x}$ intersects $\mathcal{W}$ transversely, and we can apply Theorem \ref{thm:transverse-symplectic} to $Z = \mathcal{W}$, to find that: $J^{-1}(\mathcal{W})$ is a symplectic submanifold. Note that fibres of $\pi: P \to \mathcal{O}$ are just $J^{-1}(\mathcal{W})$. Therefore, using the symplectic form on each submanifold, we have a smoothly varying choice of vector spaces $V_{x} = \operatorname{Ker} d \pi_{x}$: $T_{x} P \cong V_{x} \oplus V_{x}^{\omega}$
+\noindent This can be phrased as there exists a projection map: $\beta: TP \to \ker d\pi_{x} $
+  
+\end{lemma}
+
+\begin{theorem}[{\cite{Blaom1996}}]\label{thm:kernel-moment-map}
+Let $v \in \operatorname{Ker} dJ_{x}$. Then $v \in \left[ T_{x} J(G \cdot x) \right]^{\omega}$.
+\end{theorem}
+
+\begin{proof}
+The result follows from the identity
+\begin{equation}
+dJ_{x}(w) = \omega(\xi, w), \quad \xi \in T_{x} J(G \cdot x). 
+\end{equation}
+\end{proof}
+
+\begin{theorem}\label{thm:horizontal-tangent}
+The horizontal subspace satisfies
+\begin{equation}
+\operatorname{Hor}_{x} \subset T_{x}(G \cdot x).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Recall that $\operatorname{Hor}_{x} = \ker d\pi_{x}$. Since $\operatorname{Ker} dJ_{x} \subset \operatorname{Ker} d\pi_{x}$, we have $\operatorname{Ker} dJ_{x} \subset \operatorname{Hor}_{x}$. By Theorem~\ref{thm:kernel-moment-map}, we obtain $\operatorname{Hor}_{x} \subset T_{x}(G \cdot x)$.
+\end{proof}
+
+\begin{theorem}\label{thm:map-onto-horizontal}
+The fundamental vector field map $\xi \mapsto \xi_{P}$ maps $\mathfrak{t}^{-}$ onto $\operatorname{Hor}_{x}$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:horizontal-tangent}, it suffices to establish injectivity, i.e., $\mathfrak{g}_{x} \cap \mathfrak{t}^{-} = \{0\}$. This follows immediately from the fact that $\mathfrak{g}_{x} = \mathfrak{t}$.
+\end{proof}
+
+\begin{theorem}\label{thm:derivative-moment-map}
+The differential of the momentum map $dJ_{x}$ sends 
+\begin{align}
+\operatorname{Hor}_{x} \text{ to } T_{J(x)}(G \cdot J(x)) \cong \underline{\mathfrak{t}}^{-} \subset \mathfrak{g}^{*}
+\end{align}
+
+\end{theorem}
+
+\begin{proof}
+We need to show that $\operatorname{Hor}_{x} \cap \operatorname{Ker} dJ_{x} = \{0\}$. Since 
+
+\begin{align}
+\operatorname{Ker} dJ_{x} \subset \operatorname{Ker} d\pi_{x} && \operatorname{Hor}_{x} \cap \operatorname{Ver}_{x} = \{0\}
+\end{align}
+
+\noindent the result follows.
+\end{proof}
+
+\begin{theorem}\label{thm:symplectic-pairing}
+For any $\xi, \nu \in \mathfrak{g}$, the symplectic form satisfies
+\begin{equation}
+\omega(\xi_{P}(x), \nu_{P}(x)) = \langle J(x), [\xi, \nu] \rangle,
+\end{equation}
+where $\langle \cdot, \cdot \rangle$ denotes the canonical pairing between $\mathfrak{g}^*$ and $\mathfrak{g}$.
+\end{theorem}
+
+\begin{proof}
+The following computation yields the necessary result:
+\begin{equation}
+\omega(\xi_{P}(x), \nu_{P}(x)) = \omega(X_{J_{\xi}}(x), X_{J_{\nu}}(x)) = J_{[\xi, \nu]}(x) = \langle J(x), [\xi, \nu] \rangle. \qedhere
+\end{equation}
+\end{proof}
+
+\begin{remark}
+Theorem~\ref{thm:symplectic-pairing} establishes the fundamental relationship between the symplectic structure on $P$ and the Lie algebra structure of $\mathfrak{so}(3)$, completing the generalization of Delzant's correspondence to the $\mathrm{SO}(3)$ case described in \textcite{Blaom1996}
+\end{remark} \bigskip
+
+\noindent \textbf{References:} \textcite{Blaom1996}
+
+\newpage 
+\setcounter{section}{7}

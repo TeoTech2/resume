@@ -1,0 +1,93 @@
+
+\newcommand{\Ad}{\operatorname{Ad}} % Adjoint representation
+\newcommand{\ad}{\operatorname{ad}} % Lie algebra adjoint action
+
+\noindent The following appendix sheds some light on basic results on the structure theory of Lie-algebras. Although the thesis does not use much of Lie theory, one can observe many results there follow from these observations as well. The following treatment is derived from \textcite{WangZuoqinLieGroups2013}. One important result in Lie-theory is that we have Riemannian Metrics on Lie-groups:
+
+\begin{theorem}[Existence of Bi-invariant Riemannian Metrics]
+\label{BiInvariantMetric}
+Consider a lie group $G$. There exists a Riemannian metric $\langle \cdot, \cdot \rangle$ on $G$, that is left and right $g$-invariant. 
+\end{theorem}
+
+\begin{remark}
+For a proof of this result, see \textcite{WangZuoqinLieGroups2013}
+\end{remark}
+
+\begin{theorem}[Existance of Complete Geodesics]
+\label{CompleteGeodesics}
+If a Riemannian Manifold $(G, \langle \cdot, \cdot \rangle)$ is compact and connected, it has complete geodesics\end{theorem}
+
+\begin{remark}
+Let $x \in G$. Then for any $X \in T_{x} G$, we have that: 
+$\exp_{t}: X \mapsto \exp(tX)$ being onto map, where $X \in T_{x} G$ 
+\end{remark}
+
+First, let's prove the following lemma:
+\begin{lemma}[Decomposition of $\mathfrak{g}$]
+\label{DecomLieLemma}
+Let $G$ be a Lie-group, and $\mathfrak{g}$ be its Lie-algebra, and $T \lhd G$ be the maximal toric subgroup of $G$. Let $\mathfrak{t}$ be the Lie-algebra of $T$. Then, we have the following decomposition theorem: $\mathfrak{g} = \bigcup_{g \in G} \Ad_{g}(\mathfrak{t})$
+\end{lemma}
+\begin{proof}
+By definition of the $\Ad_{g}$ action, this is equivalent to showing for any $X \in \mathfrak{g}$ that there exists $g' \in G$ such that $\Ad_{g'}(X) \in \mathfrak{t}$. Consider the bi-invariant Riemannian metric $\langle \cdot, \cdot \rangle$ on $G$. Note that:
+\[
+\langle dL_{g} X, dL_{g} Y \rangle = \langle dR_{g} X, dR_{g} Y \rangle = \langle X, Y \rangle
+\]
+Therefore, for $X, Y \in \mathfrak{g}$ and $g \in G$, we have that the metric is $\Ad$-invariant:
+\[
+\langle \Ad_{g} X, \Ad_{g} Y \rangle = \langle X, Y \rangle
+\]
+Now, consider the continuous function $f$, defined on $G$: $f(g) = \langle Y, \Ad_{g}(X) \rangle$. This function takes its maximum value at $h_{0} \in G$, so we now consider: $w(t) = \langle Y, \Ad_{\exp(tZ)} \Ad_{h_{0}} X \rangle$. Taking the derivative of $w$ at $t = 0$, we have that:
+\begin{align}
+\dot{w}(0) &= \langle Y, \ad_{Z} \Ad_{h_{0}} X \rangle\\
+&= \langle Y, \ad_{Z} \Ad_{h_{0}} X \rangle = 0
+\end{align}
+Using the definition of $\ad_{Y}(Z) = -\ad_{Z}(Y) = [Y, Z]$:
+\[
+\dot{w}(0) = \langle Y, \ad_{(\Ad_{h_{0}} X)} Z \rangle = 0
+\]
+Now, since $\ad$ is the Lie bracket, it is skew-symmetric:
+\[
+\dot{w}(0) = \langle \ad_{(\Ad_{h_{0}} X)} Y, Z \rangle = 0
+\]
+As the dot product vanishes for all $Z$, we deduce that: $\ad_{(\Ad_{h_{0}} X)} Y = 0$. Therefore, $(\Ad_{h_{0}} X) \in \ker \ad(Y)$. However, we choose $Y$ such that $\ker \ad(Y) = \mathfrak{t}$ since $\mathfrak{t}$ is a maximal abelian subalgebra. This concludes the proof of the lemma.
+\end{proof}
+\begin{remark}
+The following lemma allows us to prove that any Lie-group $G$ is the union of conjugate tori $T \lhd G$. 
+\end{remark}
+
+\begin{theorem}[Lie Group is Union of Conjugate Tori]
+Let $G$ be a compact Lie group, and $T$ a maximal torus of $G$. Then:
+\begin{equation}
+G = \bigcup_{g \in G} \left(gTg^{-1}\right) 
+\end{equation} \end{theorem}
+\begin{proof}
+According to Lemma \ref{DecomLieLemma}: $\mathfrak{g} = \bigcup_{g \in G} \Ad_{g}(\mathfrak{t})$. Then, the result follows by integrating both sides, which we can do as $G$ is compact.
+\end{proof}
+
+\begin{theorem}
+All maximal tori of $G$, $G_{\mu} = T_{\mu} \subset G$ are conjugate 
+\end{theorem}
+
+\begin{proof}
+There exists a $1$-$1$ correspondence between maximal tori in $G$ and maximal abelian subalgebras in $\mathfrak{g}$ using the exponential map For maximality, we have that $H$ is abelian if and only if $T_{e}H$ is abelian. Then we use Lie's Classification Theorem, that a maximal connected compact abelian subgroup is a torus.
+\end{proof}
+
+\begin{remark}
+Also, we note that the following is an elementary instructive exercise about the $\Ad_{g}$ invariance of the Lie bracket.
+\end{remark}
+
+\begin{lemma}
+Let $G$ be a compact Lie group and $\mathfrak{t} \subset \mathfrak{g}$ a Cartan subalgebra, then any Cartan subalgebra $\mathfrak{t}'$ of $\mathfrak{g}$ is of the form $\Ad_{g}(\mathfrak{t})$ for some $g \in G$ 
+\end{lemma}
+
+\begin{proof}
+Then, from the above reasoning, we have if $T$ is a maximal torus, then its Lie algebra $\mathfrak{t}$ is a maximal abelian subalgebra, and can therefore be written as:
+\begin{equation}
+\mathfrak{t}' = \Ad_{g}(\mathfrak{t})
+\end{equation}
+Integrating both sides via $t \mapsto \exp(tX)$ we have that:
+\begin{equation}
+T' = gTg^{-1}
+\end{equation}
+\end{proof}
+\noindent \textbf{References:} \textcite{Wildberger1992}, \textcite{WangZuoqinLieGroups2013}

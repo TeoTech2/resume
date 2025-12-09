@@ -1,0 +1,193 @@
+\section{Action Classification and Realization Theorems}
+In general, we can realize each of the four prototypes, and therefore, we have a classification theorem for spaces admitting effective, Hamiltonian $\mathrm{SO}(3)$ actions, with regular momenta. To do so, we use Lemma \ref{lem:so3-sphere-hamiltonian}. In this section we 
+
+\begin{enumerate}
+    \item Prove \ref{lem:so3-sphere-hamiltonian}
+    \item Give the classification theorem
+\end{enumerate}
+
+\subsection{Classification of Moment Images}
+
+\begin{lemma}\label{lem:so3-sphere-hamiltonian}
+Whenever $r>0$, the action of $\mathrm{SO}(3)$ on $S^2(r)$ given by evaluations is Hamiltonian, with moment map given by the inclusion $S^2(r) \hookrightarrow \mathbb{R}^3$ \textcite{MarsdenWeinstein1974}.
+\end{lemma}
+\begin{proof}
+\label{MomentMapIsInclusion}
+Since the coadjoint action of $\mathrm{SO}(3)$ on $\mathbb{R}^3$ is evaluation, the infinitesimal vector fields are $X^{\#}_a = \phi^{-1}(X) \times a$ where $\phi \colon \mathbb{R}^3 \to \mathfrak{so}(3)$ and $X \in \mathfrak{so}(3)$, and $a \in \mathbb{R}^3$. Recall the triple-product identity when $x \perp v$: $(a \times x) \times v = -x (a \cdot v)$. Then we note that $x \cdot ((a \times x) \times v) = -x \cdot (x (a \cdot v)) = - a \cdot v$. As we made the canonical isomorphism, we are in $\mathbb{R}^{3}$, where $\omega_{x}$ is the area form: $\omega_{x}(v,w) = x \cdot (v \times w)$. Therefore:  $\omega_{x}(X_{a}, v) = a \cdot v $. Let $\mu(x) = x$. Then: 
+
+\begin{align}
+d \langle \mu(x), a \rangle = a \cdot v &&  d \mu^{a}_{x}(v) = \omega_{x}(X_{a}, v)
+\end{align}
+
+\noindent This verifies that $\mu$ is indeed a moment map. 
+\end{proof}
+Now, according to Lemma \ref{lem:so3-sphere-hamiltonian}, and using Lemma \ref{lem:so3-isomorphism}, we have the following prototypes of our classification theorem, therefore, we declare using these two lemmas: 
+
+% \begin{enumerate}
+%     \item Dimension: $2$. Faithful: Yes.\\  
+%     Manifold: $S^2(r)$.\\  
+%     Action: $A : p \mapsto A\,p$, where $p \in S^2(r)$.\\  
+%     Moment map image: $\mu(M) = S^2(r) \subset \mathbb{R}^3$ \cite{GuilleminSternberg1982}.
+
+%     \item Dimension: $4$. Faithful: Yes.\\  
+%     Manifold: $S^2(r_1) \times S^2(r_2)$, with $r_1 < r_2$.\\  
+%     Action: $A : (p,q) \mapsto (A\,p,\,A\,q)$.\\  
+%     Moment map image: $\{\,x \in \mathbb{R}^3 : r_2 - r_1 \leq \|x\| \leq r_1 + r_2\}$ (a closed hollow ball) \cite{MelvinParker1986}.
+
+%     \item Dimension: $4$. Faithful: Yes.\\  
+%     Manifold: $S^2(r) \times S^2(r)$.\\  
+%     Action: $A : (p,q) \mapsto (A\,p,\,A\,q)$.\\  
+%     Moment map image: $\{\,x \in \mathbb{R}^3 : \|x\| \leq 2r\}$ (a closed ball of radius $2r$) \cite{Blaom1996}.
+
+%     \item Dimension: $4$. Faithful: No.\\  
+%     Manifold: for example, a sphere with a trivial action.\\  
+%     Action: $A : p \mapsto p$.\\  
+%     Moment map image: $\mu(M) = \{0\}$ (the origin) \cite{Arnold2010}.
+
+%     \item Dimension: $4$. Faithful: Yes.\\  
+%     Manifold: $S^2(r) \times S^2(r')$.\\  
+%     Action: for instance $A : (p,q) \mapsto (A\,p,\,q)$ (partial action).\\  
+%     Moment map image: another sphere \cite{Silva2001}.
+% \end{enumerate}
+
+\begin{table}[h]
+\small
+\renewcommand{\arraystretch}{0.9}
+\begin{tcolorbox}[
+  enhanced,
+  colback=white,
+  colframe=blue!75!black,
+  boxrule=0.3mm,
+  width=\textwidth,
+  arc=2mm,
+  boxsep=1pt,
+  left=2pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt
+]
+\begin{tabular}{>{\centering\arraybackslash}p{0.6cm}|>{\centering\arraybackslash}p{0.6cm}|>{\centering\arraybackslash}p{2.2cm}|>{\centering\arraybackslash}p{2.5cm}|>{\centering\arraybackslash}p{8cm}}
+\toprule
+\textbf{$\dim$} & \textbf{F?} & \textbf{$M$} & \textbf{Action} & \textbf{$\mu(M)$} \\
+\midrule
+
+$2$ & Y & $S^2(r)$ & $A \cdot p = Ap$ & 
+\begin{minipage}{8cm}
+\centering
+\begin{tikzpicture}[baseline, scale=0.17, tdplot_main_coords]
+    \tdplotsetrotatedcoords{20}{20}{0}
+    \begin{scope}[tdplot_rotated_coords]
+    \draw[blue!50, thin] (0,0,0) circle (2);
+    \draw[-stealth] (0,0,0) -- (2.5,0,0) node[anchor=north east,font=\tiny]{$x$};
+    \draw[-stealth] (0,0,0) -- (0,2.5,0) node[anchor=north west,font=\tiny]{$y$};
+    \draw[-stealth] (0,0,0) -- (0,0,2.5) node[anchor=south,font=\tiny]{$z$};
+    \end{scope}
+\end{tikzpicture}
+\quad
+{\scriptsize \textbf{Sphere} $S^2(r)$ \quad $\{x \in \mathbb{R}^3 : \|x\| = r\}$}
+\end{minipage} \\ 
+
+$4$ & Y & $S^2(r_1) \times S^2(r_2)$ & $A \cdot (p,q) = (Ap, Aq)$ & 
+\begin{minipage}{8cm}
+\centering
+\begin{tikzpicture}[baseline, scale=0.17, tdplot_main_coords]
+    \tdplotsetrotatedcoords{20}{20}{0}
+    \begin{scope}[tdplot_rotated_coords]
+    \draw[blue!30, fill=blue!10, fill opacity=0.3] (0,0,0) circle (2.5);
+    \draw[red!30, fill=white, fill opacity=0.8] (0,0,0) circle (1);
+    \draw[-stealth] (0,0,0) -- (3,0,0) node[anchor=north east,font=\tiny]{$x$};
+    \draw[-stealth] (0,0,0) -- (0,3,0) node[anchor=north west,font=\tiny]{$y$};
+    \draw[-stealth] (0,0,0) -- (0,0,3) node[anchor=south,font=\tiny]{$z$};
+    \end{scope}
+\end{tikzpicture}
+\quad
+{\scriptsize \textbf{Hollow ball} \quad $\{x \in \mathbb{R}^3 : r_2 - r_1 \leq \|x\| \leq r_1 + r_2\}$}
+\end{minipage} \\ 
+
+$4$ & Y & $S^2(r) \times S^2(r)$ & $A \cdot (p,q) = (Ap, Aq)$ & 
+\begin{minipage}{8cm}
+\centering
+\begin{tikzpicture}[baseline, scale=0.17, tdplot_main_coords]
+    \tdplotsetrotatedcoords{20}{20}{0}
+    \begin{scope}[tdplot_rotated_coords]
+    \shade[ball color=blue!40, opacity=0.4] (0,0,0) circle (2.5);
+    \draw[blue!50] (0,0,0) circle (2.5);
+    \draw[-stealth] (0,0,0) -- (3,0,0) node[anchor=north east,font=\tiny]{$x$};
+    \draw[-stealth] (0,0,0) -- (0,3,0) node[anchor=north west,font=\tiny]{$y$};
+    \draw[-stealth] (0,0,0) -- (0,0,3) node[anchor=south,font=\tiny]{$z$};
+    \end{scope}
+\end{tikzpicture}
+\quad
+{\scriptsize \textbf{Closed ball} \quad $\{x \in \mathbb{R}^3 : \|x\| \leq 2r\}$}
+\end{minipage} \\ 
+
+$2$ & N & $S^2$ & $Ap = p$ & 
+\begin{minipage}{8cm}
+\centering
+\begin{tikzpicture}[baseline, scale=0.17, tdplot_main_coords]
+    \tdplotsetrotatedcoords{20}{20}{0}
+    \begin{scope}[tdplot_rotated_coords]
+    \fill[black] (0,0,0) circle (0.15);
+    \draw[-stealth] (0,0,0) -- (3,0,0) node[anchor=north east,font=\tiny]{$x$};
+    \draw[-stealth] (0,0,0) -- (0,3,0) node[anchor=north west,font=\tiny]{$y$};
+    \draw[-stealth] (0,0,0) -- (0,0,3) node[anchor=south,font=\tiny]{$z$};
+    \end{scope}
+\end{tikzpicture}
+\quad
+{\scriptsize \textbf{Origin point} \quad $\{0\}$}
+\end{minipage} \\ 
+
+$4$ & Y & $S^2(r) \times S^2$ & $A \cdot (p,q) = (Ap, q)$ & 
+\begin{minipage}{8cm}
+\centering
+\begin{tikzpicture}[baseline, scale=0.17, tdplot_main_coords]
+    \tdplotsetrotatedcoords{20}{20}{0}
+    \begin{scope}[tdplot_rotated_coords]
+    \draw[blue!50, thick] (0,0,0) circle (2);
+    \draw[-stealth] (0,0,0) -- (3,0,0) node[anchor=north east,font=\tiny]{$x$};
+    \draw[-stealth] (0,0,0) -- (0,3,0) node[anchor=north west,font=\tiny]{$y$};
+    \draw[-stealth] (0,0,0) -- (0,0,3) node[anchor=south,font=\tiny]{$z$};
+    \end{scope}
+\end{tikzpicture}
+\quad
+{\scriptsize \textbf{Sphere} \quad $S^2(r)$}
+\end{minipage} \\
+\bottomrule
+\end{tabular}
+\end{tcolorbox}
+\caption{\small Moment map images for different manifolds and group actions}
+\end{table}
+
+\begin{remark}
+Note that there are several faithful cases.
+\end{remark}
+
+\begin{theorem}\label{thm:so3-classification}
+Any compact, connected Hamiltonian $\mathrm{SO}(3)$-space with regular momenta has a moment map whose image is one of the following $\mathrm{SO}(3)$-invariant subsets of $\mathbb{R}^3$:
+\begin{enumerate}
+    \item A sphere $S^2(r)$ of radius $r > 0$,
+    \item A closed hollow ball $\{x \in \mathbb{R}^3 : r_1 \leq \|x\| \leq r_2\}$ where $0 < r_1 < r_2$,
+    \item A closed ball $\{x \in \mathbb{R}^3 : \|x\| \leq r\}$ where $r > 0$, or
+    \item The origin $\{0\}$.
+\end{enumerate}
+Moreover, for each of these possibilities, there exists a Hamiltonian $\mathrm{SO}(3)$-space whose moment map has precisely this image.
+\end{theorem}
+This classification theorem, combined with our generalized Delzant correspondence (Theorem \ref{thm:delzant-so3}), provides a complete characterization of Hamiltonian $\mathrm{SO}(3)$-spaces with regular momenta, up to equivariant symplectomorphism. As shown in the previous section, the regularity condition is essential, as without it, non-equivalent spaces such as $\mathbb{CP}^2$ and $S^2(r) \times S^2(r)$ can have identical moment map images. \bigskip  
+
+\noindent \textbf{References: } \textcite{Delzant1988, MelvinParker1986}.
+
+\subsection{Areas of Future Inquiry}
+
+We have that $4$-manifolds admitting effective $\mathrm{SO}(3)$-actions, but it's not easy to figure out which of them (beyond the ones we have previously mentioned) may admit symplectic forms. \textcite{MelvinParker1986} described a list of manifolds supporting Hamiltonian, effective actions: 
+\begin{enumerate}
+    \item $S^4$ or $\pm \mathbb{C}P^2$
+    \item Connected sums of copies of $S^1 \times S^3$ and $S^1 \times P^3$
+    \item $(SU(2)/H)$-bundles over $S^1$ \quad ($H$ a finite subgroup of $SU(2)$)
+    \item $S^2$-bundles over surfaces
+    \item Certain quotients of $S^2$-bundles over surfaces by involutions.
+\end{enumerate}
+Yet due to cohomological restrictions, many of these do not support a symplectic form.
+
+\newpage
+
+\setcounter{section}{10}

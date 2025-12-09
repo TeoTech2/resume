@@ -1,0 +1,123 @@
+\newpage
+\section{Lecture 5: Quantum mechanics; finite dimensional systems}
+
+\subsection{Quantum mechanical formalism}
+Motivating and physically describing the formalism of quantum theory is a challenge for the physics instructor. However, the mathematical formalism of quantum mechanics is surprisingly simple.
+
+\begin{definition}
+The \emph{unitary data}\footnote{In this lecture, we outline a formulation of quantum mechanics where physically meaningful wavefunctions are required to have unit norm. In Lecture 8, we will discuss an equivalent formulation where the normalization condition is no longer imposed, but two wavefunctions are declared the same up to scaling by a nonzero complex number. This will be referred to as \emph{projective data}.} of a \emph{quantum mechanical (QM)} system is a pair $(\cH, U)$ consisting of a complex separable Hilbert space [WHAT IS IT] $\cH$ and an evolution map $U: \R^2 \times \cH \to \cH$, which we write as $U(t_1, t_0, v) = U_{t_0, t_1}(v)$ for $t_0, t_1 \in \R$ and $v \in \cH$. We think of $U_{t_1, t_0}$ as follows. If $v \in \cH$ is the state of the system at time $t_0$, then $U_{t_1, t_0} v$. In this interpretation, it is natural to require that
+\begin{equation*}
+    U_{t_0, t_0} = 1, \quad U_{t_2, t_1} U_{t_1, t_0} = U_{t_2, t_0}
+\end{equation*}
+for all $t_0, t_1, t_2 \in \R$. A vector $v \in \cH$ is called \emph{normalized} if $||v|| = 1$. We assert that $v$ can represent a physical state if and only if it is normalized. In order for time evolution to be possible in this interpretation, $U$ must map normalized states to normalized states. Therefore, we require the linear operator
+\begin{equation*}
+    U_{t_0, t_1}: \cH \to \cH
+\end{equation*}
+to be unitary for all $t_0, t_1$. Last but not least, we require that $U(t_0, t_1, v)$ is differentiable with respect to $t_0$ and $t_1$ [MAKE PRECISE], capturing the intuition that time evolution happens in a smooth matter.\footnote{Later we will talk about wavefunction collapse. In the present formulation of quantum mechanics, wavefunction collapse happens discontinuously.}
+\end{definition}
+
+The reader who has heard of quantum mechanics before has probably heard of the Hamiltonian. Where does it come into our picture? Pick some time $t_0 \in \R$, and suppose the system at time $t_0$ is described by the vector $v_0$. At time $t$, the state is $v(t) = U_{t, t_0}v_0$. Since we have required time evolution to be smooth, we may take the derivative $\pd_t U_{t, t_0}$, and we may define the operator $A(t)$ by $A(t) \coloneqq \left(\pd_t U_{t, t_0}\right)U_{t_0, t}$\footnote{One can verify that $A$ is independent from $t_0$.}. Then, [CITE MIT OCW NOTES OR SOMETHING]
+\begin{equation*}
+    \pd_t v(t) = \left(\pd_t U_{t, t_0}\right) v_0 = A(t) v(t),
+\end{equation*}
+and the rate of change of the norm-squared $||v||^2 = v^\dag v$ is
+\begin{equation*}
+    \pd_t \left(v^\dag v\right) = (A v)^\dag v + v^\dag A v = v^\dag(A^\dag + A) v.
+\end{equation*}
+But $||v|| = 1$ is constant, so the time-derivative is zero. Since $v^\dag(A^\dag + A) v$ is zero for all normalized vectors $v$, we see that $A^\dag + A = 0$, so $A$ is anti-hermitian. Defining $H \coloneqq i A$, we see that $H$ is Hermitian and
+\begin{equation*}
+    \pd_t v(t) = H(t) v(t).
+\end{equation*}
+This is the \emph{Schrodinger equation}, derived from the condition of unitarity. The exact value of the \emph{Hamiltonian} depends $H$, of course, on the particular system in question, and it cannot be deduced from these general principles. Due to time translation invariance in physics, $H$ is often time-independent\footnote{Time-dependent Hamiltonians may arise if we are modeling a system subjected to external time-dependent forces, such as a nuclear spin precessing in an external time-dependent magnetic field.}. In that case, the family of operators $\tilde U_t = U_{t, 0}$ for $t \in \R$ forms a representation of $\R$, and we recover the description of quantum-mechanical systems that Dan Freed has provided.
+
+\subsubsection{Dual vectors and the bra-ket notation}
+For a vector $u \in \cH$, we define the \emph{dual vector} or \emph{covector} $u^\dag$ as the linear map $u^\dag: \cH \to \C$ that sends a vector $v \in \cH$ to the inner product $\iprod{u}{v}$. We let
+\begin{equation}
+    \cH^* = \{u^\dag: u \in \cH\}
+\end{equation}
+be the dual vector space to $\cH$. Since $\iprod{\cdot}{\cdot}$ is positive definite and $\cH$ finite-dimensional, $\cH^*$ is isomorphic to $\cH$ via the map $\phi: \cH \to \cH^*$ that sends $v$ to $v^\dag$. For covectors $\omega \in \cH^*$, define the conjugate by $\omega^\dag = \phi^{-1}(\omega)$, so that $(v^\dag)^\dag = v$ and $(\omega^\dag)^\dag = \omega$ for all vectors $v$ and covectors $\omega$. For a linear operator $A: \cH \to \cH$, the \emph{adjoint} $A^\dag$ is defined by
+\begin{equation}
+    A^\dag u \coloneqq (u^\dag A)^\dag.
+\end{equation}
+That is, given $u \in \cH$, we let $u^\dag A$ be the composition of $A: \cH \to \cH$ with $u^\dag: \cH \to \R$; since this is a linear function from $\cH$ to $\R$, it lies in $\cH^*$, and we can find a vector $w \in \cH$ such that $w^\dag = u^\dag A$. This vector $w$ is $A^\dag u$. Then,
+\begin{equation}
+    \iprod{A^\dag u}{v} = \iprod{u}{A v}
+\end{equation}
+for all $u, v \in \cH$. If an operator is equal to its adjoint, $A^\dag = A$, it is called \emph{self-adjoint} or \emph{Hermitian}. If $A^\dag = -A$, we call $A$ \emph{anti-Hermitian}.
+
+The \emph{bra-ket} notation one often finds in physics textbooks is a convenient way to connect $\cH$ and $\cH^*$. A \emph{ket} $\ket{s}$, where $s$ is any string, represents a vector $u \in \cH$, while the corresponding $\emph{bra}$ $\bra{s}$ represents the covector $u^\dag \in \cH^*$. There is no relation between the string $s$ and the vector $\ket{s}$ other than one's aesthetic preference. For example, one is free to use $\ket{\clubsuit}$, $\ket{\text{\LaTeX}}$, or $\ket{\smiley}$ to denote a quantum state.
+
+
+\subsubsection{Composite systems} \label{subsubsec:composite_systems}
+Let $(\cH_1, \iprod{\cdot}{\cdot}_1, H_1)$ and $(\cH_2, \iprod{\cdot}{\cdot}_2, H_2)$ be two finite quantum mechanical systems. Is there a larger quantum mechanical system that somehow encompasses these two? Whenever $v_1 \in \cH_1$ and $v_2 \in \cH_2$ are states of the individual systems, there should be some state in $\cH$ that \dq{remembers} both $v_1$ and $v_2$, and moreover, this state should depend linearly on both $v_1$ and $v_2$ because we want quantum mechanics to be linear. That is, we wish to have an injective bilinear map $s: \cH_1 \times \cH_2 \to \cH$. This requires $\cH$ to have a dimension of at least $\dim \cH_1 \times \dim \cH_2$. Motivated by this, we postulate that the combined quantum system has the tensor product Hilbert space
+\begin{equation}
+    \cH = \cH_1 \otimes \cH_2,
+\end{equation}
+where the \emph{product state} $v_1 \otimes v_2 \in \cH$ represents system $1$ being in state $v_1$ and system $2$ being in state $v_2$. The dimension of $\cH$ is then $\dim \cH_1 \times \dim \cH_2$, precisely the required number. The inner product on $\cH$ is defined on product states by
+\begin{equation}
+    \iprod{u_1 \otimes u_2}{v_1 \otimes v_2} \coloneqq \iprod{u_1}{v_1}_1 \times \iprod{u_2}{v_2}_2
+\end{equation}
+and extended to all of $\cH$ by linearity. To build a \emph{non-interacting} Hamiltonian for the two subsystems, we let
+\begin{equation} \label{eq:non_interacting_Hamiltonian}
+    H = H_1 \otimes \text{Id}_2 + \text{Id}_1 \otimes H_2.
+\end{equation}
+Hamiltonians other than this one are said to be \emph{interacting} because the two subsystems influence each other's time evolution (eq. \ref{eq:Schrodinger}) in nontrivial ways. Soon we will have great interest in interacting systems of particles.
+
+The present discussion generalizes from the case of $n = 2$ subsystems to arbitrary $n$ by induction.
+
+\subsubsection{Measurement}
+It is a postulate of quantum mechanics that \emph{observables} correspond to Hermitian operators. That is, let $A: \cH \to \cH$ be a Hermitian operator. We may diagonalize $A$ as
+\begin{equation}
+    A = \sum_{k=1}^{n}{\lambda_k \, P_k},
+\end{equation}
+where $\lambda_1, \dots, \lambda_m \in \R$ are the (distinct) eigenvalues of $A$ and $P_1, \dots, P_n$ are the projection operators onto the corresponding eigenspaces. At any time $t$, if the system is in state $\psi(t) = u \in \cH$, we have the option to perform a \emph{measurement} of $A$. With probability $||P_k \, u||^2$, the measurement results in the numerical value $\lambda_k$, and the state subsequently \emph{collapses} to $(P_k \, u) / ||P_k \, u||$. Very peculiarly, measurement does change the state of the system.
+\begin{equation}
+    \text{Measurement of $A$} \;\;\longrightarrow\;\; \begin{cases}
+        \lambda_1 & \text{Prob} = ||P_1 \, u||^2,\\
+        \vdots\\
+        \lambda_m & \text{Prob} = ||P_m \, u||^2.\\
+    \end{cases}
+\end{equation}
+
+Measurement is one aspect of quantum mechanics that is not fully understood. While it is colloquially clear what systems are quantum (e.g., an atom in an experimental setup) and what is the agent performing the measurement (e.g., the experimenter and his/her experimental apparatus), there is no clear prescription as to what counts as quantum and what counts as the agent. For isn't the experimenter a collection of particles\footnote{The experimenter is, presumably, conscious. What is consciousness? I hope there comes a day when this question is understood.}, albeit a very large one, and therefore also subject to the rules of quantum mechanics? So the experimenter and the experimental setup should be all described by some huge wavefunction evolving according to the Schrodinger equation, with no measurement or wavefunction collapse. This is the content of the famous Schrodinger's cat paradox.
+
+
+\subsection{Mathematical interest of quantum mechanics}
+Many quantum-mechanical systems are finite-dimensional and described by a time-independent Hamiltonian. But this is \dq{just} time evolution $\ket{\psi(t)} = U(t) \, \ket{\psi(0)}$, where $U(t) = \exp(-i \, H \, t)$. In a basis where $H$ is diagonal, $\ket{\psi(t)}$ is $\sum_{k=1}^{N}{c_k \, e^{-i \, \omega_k \, t}}$, where $c_k \in \C$ are constant and $\omega_k$ are the eigenvalues of $H$. In other words, once $c_k$ are fixed, the dynamics of $\ket{\psi(t)}$ is that of a point in the $N$-torus $(S^1)^N$ moving with uniform velocity $(\omega_1, \dots, \omega_N)$. How can anything interesting possibly happen in this \dq{flat} setting? One reason is as follows. Very often, $\cH$ is the tensor product of $n$ smaller Hilbert spaces, and it has a preferred \emph{local} basis of product states. The eigenvectors of $H$ are generically nonlocal, and the eigenvalues have very nontrivial values. Additionally, $N = \dim \cH$ scales exponentially with $n$. Even for small $n$, the eigenvectors and eigenvalues of $H$ can be highly nontrivial. The resulting dynamics $\exp(-i \, H \, t)$ then can capture interesting things like factoring large integers -- this is what makes quantum computing attractive.
+
+TORIC CODE AS AN EXAMPLE OF SOMETHING INTERESTING
+
+\subsubsection{Tensor product Hilbert spaces}
+Consider the case when $\cH$ is the tensor product of $n$ smaller Hilbert spaces,
+\begin{equation}
+    \cH = \cH_1 \otimes \dots \otimes \cH_n,
+\end{equation}
+corresponding to a quantum system made of $n$ smaller subsystems. Several interesting things happen in this setting.
+
+\begin{enumerate}
+    \item \textbf{Entanglement.} A \emph{product state} $v = v_1 \otimes \dots \otimes v_n$, where each $v_i \in \cH_i$ is normalized, corresponds to system $i$ being in state $v_i$. A generic state $v \in \cH$ is not a product state, and in that case it is called \emph{entangled}. In an entangled state, an individual subsystem does not have a definite state, but instead the entire system is described by some collective state $v \in \cH$. This leads to highly nontrivial correlations between subsystems.
+    
+    \item \textbf{High dimensionality of $\cH$.} The dimension of $\cH$ is the product $\dim \cH_1 \times \dots \times \dim \cH_n$ of the subsystem Hilbert space dimensions, which grows exponentially with $n$. Even for moderate $n$, like $n = 50$, and if each $\cH_i$ has dimension $2$, the dimension of $\cH$ is \emph{huge}. A single vector $v \in \cH$ then contains a formidable amount of information.
+    
+    \item \textbf{Locality.} Especially interesting is the case when the small Hilbert spaces $\cH_i$ correspond to particles located in space in a certain way, so that some particles are \dq{close} while others are \dq{far.} In this case, entanglement between nearby particles is more immediately achievable than entanglement between distant particles. While it may sound restrictive, 
+\end{enumerate}
+
+
+\subsubsection{Quantum Fourier transform} \label{sec:quantum_computation_example}
+For a collection\footnote{The discrete Fourier transform is defined for any $N \ge 1$, but we will consider the case where $N$ is a power of $2$.} of $N = 2^n$ complex numbers $x_0, \dots, x_{N-1} \in \C$, the \emph{discrete Fourier transform} (DFT) is the collection of numbers $y_0, \dots y_{N-1} \in \C$ given by
+\begin{equation}
+    y_k = \frac{1}{\sqrt{N}} \sum_{a=0}^{N-1}{\exp\left(\frac{2 \pi i}{N} k a\right) x_a}.
+\end{equation}
+The fastest known [IS THIS TRUE?] classical algorithm for computing $y_k$ from $x_a$ is called the \emph{fast Fourier transform (FFT)}  \cite{Weisstein_FFT}, and it works as follows. Write $k$ in base $2$ as $k = 2^{n-1} k_1 + \dots + 2 k_{n-1} + k_n$ for some $k_i \in \{0, 1\}$, and likewise for $a$. Then,
+\begin{align*} \begin{split}
+    y_k &= \frac{1}{\sqrt{N}} \sum_{a_1, \dots, a_n}{\exp\left(2 \pi i \left(\frac{a_1}{2} + \dots + \frac{a_n}{2^n}\right) k\right) \cdot x_a}\\
+    &= \frac{1}{\sqrt{N}} \sum_{a_1, \dots, a_n} \exp\left(\sum_{s=1}^{n}{2 \pi i \left(\frac{a_{n-s+1}}{2} + \dots + \frac{a_n}{2^s}\right) k_s}\right) \cdot x_a,
+\end{split} \end{align*}
+where the sum runs over $a_i \in \{0, 1\}$. Let us define $x^{(0)}_{a_1, \dots, a_n} \coloneqq x_{a_1, \dots, a_n}$ and
+\begin{equation}
+    x^{(l)}_{k_1, \dots, k_l, a_{l+1}, \dots, a_n} \coloneqq \frac{1}{\sqrt{2}} \sum_{a_l}{\exp\left(2 \pi i \left(\frac{a_l}{2} + \dots + \frac{a_n}{2^{n-l+1}}\right) k_l\right)} \, \cdot \, x^{(l-1)}_{k_1, \dots, k_{l-1}, a_l, \dots, a_n}
+\end{equation}
+for $l = 1, \dots, n$, where the sum runs over $a_l \in \{0, 1\}$. The definition of $x^{(l)}$ is not at all immediate, but having this definition, one can verify that $x^{(n)}_{k_1, \dots, k_n}$ is equal to $y_{k_n, \dots, k_1}$. Reversing the order of the digits, we have computed $y_{k_1, \dots, k_n}$ as $x^{(n)}_{k_n, \dots, k_1}$. The computation of $x^{(l)}$ from $x^{(l-1})$ takes $O(N n)$ operations, and getting from $x^{(0)}$ to $x^{(n)}$ takes $n$ iterations. Reversing the order of the digits $k_1, \dots, k_n$ takes $O(N)$ operations. Therefore, we have computed $y_{k_1, \dots, k_n}$ from $x_{a_1, \dots, a_n}$ in $O(N n^2)$ steps. This leads to asymptotic complexity $O(N \log N)$, where we recall that $n = \log_2 N$.
+
+The quantum Fourier transform (QFT) \cite{Nielsen_Chuang_2010} is (...). MENTION QUANTUM PHASE ESTIMATION, SHOR'S ALGORITHM WITHOUT ACTUALLY GOING INTO DETAIL
+

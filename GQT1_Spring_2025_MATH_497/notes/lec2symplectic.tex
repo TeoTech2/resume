@@ -1,0 +1,1464 @@
+\newpage
+\section{Riemannian and Symplectic Manifolds}
+
+\begin{abstract}
+\noindent We develop the basics on Riemannian and symplectic structures. We begin with linear algebraic preliminaries, analyzing bilinear forms on finite-dimensional real vector spaces. Symmetric positive-definite forms yield Euclidean structures with notions of length and angle, while skew-symmetric non-degenerate forms define symplectic structures with oriented area. Their properties are treated rigorously. The spaces of such forms, $Met(\mathbb{R}^n)$ and $Symp(\mathbb{R}^{2m})$, are identified as homogeneous spaces $GL(n,\mathbb{R})/O(n)$ and $GL(2m,\mathbb{R})/Sp(2m,\mathbb{R})$, whose topological distinctions reflect differences.\\
+
+\noindent We then transition to affine geometry, defining affine spaces as vector spaces without a distinguished origin. Affine maps, groups, and coordinates are introduced, leading to Euclidean affine spaces (with constant inner product structures) and affine symplectic spaces (with closed symplectic 2-forms). We compare their induced geometries, and define vector fields, flows, and gradients (Euclidean and Hamiltonian) in this flat setting. \\
+
+\noindent Globalization to smooth manifolds follows, with Riemannian metrics and almost symplectic forms constructed as smooth tensor fields. A key distinction emerges: Riemannian metrics exist on all smooth manifolds, whereas symplectic structures face topological obstructions. Symplectic geometry is defined by the integrability condition $d\omega = 0$, leading to Darboux’s theorem and the focus on global invariants such as de Rham cohomology. Cotangent bundles $T^*M$ serve as canonical symplectic examples. Hamiltonian vector fields, their flows, the Poisson bracket on $C^\infty(M)$, and the role of $H^1_{dR}(M)$ in obstructing Hamiltonianity are examined.\\
+
+\noindent The section concludes with the theory of symmetries and moment maps. We define symplectic and Hamiltonian vector fields, relate them to conserved quantities via Noether’s theorem, and introduce moment maps $\mu: N \to \mathfrak{g}^*$ for Lie algebra actions. Their existence and equivariance are tied to cohomological obstructions ($H^1(N;\mathbb{R})$, $H^2(\mathfrak{g}; H^0(N;\mathbb{R}))$). The moment map equation $d\mu_\xi = -\iota_{\alpha(\xi)}\omega$ and $G$-equivariance are explored through examples. A geometric interpretation via prequantization bundles connects the moment map to geometric quantization, connecting it to classical and quantum mechanics.
+\end{abstract}
+
+\setcounter{tocdepth}{3}
+\localtableofcontents
+
+\textbf{References}: 
+We refer the reader for foundational and comprehensive treatments of Riemannian geometry, including metrics, curvature, and manifold structures, to \cite{Lee2018Riemannian} \cite{DoCarmo1992Riemannian}; for the principles of affine geometry and its interplay with Euclidean and symplectic structures on vector and affine spaces, see \cite{Audin2003Geometry} and relevant sections in \cite{LibermannMarle1987Symplectic}; for detailed expositions on symplectic geometry, Hamiltonian mechanics, Poisson brackets, and the structure of cotangent bundles, see \cite{Arnold1989Mechanics} alongside comprehensive texts such as \cite{LibermannMarle1987Symplectic} \cite{GuilleminSternberg1984Symplectic}; the theory of symmetries, Lie group actions, and moment maps is extensively covered in \cite{MarsdenRatiu1999MechanicsSymmetry} \cite{GuilleminSternberg1984Symplectic} \cite{Souriau1997Structure} \cite{Olver1993LieGroups}; and for an introduction to prequantization bundles and geometric quantization, which provides context for concepts like the moment map, refer to \cite{Woodhouse1992GeometricQuantization} \cite{BatesWeinstein1997GeoQuant}.
+
+
+\newpage 
+
+\subsection{Bilinear Forms in Linear Algebra}
+
+We begin by establishing the algebraic foundations upon which symplectic geometry rests: the theory of bilinear forms on vector spaces, with a particular focus on the skew-symmetric variant that defines linear symplectic structures. Understanding this framework, and contrasting it with the more familiar Euclidean structure created from inner products, is essential for appreciating the unique characteristics of symplectic manifolds.
+
+\subsubsection{Bilinear Forms: Generalities}
+
+Let $V$ be a finite-dimensional real vector space.
+
+\begin{definition}
+A \textbf{bilinear form} on $V$ is a map $B: V \times V \to \mathbb{R}$ which is linear in each argument separately:
+\begin{itemize}
+    \item $B(au_1 + bu_2, v) = a B(u_1, v) + b B(u_2, v)$ for all $u_1, u_2, v \in V$ and $a, b \in \mathbb{R}$.
+    \item $B(u, av_1 + bv_2) = a B(u, v_1) + b B(u, v_2)$ for all $u, v_1, v_2 \in V$ and $a, b \in \mathbb{R}$.
+\end{itemize}
+\end{definition}
+
+The space of all bilinear forms on $V$ can be naturally identified with the tensor product $V^* \otimes V^*$, where $V^*$ denotes the dual space of $V$.
+
+A bilinear form $B$ induces two linear maps from $V$ to its dual $V^*$, given by $v \mapsto B(v, \cdot)$ and $v \mapsto B(\cdot, v)$.
+
+\begin{definition}
+A bilinear form $B$ is \textbf{non-degenerate} if any one of the following (equivalent) conditions hold:
+\begin{itemize}
+    \item the induced linear maps $V \to V^*$ are isomorphisms
+    \item for every non-zero $v \in V$, there exists some $w, w' \in V$ such that $B(v, w) \neq 0$ and $B(w',v)\neq 0$.
+    \item if $B(v, w) = 0$ for all $w \in V$ or if $B(w, v) = 0$ for all $w \in V$, then $v$ must be the zero vector
+\end{itemize}
+
+\end{definition}
+
+If we choose a basis $\{e_1, \dots, e_n\}$ for $V$, a bilinear form $B$ is determined by the matrix $A$ with entries $A_{ij} = B(e_i, e_j)$. The form $B$ is non-degenerate if and only if this matrix $A$ is invertible (i.e., $\det(A) \neq 0$).
+
+Two important classes of bilinear forms are distinguished by their symmetry properties:
+\begin{definition}
+\,
+    \begin{itemize}
+    \item $B$ is \textbf{symmetric} if $B(u, v) = B(v, u)$ for all $u, v \in V$. In terms of the matrix representation, this means $A = A^T$.
+    \item $B$ is \textbf{skew-symmetric} (or alternating) if $B(u, v) = -B(v, u)$ for all $u, v \in V$. This implies $B(v, v) = -B(v, v)$, so $2 B(v, v) = 0$, which gives $B(v, v) = 0$ for all $v \in V$. The matrix representation satisfies $A = -A^T$.
+\end{itemize}
+\end{definition}
+The condition $B(v, v) = 0$ for skew-symmetric forms highlights an immediate contrast with familiar Euclidean structures.
+
+\subsubsection{Symplectic Vector Spaces}
+
+We now define the central algebraic object through the lens of linear algebra.
+
+\begin{definition}
+A \textbf{symplectic form} on a real vector space $V$ is a bilinear form $\omega: V \times V \to \mathbb{R}$ that is both
+\begin{enumerate}
+    \item Skew-symmetric: $\omega(u, v) = -\omega(v, u)$ for all $u, v \in V$.
+    \item Non-degenerate.
+\end{enumerate}
+
+A vector space $V$ equipped with a symplectic form $\omega$ is called a \textbf{symplectic vector space} $(V, \omega)$. 
+\end{definition}
+
+Skew-symmetry immediately implies $\omega(v, v) = -\omega(v, v)$, so $\omega(v, v) = 0$ for all $v \in V$. Non-degeneracy means that the map $\omega^\flat: V \to V^*$ defined by $\omega^\flat(u) = \omega(u, \cdot)$ (where $\omega(u, \cdot)$ is the linear functional $v \mapsto \omega(u, v)$) is an isomorphism. This isomorphism is fundamental, providing a canonical way to identify vectors with covectors in a symplectic setting, analogous to the musical isomorphism provided by an inner product. Let's briefly discuss this:
+
+\begin{definition}[Musical Isomorphism] \label{def:musical_iso}
+Let $(V, g)$ be a Euclidean vector space.
+\begin{enumerate}
+    \item The \textbf{flat map} $g^\flat: V \to V^*$ is defined by $v \mapsto v^\flat$, where $v^\flat \in V^*$ is the linear functional $v^\flat(w) = g(v, w)$ for all $w \in V$.
+    \item The \textbf{sharp map} $g^\sharp: V^* \to V$ is the inverse of $g^\flat$, defined by $\alpha \mapsto \alpha^\sharp$, where $\alpha^\sharp \in V$ is the unique vector such that $g(\alpha^\sharp, w) = \alpha(w)$ for all $w \in V$.
+\end{enumerate}
+\end{definition}
+
+The terms \dq{flat} ($\flat$) and \dq{sharp} ($\sharp$) evoke the musical analogy of lowering and raising indices. If $v = \sum v^i e_i$ in an orthonormal basis $\{e_i\}$, then $v^\flat = \sum v_i e^i$ where the components $v_i = g(v, e_i) = \sum_j v^j g(e_j, e_i) = \sum_j v^j \delta_{ji} = v^i$. Thus, in an orthonormal basis, the components of a vector and its corresponding covector under the musical isomorphism are identical. The map $g^\sharp$ takes the covector $\alpha = \sum \alpha_j e^j$ to the vector $\alpha^\sharp = \sum \alpha_j e_j$. The non-degeneracy of $g$ ensures that $g^\flat$ and $g^\sharp$ are indeed isomorphisms.
+
+Back to the symplectic form, this definition stands in contrast to that of an inner product.
+
+\begin{definition}
+An \textbf{inner product} on a real vector space $V$ is a bilinear form $g: V \times V \to \mathbb{R}$ that is both
+\begin{enumerate}
+    \item Symmetric: $g(u, v) = g(v, u)$ for all $u, v \in V$.
+    \item Positive-definite: $g(v, v) > 0$ for all non-zero $v \in V$.
+\end{enumerate}
+\end{definition}
+
+Note that positive-definiteness implies non-degeneracy for a symmetric bilinear form. A vector space equipped with an inner product is a \textbf{Euclidean vector space}.
+
+The fundamental difference between these two lie in symmetry and definiteness. An inner product $g$ is symmetric and satisfies $g(v, v) > 0$ for $v \neq 0$, giving rise to notions of length ($\|v\| = \sqrt{g(v, v)}$) and angle (via $g(u, v) = \|u\| \|v\| \cos \theta$). A symplectic form $\omega$, being skew-symmetric, necessarily satisfies $\omega(v, v) = 0$. It does not define lengths or angles but rather provides a notion of oriented area. For vectors $u, v \in V$, the quantity $\omega(u, v)$ can be interpreted as the signed area of the parallelogram spanned by $u$ and $v$, projected onto a \dq{symplectic plane.}
+
+\begin{example}
+\,
+\begin{itemize}
+    \item On $V = \mathbb{R}^n$, the \textbf{model inner product} is given by 
+    \[g(x, y) = \sum_{i=1}^n x_i y_i\] 
+    for $x = (x_1, \dots, x_n)$ and $y = (y_1, \dots, y_n)$.
+    \item The canonical example of a symplectic vector space is $V = \mathbb{R}^{2m}$ with standard coordinates $(q^1, \dots, q^m, p_1, \dots, p_m)$, equipped with the bilinear form
+    \[
+    \omega_0(z, z') = \sum_{i=1}^m (q^i p'_i - q'^i p_i),
+    \]
+    where $z = (q, p)$ and $z' = (q', p')$.
+\end{itemize}
+\end{example}
+
+An important consequence of these properties relates to the dimension of the vector space.
+\begin{proposition} \label{prop:symplectic_dim}
+Any finite-dimensional symplectic vector space $(V, \omega)$ must have even dimension.
+\end{proposition}
+\begin{proof}
+Let $\dim V = n$. The bilinear form $\omega$ can be represented by a matrix $\Omega$ with respect to any basis $\{e_i\}$, where $\Omega_{ij} = \omega(e_i, e_j)$. Skew-symmetry implies $\Omega^T = -\Omega$. Non-degeneracy implies $\det(\Omega) \neq 0$. From linear algebra, we know $\det(\Omega^T) = \det(\Omega)$ and $\det(-\Omega) = (-1)^n \det(\Omega)$. Therefore, $\det(\Omega) = (-1)^n \det(\Omega)$. Since $\det(\Omega) \neq 0$, we must have $(-1)^n = 1$, which requires $n$ to be even.
+\end{proof}
+We thus write $\dim V = 2m$ for some integer $m$.
+
+\begin{remark}
+    Contact geometry is the odd-dimensional analogue of symplectic geometry: whereas symplectic manifolds are even-dimensional with a closed, nondegenerate 2-form $\omega$, contact manifolds are odd-dimensional and equipped with a 1-form $\alpha$ satisfying maximal non-integrability via $\alpha \wedge (d\alpha)^n \neq 0$.
+\end{remark}
+
+\textbf{Non-degeneracy of Symplectic Forms} \label{sec:non-degeneracy}
+
+In this section, we explore the relationship between symplectic forms, their non-degeneracy, and the top exterior power. Our goal is to expand Remark 2.5 from \cite{freed}. 
+
+Recall that every alternating bilinear form
+\[
+\omega \colon V\times V \longrightarrow k,\qquad \omega(v,w)=-\omega(w,v),
+\]
+is naturally identified with a decomposable element of the second exterior power of the dual space,
+\[
+\omega \;\longleftrightarrow\; \sum_{i<j}\omega(e_i,e_j)\,e_i^\vee\wedge e_j^\vee\;\in\;\bigwedge\nolimits^2 V^{\!*},
+\]
+where $\{e_i\}_{i=1}^{2m}$ is any ordered basis of $V$ and $\{e_i^\vee\}$ the dual basis.  
+
+\begin{proposition}
+    $\omega$ is non-degenerate $\;\Longleftrightarrow\;$ the top exterior power
+\[
+\frac{\omega^{\wedge m}}{m!}\;\in\;\bigwedge\nolimits^{2m}V^{\!*}\;=\;\det V^{\!*}
+\]
+is nonzero.  Equivalently, $\omega^{\wedge m}\neq 0$.
+\end{proposition}
+
+\begin{proof}
+Choose an ordered basis $\mathcal B=\{e_1,\dots,e_{2m}\}$ such that the matrix of $\omega$ in $\mathcal B$ is $A$.  Under the canonical isomorphism
+$
+\bigl(\Lambda^{2}V^{\!*}\bigr)^{\otimes m}\longrightarrow\Lambda^{2m}V^{\!*},
+$
+one has
+\[
+\omega^{\wedge m}
+   \;=\;
+   \sum_{\sigma\in S_{2m}}
+   \operatorname{sgn}(\sigma)\,
+   \omega(e_{\sigma(1)},e_{\sigma(2)})\cdots
+   \omega(e_{\sigma(2m-1)},e_{\sigma(2m)})\;
+   e_{1}^{\vee}\wedge\cdots\wedge e_{2m}^{\vee}.
+\]
+Thus $\omega^{\wedge m}= \operatorname{Pf}(A)\;e_{1}^{\vee}\wedge\cdots\wedge e_{2m}^{\vee}$, where $\operatorname{Pf}(A)$ is the Pfaffian of the skew-symmetric matrix $A$.  Because $A$ is skew-symmetric, $\det A = \operatorname{Pf}(A)^{2}$.  Hence
+\begin{align*}
+\omega^{\wedge m}\neq 0 & \Longleftrightarrow \operatorname{Pf}(A)\neq 0 \\ 
+          &\Longleftrightarrow \det A\neq 0 \\
+          &\Longleftrightarrow A \text{ invertible} \\ 
+          & \Longleftrightarrow\; \flat_\omega \text{ isomorphism}.
+\end{align*}
+Therefore $\omega$ is non-degenerate if and only if $\omega^{\wedge m}$ spans the one-dimensional determinant line $\det V^{\!*}\cong\Lambda^{2m}V^{\!*}$, completing the proof.
+\end{proof}
+
+\textbf{The Musical Isomorphism: Symplectic Case}
+
+Now, we present the musical isomorphism, but for the symplectic case. Similar to earlier, the non-degenerate skew-symmetric form $\omega: V \times V \to \mathbb{R}$ induces an isomorphism between $V$ and $V^*$.
+
+\begin{definition} \label{def:symplectic_iso}
+Let $(V, \omega)$ be a symplectic vector space.
+\begin{enumerate}
+    \item The map $\omega^\flat: V \to V^*$ is defined by $v \mapsto \omega^\flat(v)$, where $\omega^\flat(v)(w) = \omega(v, w)$ for all $w \in V$.
+    \item The map $\omega^\sharp: V^* \to V$ is the inverse of $\omega^\flat$.
+\end{enumerate}
+\end{definition}
+
+The non-degeneracy of $\omega$ guarantees that $\omega^\flat$ is an isomorphism. In canonical coordinates $(q^1, \dots, q^m, p_1, \dots, p_m)$ with basis vectors $e_i = \frac{\partial}{\partial q^i}$ and $f_j = \frac{\partial}{\partial p_j}$, and dual basis $dq^i, dp_j$, we have:
+
+\begin{itemize}
+    \item $\omega^\flat(e_i) = \omega(e_i, \cdot) = \sum_k \omega(e_i, e_k) dq^k + \sum_k \omega(e_i, f_k) dp_k = \sum_k \delta_{ik} dp_k = dp_i$.
+    \item $\omega^\flat(f_j) = \omega(f_j, \cdot) = \sum_k \omega(f_j, e_k) dq^k + \sum_k \omega(f_j, f_k) dp_k = \sum_k (-\delta_{jk}) dq^k = -dq^j$.
+\end{itemize}
+
+Thus, $\omega^\flat$ maps $\frac{\partial}{\partial q^i} \mapsto dp_i$ and $\frac{\partial}{\partial p_j} \mapsto -dq^j$. Correspondingly, $\omega^\sharp$ maps $dq^i \mapsto - \frac{\partial}{\partial p_i}$ and $dp_j \mapsto \frac{\partial}{\partial q^j}$.
+
+These isomorphisms are the essential tools for converting differentials of functions ($df$, which are 1-forms) into vector fields, leading to the concepts of gradient and Hamiltonian vector fields.
+
+\subsubsection{Model Forms}
+Earlier, we introduced the model inner product and the model symplectic form. One might wonder why these forms are referred to as 'model' forms. The following theorem clarifies the reasoning behind this naming convention:
+
+\begin{theorem}[Normal Forms] \label{thm:normal_form}
+Let $V$ be a finite-dimensional real vector space equipped with either an inner product $\langle \cdot, \cdot \rangle$ or a symplectic form $\omega$. Let $n = \dim V$. Then there exists a linear isomorphism $\phi: \mathbb{R}^n \to V$ such that the bilinear form on $\mathbb{R}^n$ obtained by pulling back \footnote{Recall that the pullback form $(\phi^* \beta)(x, y) = \beta(\phi(x), \phi(y))$ for $x, y \in \mathbb{R}^n$ and $\beta$ a bilinear form on $V$.} the form on $V$ via $\phi$ coincides with the two model forms introduced earlier. Specifically:
+\begin{itemize}
+    \item If $V$ has an inner product $\langle \cdot, \cdot \rangle$, $\phi^* \langle \cdot, \cdot \rangle$ is the model inner product on $\mathbb{R}^n$.
+    \item If $V$ has a symplectic form $\omega$, $\phi^* \omega$ is the model symplectic form $\omega_0$ on $\mathbb{R}^n$.
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+The proof proceeds by induction on the dimension $n = \dim V$. The base case $n=0$ is trivial. Assume the theorem holds for dimensions less than $n$.
+\begin{itemize}
+    \item Inner Product Case: $(V, \langle \cdot, \cdot \rangle)$. Assume $V \neq \{0\}$. Choose any non-zero vector $v_1 \in V$ and normalize it to obtain a unit vector $e_1 = \frac{v_1}{\|v_1\|}$, where $\|v_1\|^2 = \langle v_1, v_1 \rangle > 0$. Consider the orthogonal complement
+    \[
+    V_1 = (\mathbb{R} e_1)^\perp = \{ v \in V \mid \langle v, e_1 \rangle = 0 \}.
+    \]
+    Since the inner product is non-degenerate, we have the direct sum decomposition
+    \[
+    V = \mathbb{R} e_1 + V_1,
+    \]
+    and thus $\dim V_1 = n - 1$. The restriction of the inner product to $V_1$, denoted by $\langle \cdot, \cdot \rangle|_{V_1}$, is clearly symmetric and positive-definite. Its non-degeneracy on $V_1$ follows from the direct sum decomposition and the non-degeneracy on $V$.
+    
+    By the induction hypothesis, there exists an isomorphism $\phi_1: \mathbb{R}^{n-1} \to V_1$ that pulls back $\langle \cdot, \cdot \rangle|_{V_1}$ to the standard Euclidean inner product on $\mathbb{R}^{n-1}$. Let $\{e_2, \dots, e_n\}$ be the orthonormal basis of $V_1$ corresponding via $\phi_1$ to the standard basis of $\mathbb{R}^{n-1}$. Then $\{e_1, e_2, \dots, e_n\}$ is an orthonormal basis for $V$.
+    
+    Finally, the isomorphism $\phi: \mathbb{R}^n \to V$, which maps the standard basis of $\mathbb{R}^n$ to $\{e_1, e_2, \dots, e_n\}$, pulls back $\langle \cdot, \cdot \rangle$ to the standard Euclidean inner product on $\mathbb{R}^n$.
+    
+    \item Symplectic Case: $(V, \omega)$. We do this next, see Corollary \ref{cor:symplectomorphic}.
+    
+\end{itemize}
+\end{proof}
+
+In the symplectic case, a basis that brings a general symplectic form $\omega$ into this standard structure is highly desirable.
+\begin{definition} \label{def:symplectic_basis}
+A basis $\{ e_1, \dots, e_m, f_1, \dots, f_m \}$ for a $2m$-dimensional symplectic vector space $(V, \omega)$ is called a \textbf{symplectic basis} (or Darboux basis) if
+\[
+\omega(e_i, e_j) = 0, \quad \omega(f_i, f_j) = 0, \quad \omega(e_i, f_j) = \delta_{ij}
+\]
+for all $i, j \in \{1, \dots, m\}$.
+\end{definition}
+In such a basis, the matrix of $\omega$ is precisely $J_0$. The existence of such a basis for any symplectic vector space is a fundamental result.
+
+\begin{theorem} \label{thm:symplectic_basis_exists}
+Every finite-dimensional symplectic vector space $(V, \omega)$ admits a symplectic basis.
+\end{theorem}
+\begin{proof}
+The proof proceeds by induction on the dimension $2m$. The base case $m = 0$ is trivial. Assume the theorem holds for dimension $2(m-1)$. Let $V$ have dimension $2m$. Since $\omega$ is non-degenerate, it is non-zero. Pick any non-zero vector $e_1 \in V$. By non-degeneracy, there exists some $v \in V$ such that $\omega(e_1, v) \neq 0$. Rescale $v$ to obtain $f_1$ such that $\omega(e_1, f_1) = 1$. Since $\omega(e_1, e_1) = 0$, $e_1$ and $f_1$ are linearly independent. Let $W = \text{span} \{e_1, f_1\}$. The restriction $\omega|_W$ is non-degenerate (its matrix is $\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$). Consider the symplectic complement $W^\omega = \{ v \in V \mid \omega(v, w) = 0 \text{ for all } w \in W \}$. One shows that $V = W + W^\omega$ and that $\omega|_{W^\omega}$ is non-degenerate, making $(W^\omega, \omega|_{W^\omega})$ a symplectic vector space of dimension $2(m-1)$. By the induction hypothesis, $W^\omega$ has a symplectic basis $\{ e_2, \dots, e_m, f_2, \dots, f_m \}$. Combining this with $\{ e_1, f_1 \}$ gives a symplectic basis for $V$.
+\end{proof}
+
+An immediate corollary follows, but before we state it, we need to introduce one more definition.
+
+\begin{definition}
+    A \textbf{symplectorphism} is an isomorphism that preserves the symplectic form.
+\end{definition}
+
+Now we state the corollary:
+\begin{corollary} \label{cor:symplectomorphic}
+Any $2m$-dimensional symplectic vector space $(V, \omega)$ is symplectomorphic to the standard symplectic space $(\mathbb{R}^{2m}, \omega_0)$.
+\end{corollary}
+
+Theorem \ref{thm:normal_form} establishes that any finite-dimensional inner product space or symplectic vector space is isomorphic to a standard model space $(\mathbb{R}^n, \text{model form})$. This fundamental classification result has direct consequences for understanding the structure of the spaces of all such forms on a given vector space, specifically $\mathbb{R}^n$. 
+
+\subsubsection{The Spaces $\text{Met}(\mathbb{R}^n)$ and $\text{Symp}(\mathbb{R}^n)$}
+
+We consider the action of the general linear group $\GL(n, \mathbb{R})$ on these spaces. The standard (left) action of $G \in \GL(n, \mathbb{R})$ on a bilinear form $\beta$ on $\mathbb{R}^n$ is given by pullback via the inverse transformation:
+\[
+(G \cdot \beta)(x, y) = \beta(G^{-1}x, G^{-1}y) = ((G^{-1})^*\beta)(x, y).
+\]
+Theorem \ref{thm:normal_form}, when applied to $V = \mathbb{R}^n$, guarantees that for any inner product $g$ or symplectic form $\omega$ on $\mathbb{R}^n$, there exists $\phi \in \GL(n, \mathbb{R})$ such that
+\[
+\phi^* g = g_{\text{std}} \quad \text{or} \quad \phi^* \omega = \omega_0.
+\]
+This implies that the action is transitive: given any two forms $\beta_1, \beta_2$ of the same type (both inner products or both symplectic), there exist $\phi_1, \phi_2 \in \GL(n, \mathbb{R})$ such that
+\[
+\phi_1^* \beta_1 = \beta_{\text{model}} \quad \text{and} \quad \phi_2^* \beta_2 = \beta_{\text{model}}.
+\]
+Thus, we have $\phi_1^* \beta_1 = \phi_2^* \beta_2$. Applying $(\phi_1^{-1})^*$ yields
+\[
+\beta_1 = (\phi_1^{-1})^*(\phi_2^* \beta_2) = (\phi_2 \circ \phi_1^{-1})^* \beta_2.
+\]
+Let $A = \phi_2 \circ \phi_1^{-1} \in \GL(n, \mathbb{R})$. Then $A^* \beta_2 = \beta_1$. If we define $G = A^{-1} = \phi_1 \circ \phi_2^{-1}$, then
+\[
+(G^{-1})^* \beta_2 = \beta_1,
+\]
+which implies that $G \cdot \beta_2 = \beta_1$. Thus, there exists $G \in \GL(n, \mathbb{R})$ mapping $\beta_2$ to $\beta_1$, establishing transitivity.
+
+
+\begin{corollary} \label{cor:transitive_action}
+The group $\GL(2m, \mathbb{R})$ acts transitively on the space $\Met(\mathbb{R}^{2m})$ of inner products on $\mathbb{R}^{2m}$ and on the space $\Symp(\mathbb{R}^{2m})$ of symplectic forms on $\mathbb{R}^{2m}$.
+\end{corollary}
+
+This transitivity implies that the spaces $\Met(\mathbb{R}^n)$ and $\Symp(\mathbb{R}^n)$ can be identified with quotient spaces (homogeneous spaces) of $\GL(n, \mathbb{R})$. Consider the maps
+\begin{align}
+    \pi_{\Met}: \GL(n, \mathbb{R}) &\longrightarrow \Met(\mathbb{R}^n), & A &\longmapsto A^* g_{\text{std}} \label{eq:map_met}\\
+    \pi_{\Symp}: \GL(n, \mathbb{R}) &\longrightarrow \Symp(\mathbb{R}^n), & A &\longmapsto A^* \omega_{0} \label{eq:map_symp} \quad (\text{for } n=2m)
+\end{align}
+where $g_{\text{std}}$ is the model inner product and $\omega_0$ is the model symplectic form. Corollary \ref{cor:transitive_action} is equivalent to the statement that these maps are surjective: If $A^* \beta_{\text{model}} = \beta$, then taking $G = A^{-1}$ gives $G \cdot \beta_{\text{model}} = (G^{-1})^* \beta_{\text{model}} = A^* \beta_{\text{model}} = \beta$, showing that the orbit of $\beta_{\text{model}}$ under the group action is the entire space.
+
+The structure of these spaces is revealed by identifying the stabilizer subgroups of the model forms under the map $A \mapsto A^* \beta_{\text{model}}$.
+\begin{itemize}
+    \item For the standard inner product $g_{\text{std}} = I_n$, the stabilizer consists of $A \in \GL(n, \mathbb{R})$ such that $A^* g_{\text{std}} = g_{\text{std}}$. This means $A^T I_n A = I_n$, or $A^T A = I_n$. These are precisely the orthogonal matrices, forming the \textbf{orthogonal group} $\text{O}(n)$.
+    \item For the standard symplectic form $\omega_0$ (represented by matrix $J_{2m}$), the stabilizer consists of $A \in \GL(2m, \mathbb{R})$ such that $A^* \omega_0 = \omega_0$. This means $A^T J_{2m} A = J_{2m}$. These are the symplectic matrices, forming the \textbf{symplectic group} $\Sp(2m, \mathbb{R})$. 
+\end{itemize}
+The spaces $\Met(\mathbb{R}^n)$ and $\Symp(\mathbb{R}^{2m})$ are smooth manifolds (in fact, open subsets of the vector spaces $\SymBil(\mathbb{R}^n; \mathbb{R})$ of symmetric bilinear forms and $\Lambda^2(\mathbb{R}^{2m})^*$ of skew-symmetric bilinear forms, respectively). The action of the Lie group $\GL(n, \mathbb{R})$ is smooth and transitive. By the Orbit-Stabilizer Theorem for smooth, transitive Lie group actions, the orbit map $\pi$ induces a diffeomorphism between the quotient space $\GL(n, \mathbb{R}) / \mathrm{Stab}(\beta_{\text{model}})$ and the orbit $\pi(\GL(n, \mathbb{R}))$, which is the entire space $\Met(\mathbb{R}^n)$ or $\Symp(\mathbb{R}^{2m})$. This yields the following identifications:
+\begin{align}
+    \GL(n, \mathbb{R}) / \text{O}(n) &\stackrel{\cong}{\longrightarrow} \Met(\mathbb{R}^n), \quad [A] \longmapsto A^* g_{\text{std}} \label{eq:diff_met}\\
+    \GL(2m, \mathbb{R}) / \Sp(2m, \mathbb{R}) &\stackrel{\cong}{\longrightarrow} \Symp(\mathbb{R}^{2m}), \quad [A] \longmapsto A^* \omega_0 \label{eq:diff_symp}
+\end{align}
+These are diffeomorphisms of homogeneous $\GL(n, \mathbb{R})$-manifolds.
+
+The distinct features of the stabilizer subgroups $\text{O}(n)$ and $\Sp(2m, \mathbb{R})$ lead to big differences in the geometry and topology of the corresponding spaces of forms. A big difference lies in compactness:
+\begin{itemize}
+    \item The orthogonal group $\text{O}(n)$ is compact. Geometrically, this relates to the fact that orthogonal transformations preserve lengths and angles. Furthermore, the inclusion $\text{O}(n) \hookrightarrow \GL(n, \mathbb{R})$ is a homotopy equivalence; $\GL(n, \mathbb{R})$ deformation retracts onto $\text{O}(n)$. This retraction can be seen via the polar decomposition $A = OS$, where $A \in \GL(n, \mathbb{R})$, $O \in \text{O}(n)$, and $S$ is a unique symmetric positive-definite matrix. The map $A \mapsto O$ provides the retraction.
+    \item The symplectic group $\Sp(2m, \mathbb{R})$ is non-compact. For instance, matrices of the form $\begin{pmatrix} \lambda & 0 \\ 0 & 1/\lambda \end{pmatrix}$ belong to $\Sp(2, \mathbb{R})$ for any $\lambda \in \mathbb{R}^\times$, showing unboundedness. The inclusion $\Sp(2m, \mathbb{R}) \hookrightarrow \GL(2m, \mathbb{R})$ is not a homotopy equivalence.
+\end{itemize}
+These properties of the stabilizers have significant consequences for the topology of the quotient spaces $\Met(\mathbb{R}^n)$ and $\Symp(\mathbb{R}^{2m})$.
+The identification $\Met(\mathbb{R}^n) \cong \GL(n, \mathbb{R}) / \text{O}(n)$ allows us to deduce its topology. The polar decomposition $A=OS$ relates elements of $\GL(n, \mathbb{R})$ to pairs $(O, S)$ where $O \in \text{O}(n)$ and $S$ is symmetric positive-definite. The map $A \mapsto S = (A^T A)^{1/2}$ identifies the quotient space $\GL(n, \mathbb{R}) / \text{O}(n)$ with the space $\mathcal{P}_n$ of $n \times n$ symmetric positive-definite matrices. $\mathcal{P}_n$ is a convex cone within the vector space of symmetric matrices (see Remark \ref{rem:topology_spaces} below) and is therefore contractible. The homotopy equivalence $\GL(n, \mathbb{R}) \simeq \text{O}(n)$ is consistent with this, as the long exact sequence of homotopy groups for the fibration $\text{O}(n) \to \GL(n, \mathbb{R}) \to \GL(n, \mathbb{R})/\text{O}(n)$ implies that $\pi_k(\GL(n, \mathbb{R})/\text{O}(n))$ is trivial for $k \ge 1$.
+
+In contrast, since $\Sp(2m, \mathbb{R})$ is non-compact and not homotopy equivalent to $\GL(2m, \mathbb{R})$, the quotient space $\Symp(\mathbb{R}^{2m}) \cong \GL(2m, \mathbb{R}) / \Sp(2m, \mathbb{R})$ inherits non-trivial topology. The lowest dimensional case $m=1$ ($n=2$) illustrates this clearly. Here $\Sp(2, \mathbb{R})$ coincides with the special linear group $\SL(2, \mathbb{R})$, the group of $2 \times 2$ matrices with determinant 1. The standard symplectic form $\omega_0$ on $\mathbb{R}^2$ is precisely the determinant (area) form. $\SL(2, \mathbb{R})$ preserves this form. The determinant homomorphism $\det: \GL(2, \mathbb{R}) \to \mathbb{R}^\times$ has kernel $\SL(2, \mathbb{R})$. By the first isomorphism theorem for Lie groups, this induces a diffeomorphism $\GL(2, \mathbb{R}) / \SL(2, \mathbb{R}) \cong \mathbb{R}^\times$. Therefore, $\Symp(\mathbb{R}^2) \cong \mathbb{R}^\times$. Since $\mathbb{R}^\times = \mathbb{R} \setminus \{0\}$ is not contractible (it has two connected components and non-trivial $\pi_0$), the space $\Symp(\mathbb{R}^2)$ is topologically distinct from the contractible space $\Met(\mathbb{R}^2)$. The topology of $\Symp(\mathbb{R}^{2m})$ becomes more complex for $m > 1$.
+
+The following table summarizes the key distinctions:
+
+\renewcommand{\arraystretch}{1.2} % Adjust row spacing
+\begin{longtable}{l|>{\raggedright\arraybackslash}p{5cm}|>{\raggedright\arraybackslash}p{5cm}}
+\caption{Comparison: Inner Product vs. Symplectic Vector Spaces}
+\label{tab:inner_symplectic_comparison} \\
+\hline
+\textbf{Feature} & \textbf{Inner Product Space $(\mathbb{R}^n, g)$} & \textbf{Symplectic Vector Space $(\mathbb{R}^{2m}, \omega)$} \\
+\hline \hline
+\endfirsthead
+
+\hline
+\textbf{Feature} & \textbf{Inner Product Space $(\mathbb{R}^n, g)$} & \textbf{Symplectic Vector Space $(\mathbb{R}^{2m}, \omega)$} \\
+\hline \hline
+\endhead
+
+\hline
+\multicolumn{3}{r}{\textit{Continued on next page}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+\textbf{Bilinear Form Type} & Symmetric, Positive-Definite & Skew-Symmetric, Non-Degenerate \\
+\hline
+\textbf{Dimension} & Any $n \ge 1$ & Must be even, $n = 2m$ \\
+\hline
+\textbf{Model Space} & Euclidean $(\mathbb{R}^n, \delta_{ij})$ & Standard Symplectic $(\mathbb{R}^{2m}, \omega_0)$ \\
+\hline
+\textbf{Space of Forms} & $\Met(\mathbb{R}^n)$ & $\Symp(\mathbb{R}^{2m})$ \\
+\hline
+\textbf{Homogeneous Space} & $\GL(n, \mathbb{R}) / \text{O}(n)$ & $\GL(2m, \mathbb{R}) / \Sp(2m, \mathbb{R})$ \\
+\hline
+\textbf{Stabilizer Group} & $\text{O}(n)$ (Orthogonal Group) & $\Sp(2m, \mathbb{R})$ (Symplectic Group) \\
+\hline
+\textbf{Stabilizer Property} & Compact & Non-Compact \\
+\hline
+\textbf{Space Topology} & Contractible & Non-Contractible (e.g., $\cong \mathbb{R}^\times$ for $m=1$) \\
+\end{longtable}
+\renewcommand{\arraystretch}{1.0}
+
+
+
+\begin{remark} \label{rem:topology_spaces}
+\,
+\begin{enumerate}
+    \item The space $\Met(\mathbb{R}^n)$ of inner products on $\mathbb{R}^n$ can be identified with the set $\mathcal{P}_n$ of symmetric positive-definite $n \times n$ matrices. This set is a subset of the vector space $\SymBil(\mathbb{R}^n; \mathbb{R})$ of all symmetric bilinear forms (identified with symmetric matrices). $\mathcal{P}_n$ is a convex subset: if $g_1, g_2 \in \mathcal{P}_n$ and $t \in $, then for any $v \neq 0$, $(t g_1 + (1-t) g_2)(v, v) = t g_1(v,v) + (1-t) g_2(v,v) > 0$ (since $g_1(v,v) > 0$, $g_2(v,v) > 0$, and $t, 1-t$ are non-negative with at least one positive if $t \in (0,1)$). Furthermore, if $g \in \mathcal{P}_n$ and $c > 0$, then $cg \in \mathcal{P}_n$, so $\mathcal{P}_n$ is an open convex cone. Any convex subset of a Euclidean space is contractible (e.g., via the linear homotopy $H(g, t) = (1-t)g + t g_0$ to a fixed point $g_0 \in \mathcal{P}_n$). This provides an alternative confirmation that $\Met(\mathbb{R}^n)$ is contractible.
+    \item As established above, the contrast for $m=1$ is sharp: $\Symp(\mathbb{R}^2) \cong \GL(2, \mathbb{R}) / \SL(2, \mathbb{R}) \cong \mathbb{R}^\times$, which is not contractible. The diffeomorphism $\GL(2, \mathbb{R}) / \SL(2, \mathbb{R}) \cong \mathbb{R}^\times$ is realized by the determinant map. For higher dimensions ($m>1$), the space $\Symp(\mathbb{R}^{2m}) \cong \GL(2m, \mathbb{R}) / \Sp(2m, \mathbb{R})$ continues to have non-trivial topology, which is considerably more complex than $\mathbb{R}^\times$.
+    \item The topological assertions made for the model spaces $\Met(\mathbb{R}^n)$ and $\Symp(\mathbb{R}^{2m})$ extend to the corresponding spaces $\Met(V)$ and $\Symp(V)$ for any $n$-dimensional (or $2m$-dimensional) real vector space $V$. Theorem \ref{thm:normal_form} provides an isomorphism $\phi: \mathbb{R}^n \to V$. This isomorphism induces diffeomorphisms $\phi^*: \Met(V) \to \Met(\mathbb{R}^n)$ and $\phi^*: \Symp(V) \to \Symp(\mathbb{R}^n)$ via pullback. Since diffeomorphisms preserve topological properties like contractibility and homotopy type, the properties established for the model spaces hold for the spaces associated with any finite-dimensional vector space $V$. The details of this transport are deferred to later.
+\end{enumerate}
+\end{remark}
+
+\subsection{Euclidean Spaces and Affine Symplectic Spaces}
+While vector spaces provide the algebraic foundation for linear geometry, many geometric settings, particularly those arising in physics or as local models for manifolds, lack a naturally distinguished origin. Consider Euclidean space as taught in high school; although often identified with $\mathbb{R}^n$, its geometric properties related to points, lines, and parallelism are independent of where we place the origin. Similarly, the set of solutions to an inhomogeneous linear system $Ax = b$ (for $b \neq 0$) forms a geometric object (like a line or plane) that does not pass through the origin and hence is not a vector subspace, yet it shares the \dq{flatness} property of vector subspaces. Affine spaces formalize this notion of a \dq{vector space that has forgotten its origin.}
+
+\subsubsection{Linear Algebra, But For Affine Spaces}
+
+\begin{definition}
+An \textbf{affine space} is a triple $(A, V, +)$, where $A$ is a non-empty set whose elements are called \textbf{points}, $V$ is a finite-dimensional real vector space called the \textbf{associated vector space} or the \textbf{space of translations}, and $+: A \times V \to A$ is a map, called the \textbf{action} of $V$ on $A$, satisfying the following axioms:
+\begin{enumerate}
+    \item[(A1)] Identity: For every $a \in A$, $a + 0 = a$, where $0$ is the zero vector in $V$.
+    \item[(A2)] Associativity: For every $a \in A$ and all $u, v \in V$, $(a + u) + v = a + (u + v)$.
+    \item[(A3)] Unique Translation: The action is \textbf{free and transitive}: for any pair of points $a, b \in A$, there exists a unique vector $v \in V$ such that $a + v = b$.
+\end{enumerate}
+The unique vector $v$ in (A3) is denoted by $\vec{ab}$ or $b - a$. The \textbf{dimension} of the affine space $A$ is defined as $\dim A = \dim V$.
+\end{definition}
+
+Axiom (A3) encapsulates the idea that the vector space $V$ acts as the group of translations on the set of points $A$. The action being transitive means any point can be reached from any other point by a unique translation vector. The action being free means that only the zero vector fixes any point. This definition formalizes the idea of $A$ being a principal homogeneous space for the additive group of $V$.
+
+It is important to distinguish between points $a \in A$ and vectors $v \in V$. While choosing an origin $o \in A$ allows us to identify any point $a$ with the vector $\vec{oa} = a - o$, this identification depends entirely on the choice of $o$ and is therefore not canonical. Geometric properties of affine spaces should be independent of such choices.
+
+An alternative but equivalent definition uses the subtraction map.
+
+\begin{definition}
+An affine space is a pair $(A, V)$, where $A$ is a non-empty set of points and $V$ is a finite-dimensional real vector space, together with a map $- : A \times A \to V$, denoted $(b, a) \mapsto b - a$, satisfying:
+\begin{enumerate}
+    \item[(B1)] For every point $a \in A$ and every vector $v \in V$, there exists a unique point $b \in A$ such that $b - a = v$.
+    \item[(B2)] Chasles' Relation: For all points $a, b, c \in A$, $(c - b) + (b - a) = c - a$.
+\end{enumerate}
+\end{definition}
+
+The equivalence between these two definitions is straightforward. Given $A, V, +$, define $b - a$ as the unique vector $v$ such that $a + v = b$. Axiom (A3) ensures existence and uniqueness, satisfying (B1). Axiom (A2) implies (B2). Conversely, given $A, V, -$, define $a + v$ as the unique point $b$ such that $b - a = v$. Axiom (B1) ensures existence and uniqueness. Axioms (A1) and (A2) follow from (B1) and (B2).
+
+An affine space of dimension 0 is a single point. An affine space of dimension 1 is called an \textbf{affine line}, and one of dimension 2 is called an \textbf{affine plane}. An affine subspace of dimension $\dim A - 1$ is an \textbf{affine hyperplane}.
+
+In linear algebra, linear combinations are very fundamental and natural. However, attempting to form analogous combinations of points $\sum \lambda_i a_i$ in an affine space leads to frame dependence, unless the sum of the coefficients $\sum \lambda_i$ is equal to 1. This restriction leads to affine combinations.
+
+The reason for the constraint $\sum \lambda_i = 1$ becomes clear when we examine independence from the origin. Let $o \in A$ be an arbitrary origin. We wish to define a point $p = \sum \lambda_i a_i$. Interpreting this relative to $o$, we might define the vector $\vec{op} = \sum \lambda_i \vec{oa_i}$. If we choose a different origin $o'$, the corresponding vectors are $\vec{o'a_i} = \vec{oa_i} - \vec{oo'}$. The combination relative to $o'$ would yield the vector
+\[
+\vec{o'p'} = \sum \lambda_i \vec{o'a_i} = \sum \lambda_i (\vec{oa_i} - \vec{oo'}) = \left( \sum \lambda_i \vec{oa_i} \right) - \left( \sum \lambda_i \right) \vec{oo'}.
+\]
+For the resulting point $p$ to be independent of the origin (i.e., $p = p'$), we require
+\[
+\vec{o'p'} = \vec{op} - \vec{oo'}.
+\]
+Substituting the expressions gives
+\[
+\left( \sum \lambda_i \vec{oa_i} \right) - \left( \sum \lambda_i \right) \vec{oo'} = \left( \sum \lambda_i \vec{oa_i} \right) - \vec{oo'}.
+\]
+This equality holds if and only if
+\[
+\left( \sum \lambda_i \right) \vec{oo'} = \vec{oo'},
+\]
+which, for an arbitrary choice of $o, o'$, necessitates $\sum \lambda_i = 1$. This condition ensures that the definition of the combined point is belongs to the affine structure only, independent of any arbitrary origin choice.
+
+\begin{definition}
+Let $(A, V)$ be an affine space. Let $a_i$ for $i \in I$ be a finite family of points in $A$ and $\lambda_i$ for $i \in I$ be a corresponding family of scalars in $\mathbb{R}$ such that $\sum_{i \in I} \lambda_i = 1$. The \textbf{affine combination} of the points $a_i$ with weights $\lambda_i$ is the point $p \in A$ defined by
+\[
+p = o + \sum_{i \in I} \lambda_i (a_i - o)
+\]
+for any arbitrary choice of origin $o \in A$. The definition ensures $p$ is independent of the choice of $o$. We often write $p = \sum_{i \in I} \lambda_i a_i$.
+\end{definition}
+
+Geometrically, the affine combination $\lambda_1 a_1 + \lambda_2 a_2$ with $\lambda_1 + \lambda_2 = 1$ represents a point on the line passing through $a_1$ and $a_2$. If, in addition, $\lambda_1, \lambda_2 \geq 0$, the point lies on the line segment between $a_1$ and $a_2$; such combinations are called \textbf{convex combinations}.
+
+\begin{definition}
+    An \textbf{affine frame} for an $n$-dimensional affine space $A$ consists of a point $o \in A$ (the origin) and a basis $\{ v_1, \dots, v_n \}$ for the associated vector space $V$. Any point $a \in A$ can be uniquely written as
+\[
+a = o + \sum_{i=1}^n x^i v_i.
+\]
+The scalars $x^1, \dots, x^n$ are the \textbf{affine coordinates} of $a$ relative to the frame $(o; \{ v_i \})$.
+\end{definition}
+
+Affine subspaces generalize the concepts of lines and planes within an affine space. They are subsets that are \dq{flat} and closed under the formation of lines passing through any two of their points.
+
+\begin{definition}
+A subset $S \subseteq A$ of an affine space $A$ is an \textbf{affine subspace} if either $S$ is empty, or $S$ is non-empty and for any family of points $a_i$ for $i \in I$ in $S$ and scalars $\lambda_i$ for $i \in I$ with $\sum \lambda_i = 1$, the affine combination $\sum \lambda_i a_i$ is also in $S$.
+\end{definition}
+
+This definition means affine subspaces are precisely the subsets closed under affine combinations. The empty set and singleton sets $\{a\}$ are affine subspaces. Any line through two distinct points is an affine subspace.
+
+A fundamental characterization relates affine subspaces to translates of vector subspaces.
+
+\begin{proposition}
+A non-empty subset $S \subseteq A$ is an affine subspace if and only if there exists a point $a \in S$ and a unique vector subspace $U \subseteq V$ such that $S = a + U = \{ a + u \mid u \in U \}$. The subspace $U$ is called the \textbf{direction} of $S$, denoted $\vec{S}$.
+\end{proposition}
+
+\begin{proof}
+
+Let $S \subseteq A$ be non-empty.
+
+($\Rightarrow$) Assume $S$ is an affine subspace. Since $S$ is non-empty, fix an arbitrary $a_0 \in S$. Define $U \coloneqq \{ \vec{a_0 p} \mid p \in S \} = \{ p - a_0 \mid p \in S \}$.
+
+First, we show $U$ is a vector subspace of $V$:
+\begin{itemize}
+    \item $0_V = a_0 - a_0 \in U$ since $a_0 \in S$. So $U$ is non-empty.
+    \item Let $u_1, u_2 \in U$. Then $u_1 = p_1 - a_0$ and $u_2 = p_2 - a_0$ for some $p_1, p_2 \in S$. Consider the point $q = a_0 + (p_1 - a_0) + (p_2 - a_0) = p_1 + (p_2 - a_0)$. This can be written as an affine combination $q = (1)p_1 + (1)p_2 + (-1)a_0$. Since $p_1, p_2, a_0 \in S$ and the coefficients sum to $1$, $q \in S$. Then $u_1 + u_2 = (p_1 - a_0) + (p_2 - a_0) = q - a_0 \in U$. Thus, $U$ is closed under addition.
+    \item Let $u \in U$ and $c \in \mathbb{R}$. Then $u = p - a_0$ for some $p \in S$. Consider the point $q = (1-c)a_0 + cp$. Since $a_0, p \in S$ and $(1-c)+c = 1$, $q \in S$. Then $cu = c(p - a_0) = (cp - ca_0) = (cp + (1-c)a_0 - a_0) = q - a_0 \in U$. Thus, $U$ is closed under scalar multiplication.
+\end{itemize}
+So, $U$ is a vector subspace of $V$.
+
+Next, we show $S = a_0 + U$:
+\begin{itemize}
+    \item If $p \in S$, then $p = a_0 + (p - a_0)$. Since $p-a_0 \in U$ by definition of $U$, $p \in a_0 + U$. Thus $S \subseteq a_0 + U$.
+    \item If $x \in a_0 + U$, then $x = a_0 + u$ for some $u \in U$. By definition of $U$, $u = p' - a_0$ for some $p' \in S$. So $x = a_0 + (p' - a_0) = p'$. Since $p' \in S$, it follows that $x \in S$. Thus $a_0 + U \subseteq S$.
+\end{itemize}
+Hence $S = a_0 + U$.
+
+Finally, we show $U$ is unique for $S$. Suppose $S = a_0 + U_0$ and also $S = a_1 + U_1$ for some $a_0, a_1 \in S$ and vector subspaces $U_0, U_1$.
+From $S = a_0 + U_0$, we have $U_0 = \{s - a_0 \mid s \in S\}$.
+From $S = a_1 + U_1$, we have $U_1 = \{s - a_1 \mid s \in S\}$.
+Since $a_1 \in S$, $a_1 = a_0 + u_0$ for some $u_0 \in U_0$. So $u_0 = a_1 - a_0$.
+Let $v \in U_0$. Then $v = s - a_0$ for some $s \in S$. We can write $v = (s - a_1) + (a_1 - a_0) = (s - a_1) + u_0$.
+Since $s \in S$ and $a_1 \in S$, $s-a_1 \in U_1$.
+To show $U_0 \subseteq U_1$: any $v \in U_0$ is $s - a_0$ for $s \in S$. Then $v = (s-a_1) - (a_0-a_1)$. Since $s-a_1 \in U_1$ and $a_0-a_1 \in U_1$ (as $U_1 = \{p-a_1 \mid p \in S\}$ and $a_0 \in S$), their difference $v \in U_1$. So $U_0 \subseteq U_1$.
+Similarly, $U_1 \subseteq U_0$. Thus $U_0 = U_1$. This unique subspace is denoted $\vec{S}$.
+
+($\Leftarrow$) Assume there exists $a_0 \in S$ and a vector subspace $U \subseteq V$ such that $S = a_0 + U$. We show $S$ is an affine subspace (i.e., closed under affine combinations).
+Let $p_1, \dots, p_k \in S$ and $\lambda_1, \dots, \lambda_k \in \mathbb{R}$ such that $\sum_{i=1}^k \lambda_i = 1$.
+Since $p_i \in S$, each $p_i = a_0 + u_i$ for some $u_i \in U$.
+The affine combination $p = \sum_{i=1}^k \lambda_i p_i$ can be expressed relative to $a_0$ as:
+\[ p = a_0 + \sum_{i=1}^k \lambda_i (p_i - a_0) \]
+Substituting $p_i - a_0 = u_i$:
+\[ p = a_0 + \sum_{i=1}^k \lambda_i u_i \]
+Since each $u_i \in U$ and $U$ is a vector subspace, the linear combination $u_{\text{new}} = \sum_{i=1}^k \lambda_i u_i$ is also in $U$.
+Therefore, $p = a_0 + u_{\text{new}}$ where $u_{\text{new}} \in U$. This implies $p \in a_0 + U = S$.
+Thus, $S$ is an affine subspace.
+\end{proof}
+
+\subsubsection{Affine Maps and the Affine Group}
+
+Affine maps are the structure-preserving morphisms between affine spaces. They preserve the essential affine properties like collinearity and parallelism.
+
+\begin{definition}[Affine Map] \label{def:affine_map}
+Let $(A, V, +)$ and $(A', V', +)$ be two affine spaces. A map $f: A \to A'$ is an \textbf{affine map} if there exists a linear map $\vec{f}: V \to V'$ such that for any $a \in A$ and $v \in V$,
+\[
+f(a + v) = f(a) + \vec{f}(v)
+\]
+The linear map $\vec{f}$ is unique and is called the \textbf{associated linear map} (or linear part) of $f$. Equivalently, $f$ is affine if for any points $a, b \in A$, $\vec{f}(\vec{ab}) = \vec{f}(a) - \vec{f}(b)$, i.e., $\vec{f}(b - a) = f(b) - f(a)$.
+A third equivalent condition is that $f$ preserves affine combinations: 
+\[
+f\left( \sum \lambda_i a_i \right) = \sum \lambda_i f(a_i)
+\]
+whenever $\sum \lambda_i = 1$.
+\end{definition}
+
+Affine maps send lines to lines (or points), planes to planes (or lines, or points), and preserve parallelism and ratios of lengths along parallel lines. The composition of affine maps is affine. Any affine map $f$ can be expressed, relative to a choice of origin $o \in A$, as the composition of its linear part $\vec{f}$ (acting on $V$ identified with $A$ via $o$) followed by a translation by the vector $\vec{of(o)}$:
+\[
+f(x) = f(o) + \vec{f}(x - o)
+\]
+
+\begin{definition}
+    An \textbf{affine transformation} is an invertible affine map from an affine space $A$ to itself. The set of all affine transformations of $A$ forms a group under composition, called the \textbf{affine group} of $A$, denoted $\text{Aff}(A)$. Notably, the inverse of an affine transformation is also affine, which is a nontrivial property: in general, the inverse of a structure-preserving map is not guaranteed to preserve the same structure (e.g., a continuous bijection need not be a homeomorphism in topology). The fact that affine maps are closed under inversion is essential for $\text{Aff}(A)$ to form a group.
+\end{definition}
+
+How closely is the structure of the affine group related to the structure of the affine space? The answer is a lot.
+
+\begin{theorem}
+Let $A$ be an $n$-dimensional affine space with associated vector space $V$. The affine group $\text{Aff}(A)$ is isomorphic to the semidirect product $V \rtimes \GL(V)$, where $\GL(V)$ is the general linear group of $V$ acting on $V$ by its natural action (i.e., linear transformations). The group operation on $V \rtimes \GL(V)$ is given by
+\[
+(v, f)(w, g) = (v + f(w), fg),
+\]
+where $v, w \in V$ and $f, g \in \GL(V)$. Thus,
+\[
+\text{Aff}(A) \cong V \rtimes \GL(V).
+\]
+\end{theorem}
+
+\begin{proof}
+An affine transformation $f \in \text{Aff}(A)$ is determined by its associated linear map $\vec{f} \in \GL(V)$ and the image $f(o)$ of a chosen origin $o \in A$. Let $v = \vec{of(o)} = f(o) - o$. We can represent $f$ by the pair $(v, \vec{f}) \in V \times \GL(V)$. Consider the composition $f_1 \circ f_2$, represented by $(v_1, M_1)$ and $(v_2, M_2)$ respectively, where $M_1 = \vec{f_1}$ and $M_2 = \vec{f_2}$. Let $a \in A$.
+
+\[
+(f_1 \circ f_2)(a) = f_1(f_2(a)) = f_1(o + \vec{oa} + v_2 + M_2(\vec{oa})) = f_1(f_2(o + \vec{oa})) = f_1(f_2(o) + M_2(\vec{oa}))
+\]
+
+After some algebraic manipulation, the result corresponds to the pair $(v_1 + M_1 v_2, M_1 M_2)$, which defines the group operation on $V \rtimes \GL(V)$. This confirms the semidirect product structure.
+\end{proof}
+
+The semidirect product structure reflects the geometric fact that translations are transformed by the linear part of an affine map. If we conjugate a translation $T_u(x) = x + u$ (represented by $(u, I)$) by an affine map $f(x) = Mx + v$ (represented by $(v, M)$), the result is another translation $T_{Mu}(x) = x + Mu$ (represented by $(Mu, I)$).
+
+Affine transformations can be represented using $(n+1) \times (n+1)$ matrices acting on homogeneous coordinates. If $a \in A$ corresponds to $\begin{pmatrix} \mathbf{x} \\ 1 \end{pmatrix}$ and $f(a)$ corresponds to $\begin{pmatrix} \mathbf{x}' \\ 1 \end{pmatrix}$, then $f$ represented by $(v, M)$ corresponds to the matrix multiplication:
+\[
+\begin{pmatrix} \mathbf{x}' \\ 1 \end{pmatrix} = \begin{pmatrix} M & v \\ 0 & 1 \end{pmatrix} \begin{pmatrix} \mathbf{x} \\ 1 \end{pmatrix}
+\]
+Composition of affine transformations corresponds to multiplication of these augmented matrices.
+
+Affine geometry provides a framework for parallelism and collinearity but lacks notions of distance, length, and angle. Introducing these metric concepts requires equipping the underlying vector space with an inner product. But before we get there, let's (rapidly) review some basic notions of Euclidean vector spaces from linear algebra. 
+
+\begin{definition}[Inner Product] \label{def:inner_product}
+An \textbf{inner product} (or scalar product) on a real vector space $V$ is a map $g: V \times V \to \mathbb{R}$ that is:
+\begin{enumerate}
+    \item \textbf{Symmetric:} $g(u, v) = g(v, u)$ for all $u, v \in V$.
+    \item \textbf{Bilinear:} $g(au + bv, w) = a g(u, w) + b g(v, w)$ and $g(u, av + bw) = a g(u, v) + b g(u, w)$ for all $u, v, w \in V$ and $a, b \in \mathbb{R}$.
+    \item \textbf{Positive-definite:} $g(v, v) \ge 0$ for all $v \in V$, and $g(v, v) = 0$ if and only if $v = 0$.
+\end{enumerate}
+A finite-dimensional real vector space equipped with an inner product $(V, g)$ is called a \textbf{Euclidean vector space}.
+\end{definition}
+
+The inner product induces a \textbf{norm} on $V$, defined by $\|v\| = \sqrt{g(v, v)}$. This norm satisfies the standard properties: $\|v\| \ge 0$ with equality if and only if $v = 0$, $\|\lambda v\| = |\lambda| \|v\|$, and the triangle inequality $\|u + v\| \le \|u\| + \|v\|$.
+
+\begin{proposition} \label{prop:cauchy_schwarz}[Cauchy-Schwarz Inequality]
+For any $u, v$ in a Euclidean vector space $(V, g)$,
+\[
+|g(u, v)| \le \|u\| \|v\|.
+\]
+Equality holds if and only if $u$ and $v$ are linearly dependent.
+\end{proposition}
+
+The inner product allows us to define orthogonality.
+
+\begin{definition}[Orthogonality] \label{def:orthogonality}
+Two vectors $u, v \in V$ are \textbf{orthogonal}, denoted $u \perp v$, if $g(u, v) = 0$. A set of vectors $\{v_i\}$ is \textbf{orthogonal} if $g(v_i, v_j) = 0$ for all $i \neq j$, and \textbf{orthonormal} if $g(v_i, v_j) = \delta_{ij}$ (the Kronecker delta).
+\end{definition}
+
+Euclidean geometry is the geometry of \textbf{Euclidean spaces}, which are vector spaces equipped with an inner product, allowing the measurement of distance, angles, and orthogonality.
+
+
+\subsubsection{Euclidean Affine Spaces}
+
+We now combine the affine structure with the Euclidean vector space structure.
+
+\begin{definition} \label{def:euclidean_space}
+A \textbf{Euclidean affine space} (or simply Euclidean space) $E$ is an affine space whose associated vector space $V$ is a Euclidean vector space $(V, g)$.
+\end{definition}
+
+The inner product $g$ on $V$ allows us to define metric concepts on the affine space $E$.
+
+\textbf{Metric Tensor.} The inner product $g$ on $V$ can be viewed as a constant \textbf{metric tensor field} on $E$. For any point $a \in E$, the tangent space $T_a E$ is canonically isomorphic to $V$ (via $v \mapsto (a, v)$ in the trivialization $TE \cong E \times V$, or thinking of tangent vectors as equivalence classes of curves originating at $a$). We define the metric tensor $g_a$ at $a$ to be the inner product $g$ on $T_a E \cong V$. The \dq{constancy} means that under parallel transport (which is trivial in an affine space), the metric is invariant; equivalently, its components are constant in Cartesian coordinates.
+
+\textbf{Distance.} The distance between two points $a, b \in E$ is defined as the norm of the unique translation vector connecting them:
+\[
+d(a, b) = \| \vec{ab} \| = \| b - a \| = \sqrt{g(b - a, b - a)}
+\]
+This distance function satisfies the axioms of a metric space: $d(a, b) \ge 0$ with equality if and only if $a = b$; $d(a, b) = d(b, a)$; and $d(a, c) \le d(a, b) + d(b, c)$ (triangle inequality, follows from the norm property $\| u + v \| \le \| u \| + \| v \|$).
+
+\textbf{Angles.} The angle $\theta$ between two non-zero vectors $u, v \in V$ is defined via the inner product:
+\[
+\cos \theta = \frac{g(u, v)}{\| u \| \| v \|}, \quad \theta \in [0, \pi]
+\]
+The Cauchy-Schwarz inequality ensures that $-1 \le \cos \theta \le 1$. This definition extends to angles between intersecting affine subspaces (lines, planes) by considering the angles between vectors spanning their direction spaces.
+
+\textbf{Orthogonality.} Orthogonality extends naturally from vectors to affine objects. Two vectors $\vec{ab}$ and $\vec{cd}$ are orthogonal if $g(\vec{ab}, \vec{cd}) = 0$. Two affine subspaces $S_1, S_2$ are orthogonal if their direction spaces $\vec{S_1}, \vec{S_2}$ are orthogonal, meaning $g(u, v) = 0$ for all $u \in \vec{S_1}, v \in \vec{S_2}$. This allows defining the \textbf{orthogonal projection} of a point onto an affine subspace: the projection $p'$ of $p$ onto $S = a + U$ is the unique point $p' \in S$ such that the vector $\vec{p'p} = p - p'$ is orthogonal to the direction space $U$. The distance from $p$ to $S$ is $d(p, p')$.
+
+The existence of an inner product allows for the selection of particularly convenient bases and frames.
+
+\begin{definition} \label{def:orthonormal_basis_frame}
+An \textbf{orthonormal affine frame} (or Euclidean frame) for $E$ is a pair $(o; \{e_1, \dots, e_n\})$ where $o \in E$ is an origin and $\{e_1, \dots, e_n\}$ is an orthonormal basis for $V$.
+\end{definition}
+
+\begin{theorem} \label{thm:gram_schmidt}
+Every finite-dimensional Euclidean vector space $(V, g)$ admits an orthonormal basis.
+\end{theorem}
+\begin{proof}
+Gram-Schmidt orthogonalization process. Starting with an arbitrary basis $\{v_1, \dots, v_n\}$, one constructs an orthogonal basis $\{u_1, \dots, u_n\}$ via $u_1 = v_1$, $u_k = v_k - \sum_{j=1}^{k-1} \mathrm{proj}_{u_j}(v_k)$, where $\mathrm{proj}_u(v) = \frac{g(v, u)}{g(u, u)} u$. Then, an orthonormal basis is obtained by normalizing: $e_k = \frac{u_k}{\| u_k \|}$.
+\end{proof}
+
+An orthonormal affine frame $(o; \{e_i\})$ defines a \textbf{Euclidean coordinate system} (or Cartesian coordinate system) $x^1, \dots, x^n$ on $E$. Any point $a \in E$ has unique coordinates $x^1(a), \dots, x^n(a)$ such that:
+\[
+a = o + \sum_{i=1}^n x^i(a) e_i
+\]
+In such coordinates, the vector connecting two points $a$ and $b$ is:
+\[
+\vec{ab} = b - a = \sum_{i=1}^n (x^i(b) - x^i(a)) e_i
+\]
+The inner product of two vectors $u = \sum u^i e_i$ and $v = \sum v^j e_j$ takes the standard Euclidean form:
+\[
+g(u, v) = g\left(\sum_i u^i e_i, \sum_j v^j e_j\right) = \sum_{i,j} u^i v^j g(e_i, e_j) = \sum_{i,j} u^i v^j \delta_{ij} = \sum_{i=1}^n u^i v^i
+\]
+This leads to a important property regarding the metric tensor field $g$ on $E$. The coordinate vector fields associated with a Euclidean coordinate system are $\frac{\partial}{\partial x^i}$, which correspond to the constant vector fields $e_i$ under the identification $T_a E \cong V$. The components of the metric tensor in these coordinates are:
+\[
+g_{ij} = g\left(\frac{\partial}{\partial x^i}, \frac{\partial}{\partial x^j}\right) = g(e_i, e_j) = \delta_{ij}
+\]
+These components are constant functions on $E$.
+
+\begin{proposition} \label{prop:standard_metric}
+In any Euclidean coordinate system $x^1, \dots, x^n$ associated with an orthonormal affine frame, the metric tensor $g$ takes the standard constant form:
+\[
+g = \sum_{i=1}^n dx^i \otimes dx^i
+\]
+where $\{dx^i\}$ is the basis dual to $\left\{\frac{\partial}{\partial x^i}\right\}$. The matrix representation of $g$ in this basis is the identity matrix $I_n$.
+\end{proposition}
+
+Recall that isometries are the symmetry transformations of Euclidean space – the maps that preserve its metric structure.
+
+\begin{definition}[Isometry] \label{def:isometry}
+Let $E$ be a Euclidean affine space. A map $f: E \to E$ is an \textbf{isometry} if it preserves distances:
+\[
+d(f(a), f(b)) = d(a, b) \quad \text{for all } a, b \in E
+\]
+\end{definition}
+
+\begin{theorem} \label{thm:euclidean_group_structure}
+The Euclidean group $\text{Euc}(n)$ is isomorphic to the semidirect product $\mathbb{R}^n \rtimes \text{O}(n)$, where $\mathbb{R}^n$ represents the group of translations $T(n)$.
+\[
+\text{Euc}(n) \cong T(n) \rtimes \text{O}(n) \cong \mathbb{R}^n \rtimes \text{O}(n)
+\]
+Similarly, the special Euclidean group $\text{SE}(n)$ is isomorphic to $\mathbb{R}^n \rtimes \text{SO}(n)$.
+\end{theorem}
+
+\begin{proof}
+An isometry $f$ is represented by $(b, A)$, where $b = f(0) - 0$ is the translation vector and $A = \vec{f} \in \text{O}(n)$ is the orthogonal linear part. The composition rule is
+\[
+(b_1, A_1) \cdot (b_2, A_2) = (b_1 + A_1 b_2, A_1 A_2).
+\]
+This is the semidirect product structure $\mathbb{R}^n \rtimes \text{O}(n)$ with the natural action of $\text{O}(n)$ on $\mathbb{R}^n$. The subgroup of translations
+\[
+T(n) = \{ (b, I) \mid b \in \mathbb{R}^n \}
+\]
+is normal in $\text{Euc}(n)$. The subgroup $\text{SE}(n)$ corresponds to pairs $(b, A)$ with $A \in \text{SO}(n)$.
+\end{proof}
+
+The Euclidean group $\text{Euc}(n)$ is a Lie group of dimension
+\[
+n + \dim(\text{O}(n)) = n + \frac{n(n-1)}{2} = \frac{n(n+1)}{2}.
+\]
+This finite dimensionality reflects the rigidity of Euclidean geometry; there are only a limited number of ways (translations, rotations, reflections) to move objects around without changing distances or angles.
+
+\subsubsection{Affine Symplectic Spaces}
+
+Previously, we explored symplectic vector spaces and affine vector spaces separately. It is now natural to consider how these structures can be combined. In what follows, we introduce the affine analogue of symplectic vector spaces.
+
+\begin{definition} \label{def:affine_symplectic_space}
+An \textbf{affine symplectic space} is a pair $(A, \omega)$ where $A$ is an affine space with associated vector space $V$, and $(V, \omega)$ is a symplectic vector space.
+\end{definition}
+
+The symplectic form $\omega$ on $V$ induces a \textbf{constant symplectic 2-form field} on $A$, also denoted by $\omega$. At each point $a \in A$, the form $\omega_a$ on $T_a A \cong V$ is identified with $\omega$. \dq{Constant} means that the components $\omega_{ij}$ are constant in any canonical coordinate system. As a constant form on an affine space (which is diffeomorphic to $\mathbb{R}^{2m}$), $\omega$ is automatically closed, i.e., $d\omega = 0$. This contrasts with general symplectic manifolds where $d\omega = 0$ is a non-trivial condition.
+
+Earlier, we discussed Darboux's theorem, which roughly states that locally, all symplectic manifolds look the same. For the specific case of an affine symplectic space $(A, \omega)$, where $\omega$ is constant, the local nature of Darboux's theorem can be strengthened to a global statement, thanks to the existence of a global symplectic basis for the underlying vector space $V$.
+
+\begin{theorem} \label{thm:affine_darboux}
+Let $(A, \omega)$ be a $2m$-dimensional affine symplectic space with associated vector space $(V, \omega)$. There exists a global affine coordinate system $(q^1, \dots, q^m, p_1, \dots, p_m)$ on $A$ such that the constant symplectic form $\omega$ is expressed as
+\[
+\omega = \sum_{i=1}^m dq^i \wedge dp_i
+\]
+everywhere on $A$. Such coordinates are called \textbf{canonical coordinates} or \textbf{Darboux coordinates}.
+\end{theorem}
+
+\begin{proof}
+By Theorem \ref{thm:symplectic_basis_exists}, the symplectic vector space $(V, \omega)$ admits a symplectic basis $\{e_1, \dots, e_m, f_1, \dots, f_m\}$ such that $\omega(e_i, e_j) = \omega(f_i, f_j) = 0$ and $\omega(e_i, f_j) = \delta_{ij}$. Choose an arbitrary origin $o \in A$. Define the affine coordinate functions $(q^1, \dots, q^m, p_1, \dots, p_m)$ such that for any point $a \in A$, the unique vector $\vec{oa} = a - o$ is given by
+\[
+a - o = \sum_{i=1}^m q^i(a) e_i + \sum_{j=1}^m p_j(a) f_j.
+\]
+This defines a global affine coordinate system on $A$. The coordinate vector fields are $\frac{\partial}{\partial q^i}$ (corresponding to $e_i$) and $\frac{\partial}{\partial p_j}$ (corresponding to $f_j$). The coordinate 1-forms $dq^i$ and $dp_j$ form the dual basis to these vector fields in each tangent space $T_a A \cong V$. Specifically, 
+\[
+dq^i(e_k) = \delta^i_k, \quad dq^i(f_k) = 0, \quad dp_j(e_k) = 0, \quad dp_j(f_k) = \delta_{jk}.
+\]
+We evaluate the constant 2-form $\omega$ in these coordinates. For any pair of coordinate vector fields $X, Y$, $\omega(X, Y)$ is a constant function on $A$.
+
+\begin{itemize}
+    \item $\omega\left(\frac{\partial}{\partial q^i}, \frac{\partial}{\partial q^k}\right) = \omega(e_i, e_k) = 0$
+    \item $\omega\left(\frac{\partial}{\partial p_j}, \frac{\partial}{\partial p_l}\right) = \omega(f_j, f_l) = 0$
+    \item $\omega\left(\frac{\partial}{\partial q^i}, \frac{\partial}{\partial p_j}\right) = \omega(e_i, f_j) = \delta_{ij}$
+\end{itemize}
+
+The 2-form $\sum_{k=1}^m dq^k \wedge dp_k$ acts on pairs of basis vectors as:
+
+\begin{itemize}
+    \item $\left(\sum_k dq^k \wedge dp_k\right)\left(\frac{\partial}{\partial q^i}, \frac{\partial}{\partial q^l}\right) = 0$
+    \item $\left(\sum_k dq^k \wedge dp_k\right)\left(\frac{\partial}{\partial p_j}, \frac{\partial}{\partial p_l}\right) = 0$
+    \item $\left(\sum_k dq^k \wedge dp_k\right)\left(\frac{\partial}{\partial q^i}, \frac{\partial}{\partial p_j}\right) = \delta_{ij}$
+\end{itemize}
+
+Since $\omega$ and $\sum dq^k \wedge dp_k$ agree on all pairs of basis vectors, they are equal everywhere. Thus, the constant form $\omega$ takes the standard canonical form globally in these affine coordinates.
+\end{proof}
+
+This global result highlights a key difference between affine symplectic spaces and general symplectic manifolds, where Darboux coordinates are only guaranteed locally. It implies that all affine symplectic spaces of dimension $2m$ are globally symplectomorphic (up to the choice of origin). While this suggests significant flexibility compared to the rigidity of Euclidean space (where global isometries exist but don't trivialize the structure), the existence of a global standard form simplifies the structure compared to general symplectic manifolds, which may have complex global topology preventing such a coordinate system.
+
+Now, we discuss affine symplectomorphisms. The structure-preserving transformations of affine symplectic spaces are those affine maps whose linear part preserves the symplectic form.
+
+\begin{definition} \label{def:affine_symplectomorphism}
+An \textbf{affine symplectomorphism} of an affine symplectic space $(A, \omega)$ is an affine transformation $f: A \to A$ such that its associated linear map $\vec{f}: V \to V$ is a linear symplectomorphism, i.e., $\vec{f}^* \omega = \omega$. Equivalently, $\omega(\vec{f}(u), \vec{f}(v)) = \omega(u, v)$ for all $u, v \in V$.
+\end{definition}
+
+\begin{definition} \label{def:affine_symplectic_group}
+The set of all affine symplectomorphisms of $(A, \omega)$ forms a group under composition, called the \textbf{affine symplectic group}, denoted $\text{Aff}_\omega(A)$. This group is a subgroup of the general affine group $\text{Aff}(A)$, consisting of those affine transformations that preserve the symplectic structure.
+\end{definition}
+
+In summary, here's a comparison of the key points we've discussed regarding Euclidean affine spaces and affine symplectic spaces.
+
+\Needspace{12\baselineskip}
+\begin{longtable}{l|>{\raggedright\arraybackslash}p{5cm}|>{\raggedright\arraybackslash}p{5cm}}
+\caption{Succinct Comparison: Euclidean Affine vs. Affine Symplectic Spaces} \label{tab:affine_comparison_succinct} \\
+\hline
+\textbf{Feature} & \textbf{Euclidean Affine ($E$)} & \textbf{Affine Symplectic ($(A, \omega)$)} \\
+\hline \hline
+\endfirsthead
+
+\hline
+\textbf{Feature} & \textbf{Euclidean Affine ($E$)} & \textbf{Affine Symplectic ($(A, \omega)$)} \\
+\hline \hline
+\endhead
+
+\hline
+\multicolumn{3}{r}{\textit{Continued on next page}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+\textbf{Added Structure on $V$} & Inner Product $g$ (Symmetric, Bilinear, Positive-Definite) & Symplectic Form $\omega$ (Skew-Symmetric, Bilinear, Non-Degenerate) \\
+\hline
+\textbf{Induced Field on $A$} & Constant Metric Tensor $g$ & Constant Symplectic Form $\omega$ ($d\omega=0$) \\
+\hline
+\textbf{Key Concepts} & Distance, Angles, Orthogonality & Canonical Structure \\
+\hline
+\textbf{Special Basis/Frame} & Orthonormal ($g(e_i, e_j)=\delta_{ij}$) & Symplectic ($\omega(e_i,f_j)=\delta_{ij}$, others 0) \\
+\hline
+\textbf{Form in Special Coords} & $g=\sum dx^i \otimes dx^i$ (Cartesian) & $\omega=\sum dq^i \wedge dp_i$ (Darboux, Global) \\
+\hline
+\textbf{Structure-Preserving Maps} & Isometries (preserve distance $d$) & Affine Symplectomorphisms (preserve $\omega$) \\
+\hline
+\textbf{Linear Part $\vec{f}$} & Orthogonal ($\vec{f} \in \text{O}(V,g)$) & Symplectic ($\vec{f} \in \text{Sp}(V,\omega)$) \\
+\hline
+\textbf{Symmetry Group} & $\text{Euc}(n) \cong V \rtimes \text{O}(V)$ & $\text{Aff}_\omega(A)$ ($\vec{f} \in \text{Sp}(V,\omega)$) \\
+\end{longtable}
+
+\renewcommand{\arraystretch}{1.0}
+
+\subsubsection{Vector Fields, Flows, and Gradients on Affine Spaces}
+\label{sec:vf_flows_gradients}
+
+Let $(A, V)$ be a real affine space of dimension $2n$, where $V$ is the vector space of translations. We assume $A$ is endowed with a symplectic form $\omega$, transforming $(A, V, \omega)$ into an affine symplectic space. Recall that $\omega$ is a non-degenerate, skew-symmetric bilinear form on $V$. Let $U \subseteq A$ be an open subset.
+
+The flatness of the affine space $A$ permits a canonical identification between the tangent space $T_p A$ at any point $p \in A$ and the vector space $V$. Specifically, for any $p \in A$, the map $v \mapsto p+v$ provides an identification of $V$ with $A$. The differential of this map identifies $T_0 V \cong V$ with $T_p A$. Consequently, the tangent bundle $TA$ is trivial, $TA \cong A \times V$. This allows for a simplified definition of vector fields compared to the general manifold setting.
+
+\begin{definition}[Vector Field]
+A \textbf{vector field} on $U$ is a smooth map $\xi: U \to V$. We denote the space of smooth vector fields on $U$ by $\mathfrak{X}(U)$. At each point $p \in U$, $\xi(p) \in V$ is interpreted as a tangent vector attached to $p$, residing in the canonically identified space $T_p A \cong V$.
+\end{definition}
+
+Similarly, we define differential forms by leveraging the canonical identification of cotangent spaces $T^*_p A$ with the dual space $V^*$.
+
+\begin{definition}[Differential Form]
+A \textbf{differential $k$-form} on $U$ is a smooth map $\alpha: U \to \Lambda^k V^*$, where $\Lambda^k V^*$ denotes the $k$-th exterior power of the dual space $V^*$. We denote the space of smooth $k$-forms on $U$ by $\Omega^{k}(U)$.
+\begin{itemize}
+    \item For $k=0$, $\Omega^{0}(U) = C^\infty(U, \R)$ is the space of smooth real-valued functions on $U$.
+    \item For $k=1$, $\Omega^{1}(U)$ is the space of smooth \textbf{1-forms}. A 1-form $\alpha$ assigns to each $p \in U$ a covector $\alpha(p) \in V^*$.
+\end{itemize}
+\end{definition}
+
+\begin{remark}[Exterior Derivative]
+The exterior derivative $d: \Omega^{k}(U) \to \Omega^{k+1}(U)$ is defined as usual. For a function $f \in \Omega^{0}(U)$, its differential $d f \in \Omega^{1}(U)$ is given at $p \in U$ by the linear map $(d f)_p: V \to \R$ defined by $(d f)_p(v) = Df(p)(v)$, the directional derivative of $f$ at $p$ in the direction $v$. In coordinates $(x^1, \dots, x^{2n})$ corresponding to a basis $(e_1, \dots, e_{2n})$ of $V$, $d f = \sum_{i=1}^{2n} \frac{\partial f}{\partial x^i} d x^i$. Importantly, $d^2 = d \circ d = 0$.
+\end{remark}
+
+The symplectic form $\omega$ on $V$, being non-degenerate, establishes an isomorphism between $V$ and its dual $V^*$. This contrasts with the isomorphism provided by a Euclidean inner product $g$.
+
+The musical isomorphism (in the affine symplectic space case) allows us to associate a unique vector field to the differential (a 1-form) of any smooth function.
+
+Earlier, we introduced the Lie algebra. Within the Lie algebra $\mathfrak{X}_{\omega}(N)$ lies a particularly significant subalgebra consisting of vector fields generated by functions.
+
+\begin{definition}[Symplectic Gradient]
+Let $f \in C^\infty(U)$. The \textbf{symplectic gradient} (or \textbf{Hamiltonian vector field}) of $f$ is the unique vector field $\xi_f \in \mathfrak{X}(U)$ defined by the relation:
+\[
+\iota_{\xi_f} \omega = -d f
+\]
+Equivalently, $\omega(\xi_f(p), v) = -(d f)_p(v)$ for all $p \in U$ and $v \in V$. In terms of the musical isomorphisms, $\xi_f = -\sharp_\omega (d f)$.
+
+Such a function $f$ is called a \textbf{Hamiltonian function} or \textbf{momentum function} (or simply momentum) generating $\xi$. The vector field $\xi$ is then uniquely determined by $df$ (and hence by $f$ up to an additive constant) via the non-degeneracy of $\omega$, and is denoted $\xi_f$. The space of Hamiltonian vector fields is denoted $\mathfrak{X}_{\mathrm{Ham}}(N)$.
+\end{definition}
+
+\begin{remark}[Uniqueness of Momentum]
+If $\xi = \xi_f$, then $\xi = \xi_{f+c}$ for any constant $c$ (since $d(f+c) = df$). If $N$ is connected, these are the only functions generating $\xi_f$; the momentum function is determined up to an overall additive constant. This ambiguity corresponds physically to the fact that only potential energy \textit{differences} are measurable.
+\end{remark}
+
+\begin{remark}[Sign Convention]
+The negative sign is conventional in Hamiltonian mechanics. It ensures that Hamilton's equations take their standard form. If $H$ is the Hamiltonian function, the dynamics are governed by $\dot{x} = \xi_H(x)$. In canonical coordinates $(q^i, p_i)$ where $\omega = \sum_i d q^i \wedge d p_i$, the definition $\iota_{\xi_H} \omega = -d H$ yields the familiar equations $\dot{q}^i = \frac{\partial H}{\partial p_i}$ and $\dot{p}_i = -\frac{\partial H}{\partial q^i}$.
+\end{remark}
+
+\begin{example}[Euclidean Gradient - for contrast]
+If $A$ were equipped with a Euclidean metric $g$, the standard \textbf{gradient} $\nabla f$ would be defined by $g(\nabla f, v) = d f(v)$ for all $v \in V$, or $\nabla f = \sharp_g (d f)$. Note the absence of the negative sign and the use of $g$ instead of $\omega$.
+\end{example}
+
+Vector fields prescribe infinitesimal motion. Integrating this motion yields trajectories and transformations known as flows.
+
+\begin{definition}[Integral Curve]
+An \textbf{integral curve} of a vector field $\xi \in \mathfrak{X}(U)$ starting at $p \in U$ is a smooth curve $\gamma: I \to U$, defined on some open interval $I$ containing $0$, such that $\gamma(0) = p$ and $\dot{\gamma}(t) = \xi(\gamma(t))$ for all $t \in I$. Here, $\dot{\gamma}(t)$ denotes the tangent vector to the curve at $\gamma(t)$, identified with an element of $V$.
+\end{definition}
+
+\begin{theorem}[Existence and Uniqueness of Local Flows]
+Let $\xi \in \mathfrak{X}(U)$. For each $p \in U$, there exists a unique maximal integral curve $\gamma_p: I_p \to U$ starting at $p$. Furthermore, there exists an open neighborhood $W \subseteq \R \times U$ of $\{0\} \times U$ and a smooth map $\varphi: W \to U$, called the \textbf{local flow} of $\xi$, such that for each fixed $p \in U$, the map $t \mapsto \varphi(t, p)$ is the integral curve of $\xi$ starting at $p$. We often write $\varphi_t(p)$ for $\varphi(t, p)$. For fixed $t$ (where defined), $\varphi_t: U_t \to U'_t$ is a diffeomorphism between open subsets of $U$.
+\end{theorem}
+\begin{proof}
+This is a standard result from the theory of ordinary differential equations, applied to the system $\dot{x} = \xi(x)$.
+\end{proof}
+
+\begin{remark}[Affine Structure Distortion]
+Unless the vector field $\xi$ is constant (corresponding to parallel translation) or linear (corresponding to an affine transformation centered at some origin), its flow maps $\varphi_t$ are generally \textit{not} affine automorphisms of $A$. They typically distort distances, angles, and the affine structure itself.
+\end{remark}
+
+A central question is how flows interact with the underlying geometric structure, in our case, the symplectic form $\omega$.
+
+\begin{definition}[Lie Derivative]
+Let $\xi \in \mathfrak{X}(U)$. The \textbf{Lie derivative} with respect to $\xi$ acts on differential forms. For $\alpha \in \Omega^{k}(U)$, $\mathcal{L}_\xi \alpha \in \Omega^{k}(U)$ measures the rate of change of $\alpha$ along the flow of $\xi$. It can be defined via the flow:
+\[
+\mathcal{L}_\xi \alpha = \left. \frac{d}{dt} \right|_{t=0} \varphi_t^* \alpha
+\]
+where $\varphi_t^*$ denotes the pullback operation by the diffeomorphism $\varphi_t$. Alternatively, Cartan's magic formula\footnote{See Theorem 14.35 on page 372 of \cite{Lee2013}.} provides the expression:
+\[
+\mathcal{L}_\xi \alpha = d(\iota_\xi \alpha) + \iota_\xi(d \alpha)
+\]
+\end{definition}
+
+Continuous symmetries, such as those generated by Lie group actions, are often best understood through their infinitesimal generators – vector fields whose flows consist of symmetries.
+
+\begin{definition}[Symplectic Vector Field]
+An \textbf{infinitesimal symmetry} of $(N, \omega)$ is a smooth vector field $\xi \in \mathfrak{X}(N)$ such that its local flow $\{\varphi_t\}$ consists of (local) symplectomorphisms. This condition is equivalent to requiring that the Lie derivative of $\omega$ with respect to $\xi$ vanishes:
+\[ \mathcal{L}_\xi \omega = 0 \]
+A vector field satisfying this condition is called \textbf{symplectic}. The space of all symplectic vector fields on $N$ is denoted $\mathfrak{X}_{\omega}(N)$.
+\end{definition}
+
+The condition $\mathcal{L}_\xi \omega = 0$ provides a powerful link to differential forms. Using Cartan's magic formula $\mathcal{L}_\xi = d \iota_\xi + \iota_\xi d$ and the fact that $\omega$ is closed ($d\omega = 0$), we have:
+\[ \mathcal{L}_\xi \omega = d(\iota_\xi \omega) + \iota_\xi(d\omega) = d(\iota_\xi \omega) \]
+Therefore, a vector field $\xi$ is symplectic if and only if the 1-form obtained by contracting $\omega$ with $\xi$ is closed:
+\[ \xi \in \mathfrak{X}_{\omega}(N) \iff d(\iota_\xi \omega) = 0 \]
+This shows that the map $\xi \mapsto \iota_\xi \omega$ provides an isomorphism between the space $\mathfrak{X}_{\omega}(N)$ of symplectic vector fields and the space $Z^1(N)$ of closed 1-forms on $N$ (assuming appropriate function spaces or interpreting the isomorphism via the non-degeneracy of $\omega$).
+
+\begin{proposition}
+The space $\mathfrak{X}_{\omega}(N)$ is a Lie subalgebra of $(\mathfrak{X}(N), [\cdot, \cdot])$.
+\end{proposition}
+\begin{proof}
+Let $\xi, \eta \in \mathfrak{X}_{\omega}(N)$. We must show $[\xi, \eta] \in \mathfrak{X}_{\omega}(N)$. We use the fundamental identity relating Lie derivatives and commutators: $\mathcal{L}_{[\xi, \eta]} = [\mathcal{L}_\xi, \mathcal{L}_\eta] = \mathcal{L}_\xi \mathcal{L}_\eta - \mathcal{L}_\eta \mathcal{L}_\xi$. Applying this identity to the form $\omega$:
+\[ \mathcal{L}_{[\xi, \eta]} \omega = \mathcal{L}_\xi (\mathcal{L}_\eta \omega) - \mathcal{L}_\eta (\mathcal{L}_\xi \omega) \]
+Since $\xi$ and $\eta$ are symplectic, $\mathcal{L}_\xi \omega = 0$ and $\mathcal{L}_\eta \omega = 0$. Substituting these into the equation yields:
+\[ \mathcal{L}_{[\xi, \eta]} \omega = \mathcal{L}_\xi (0) - \mathcal{L}_\eta (0) = 0 - 0 = 0 \]
+Thus, the commutator $[\xi, \eta]$ is also a symplectic vector field.
+\end{proof}
+The structure of this potentially infinite-dimensional Lie algebra $\mathfrak{X}_{\omega}(N)$ is complicated and reflects the geometry of $(N, \omega)$.
+
+The remarkable property of symplectic gradients is that they generate structure-preserving flows.
+
+\begin{theorem}
+Every Hamiltonian vector field is symplectic. That is, if $f \in C^\infty(U)$ and $\xi_f$ is its symplectic gradient, then $\mathcal{L}_{\xi_f} \omega = 0$.
+\end{theorem}
+\begin{proof}
+We apply Cartan's formula. Since $\omega$ is a form of constant coefficients on $A$ (inherited from $V$), its exterior derivative $d \omega = 0$ (it is closed). By definition of the symplectic gradient, $\iota_{\xi_f} \omega = -d f$.
+Therefore,
+\[
+\mathcal{L}_{\xi_f} \omega = d(\iota_{\xi_f} \omega) + \iota_{\xi_f}(d \omega) = d(-d f) + \iota_{\xi_f}(0) = -d^2 f = 0.
+\]
+The result follows.
+\end{proof}
+
+\begin{corollary}
+The flow $\{\varphi_t\}$ generated by a Hamiltonian vector field $\xi_f$ consists of \textbf{symplectomorphisms}, i.e., diffeomorphisms preserving $\omega$.
+\end{corollary}
+
+\begin{remark}[Contrast with Euclidean Gradient]
+The flow generated by the Euclidean gradient $\nabla f$ does \textit{not} generally preserve the metric $g$. The condition for a vector field $\xi$ to preserve $g$ is $\mathcal{L}_\xi g = 0$, leading to Killing vector fields, which have a very different character from symplectic vector fields. Gradient flows typically move points towards regions of lower function value, orthogonal to level sets, while Hamiltonian flows move points along level sets of the Hamiltonian function (in many standard examples) in a manner that preserves symplectic area.
+\end{remark}
+
+\begin{proposition}[Conservation of Energy]
+The Hamiltonian function $f$ is constant along the integral curves of its associated Hamiltonian vector field $\xi_f$. That is, $\mathcal{L}_{\xi_f} f = 0$.
+\end{proposition}
+\begin{proof}
+Using the definition of the Lie derivative for functions ($\mathcal{L}_\xi f = d f(\xi)$) and the definition of $\xi_f$:
+\[
+\mathcal{L}_{\xi_f} f = d f (\xi_f) = (-\iota_{\xi_f} \omega)(\xi_f) = -\omega(\xi_f, \xi_f).
+\]
+Since $\omega$ is skew-symmetric, $\omega(v, v) = 0$ for any vector $v$. Thus, $\mathcal{L}_{\xi_f} f = 0$.
+\end{proof}
+
+This proposition is the geometric statement of energy conservation in Hamiltonian mechanics.
+
+Earlier, we saw that every Hamiltonian vector field is symplectic. The converse holds if the domain $U$ has trivial first de Rham cohomology, $H^1_{dR}(U) = 0$ (e.g., if $U$ is star-shaped). On topologically non-trivial domains, there can exist symplectic vector fields that are not Hamiltonian.
+
+
+
+\begin{example}[Symplectic but not Hamiltonian Vector Field on $T^2$]
+\label{ex:t2_symp_non_ham}
+The distinction between symplectic and Hamiltonian vector fields is not merely formal; it manifests concretely on manifolds with non-trivial first cohomology. Consider the 2-torus $M = T^2 = \R^2 / (2\pi\mathbb{Z})^2$, with angular coordinates $(\theta_1, \theta_2)$. Let the symplectic form be the standard area form $\omega = d\theta_1 \wedge d\theta_2$. This form is clearly closed ($d\omega = 0$) and non-degenerate.
+
+Consider the vector field $\xi = \frac{\partial}{\partial\theta_1}$. This vector field generates the flow $\varphi_t(\theta_1, \theta_2) = (\theta_1 + t \pmod{2\pi}, \theta_2)$, representing rigid rotation along the first circle factor.
+
+Is $\xi$ symplectic? We compute the 1-form $\alpha_\xi = \iota_\xi \omega$:
+\begin{align*} \alpha_\xi = \iota_{\partial/\partial\theta_1} (d\theta_1 \wedge d\theta_2) &= (\iota_{\partial/\partial\theta_1} d\theta_1) \wedge d\theta_2 - d\theta_1 \wedge (\iota_{\partial/\partial\theta_1} d\theta_2) \\ &= (d\theta_1(\tfrac{\partial}{\partial\theta_1})) d\theta_2 - d\theta_1 (d\theta_2(\tfrac{\partial}{\partial\theta_1})) \\ &= (1) d\theta_2 - d\theta_1 (0) = d\theta_2. \end{align*}
+Since $d\alpha_\xi = d(d\theta_2) = 0$, the 1-form $\alpha_\xi$ is closed. Therefore, by definition, the vector field $\xi = \frac{\partial}{\partial\theta_1}$ is symplectic ($\mathcal{L}_\xi \omega = d(\iota_\xi \omega) = 0$).
+
+Is $\xi$ Hamiltonian? For $\xi$ to be Hamiltonian, the 1-form $\alpha_\xi = d\theta_2$ would need to be exact. That is, there would have to exist a globally defined smooth function $f \in C^\infty(T^2)$ such that $\alpha_\xi = d\theta_2 = -df$. However, $d\theta_2$ is not exact on the torus $T^2$. We can see this by integrating $d\theta_2$ over the closed loop $\gamma: [0, 2\pi] \to T^2$ defined by $\gamma(t) = (0, t)$:
+\[ \int_\gamma d\theta_2 = \int_0^{2\pi} (d\theta_2)_{\gamma(t)}(\dot{\gamma}(t)) dt \]
+Since $\dot{\gamma}(t) = (0, 1)$ in velocity coordinates, corresponding to the vector $\frac{\partial}{\partial\theta_2}$ at $\gamma(t)$, the integrand is $(d\theta_2)(\frac{\partial}{\partial\theta_2}) = 1$. Thus,
+\[ \int_\gamma d\theta_2 = \int_0^{2\pi} 1 dt = 2\pi \neq 0. \]
+Since the integral of $d\theta_2$ over a closed loop is non-zero, $d\theta_2$ cannot be exact (by Stokes' Theorem, or the definition of exactness via path integrals). Therefore, $\xi = \frac{\partial}{\partial\theta_1}$ is a symplectic vector field that is not Hamiltonian.
+
+This aligns perfectly with the fundamental exact sequence. The first de Rham cohomology of the torus is $H^1_{\text{dR}}(T^2) \cong \R^2$, with basis classes $[d\theta_1]$ and $[d\theta_2]$. The map $\Phi: \mathfrak{X}_{\omega}(T^2) \to H^1_{\text{dR}}(T^2)$ sends our vector field $\xi = \frac{\partial}{\partial\theta_1}$ to the cohomology class $\Phi(\xi) = [\iota_\xi \omega] = [d\theta_2]$. Since $[d\theta_2]$ is a non-zero element of $H^1_{\text{dR}}(T^2)$, $\xi$ lies in $\mathfrak{X}_{\omega}(T^2)$ but not in the kernel of $\Phi$, which is $\mathfrak{X}_{\mathrm{Ham}}(T^2)$. Similarly, the vector field $\frac{\partial}{\partial\theta_2}$ is symplectic but not Hamiltonian, mapping via $\Phi$ to the class $[\iota_{\partial/\partial\theta_2}\omega] = [-d\theta_1]$, which is also non-zero. This example illustrates how the topology of the manifold ($H^1 \neq 0$) creates a distinction between the broader class of structure-preserving vector fields (symplectic) and the subclass generated by scalar functions (Hamiltonian).
+\end{example}
+
+Now we discuss the uniqueness of the Hamiltonian.
+
+\begin{remark}[Uniqueness of Hamiltonian]
+If $\xi = \xi_f$ for some function $f$, then $\xi_f = \xi_{f+c}$ for any constant $c$, since $d(f+c) = d f$. If $U$ is connected, then any two Hamiltonian functions for the same Hamiltonian vector field differ by a constant.
+\end{remark}
+
+To summarize: the structure of an affine symplectic space provides the local model for symplectic manifolds. The concepts introduced here (Hamiltonian vector fields generated by functions via the symplectic form, and their flows which preserve this form) are fundamental. They form the bedrock of Hamiltonian mechanics, geometric quantization, and significant parts of modern symplectic topology. The key thing to remember is the relationship between functions (observables), vector fields (generators of dynamics), and the preservation of the symplectic structure ($\omega$) under the resulting flows. This contrasts with Riemannian geometry, where gradients are tied to the metric and their flows typically do not preserve it. The conservation laws, particularly the preservation of $\omega$ and the constancy of the Hamiltonian function along its flow, are results of the symplectic setup.
+
+\subsection{Riemannian and Symplectic Manifolds}
+
+Our investigations so far within the framework of affine spaces have laid bare the essential algebraic structures underpinning Riemannian and symplectic geometry. While this affine setting provides the infinitesimal model, it falls short of capturing the complexities of global phenomena. Physical systems often evolve on spaces possessing non-trivial topology (e.g., configuration spaces involving angles) or inherent curvature, necessitating a transition to the broader landscape of smooth manifolds. Here, we undertake this transition, exploring how the local geometric structures inherited from $V$ are woven into global tensor fields on a manifold $M$.
+
+Let $M$ be a smooth manifold of dimension $n$ (which we require to be Hausdorff and second-countable). Recall that its smooth structure is defined by a maximal atlas $\mathcal{A} = \{ (U_\alpha, \phi_\alpha) \}_{\alpha \in I}$, where $\{U_\alpha\}$ is an open cover of $M$ and each chart map $\phi_\alpha: U_\alpha \to \phi_\alpha(U_\alpha) \subseteq \R^n$ is a homeomorphism onto an open subset of Euclidean space. Importantly, the transition maps $\phi_\beta \circ \phi_\alpha^{-1}: \phi_\alpha(U_\alpha \cap U_\beta) \to \phi_\beta(U_\alpha \cap U_\beta)$ are required to be smooth (class $C^\infty$) for all overlapping charts $U_\alpha, U_\beta$. This compatibility condition ensures that notions of smoothness are well-defined globally on $M$.
+
+The tangent bundle $\pi: TM \to M$ provides the natural arena for infinitesimal calculus on $M$. It can be constructed as the disjoint union $\coprod_{m \in M} T_m M$ quotiented by an equivalence relation identifying tangent vectors via the differentials of chart maps, or intrinsically via equivalence classes of curves or the space of derivations on the algebra of germs of smooth functions at each point. $TM$ possesses the structure of a smooth vector bundle of rank $n$ over $M$; this means $TM$ is itself a smooth manifold, $\pi$ is a smooth map, and $TM$ admits local trivializations $\Phi_\alpha: \pi^{-1}(U_\alpha) \to U_\alpha \times \R^n$ which are diffeomorphisms respecting the projection maps and restricting to linear isomorphisms on the fibers $\Phi_\alpha|_m: T_m M \to \{m\} \times \R^n \cong \R^n$.
+
+Our objective is to endow $M$ with global geometric structures that smoothly assign to each tangent space $T_m M$ either an inner product (leading to Riemannian geometry) or a symplectic form (leading to symplectic geometry), mirroring the structures previously studied on the model vector space $V$.
+
+\subsubsection{Pointwise Structures, Fiber Bundles, and Global Tensor Fields}
+
+The path to global structures proceeds by first considering the desired algebraic structure on each fiber $T_m M$, then assembling these into a fiber bundle, and finally defining the global geometric structure as a smooth section of this bundle.
+
+We have already defined an inner product and a symplectic form. Let's place these structures on the tangent space in the obvious way.
+
+\begin{definition}
+Let $M$ be a smooth manifold.
+\begin{enumerate}
+    \item A \textbf{Riemannian metric} on $M$ is a smooth assignment of an inner product $g_m$ on each tangent space $T_m M$, such that the map $g: TM \times_M TM \to \R$ is a smooth $(0,2)$-tensor field. That is, for each $m \in M$, the bilinear form $g_m: T_m M \times T_m M \to \R$ is symmetric and positive-definite.
+    
+    \item If $\dim M = 2k$ is even, an \textbf{almost-symplectic form} on $M$ is a smooth 2-form $\omega \in \Omega^2(M)$ such that $\omega_m$ is non-degenerate at each point $m \in M$. That is, for each $m \in M$, the bilinear form $\omega_m: T_m M \times T_m M \to \R$ is skew-symmetric and non-degenerate.
+\end{enumerate}
+\end{definition}
+
+We can consider the spaces of such structures on a fixed vector space $V \cong \R^n$. As before, let $\Met(V)$ denote the space of inner products on $V$, and $\Symp(V)$ denote the space of symplectic forms on $V$ (if $n=2k$). These pointwise spaces can be bundled together over $M$.
+
+\begin{definition}[Associated Fiber Bundles]
+Associated to the tangent bundle $TM \to M$, we define:
+\begin{enumerate}
+    \item The \textbf{bundle of metrics} $\Met(M) \to M$, whose fiber over $m \in M$ is $\Met(T_m M)$.
+    \item The \textbf{bundle of symplectic forms} $\Symp(M) \to M$ (if $\dim M = 2k$), whose fiber over $m \in M$ is $\Symp(T_m M)$.
+\end{enumerate}
+These are smooth fiber bundles whose structure group is related to $\GL(n, \R)$ acting on the fibers $\Met(\R^n)$ and $\Symp(\R^n)$ respectively.
+\end{definition}
+
+A global geometric structure is then precisely a choice of an element in the fiber over each point $m$, varying smoothly across $M$.
+
+\begin{definition}[Global Structures as Sections]
+\label{def:global_structures_sections}
+    A \textbf{Riemannian metric} on $M$ is a smooth section $g: M \to \Met(M)$ of the bundle $\rho_1 : \Met(M) \to M$. Equivalently, it is a smooth tensor field $g \in \Gamma(T^*M \otimes T^*M)$ which is symmetric and positive-definite at each point $m \in M$. In local coordinates $(x^1, \dots, x^n)$, $g = \sum_{i,j=1}^n g_{ij}(x) dx^i \otimes dx^j$, where $(g_{ij}(x))$ is a smooth matrix-valued function such that each matrix $g(x)$ is symmetric and positive-definite.
+
+    An \textbf{almost symplectic structure} on $M$ (which must be even-dimensional, $\dim M = 2k$) is a smooth section $\omega: M \to \Symp(M)$ of the bundle $\rho_2 : \Symp(M) \to M$. Equivalently, it is a smooth differential 2-form $\omega \in \Omega^{2}(M)$ which is non-degenerate at each point $m \in M$. In local coordinates $(x^1, \dots, x^{2k})$, $\omega = \sum_{1 \le i < j \le 2k} \omega_{ij}(x) dx^i \wedge dx^j$, where the matrix $(\omega_{ij}(x))$ (with $\omega_{ii}=0, \omega_{ji}=-\omega_{ij}$) is smooth and has non-zero determinant at each point $x$.
+\end{definition}
+
+\begin{remark}[Geometric Interpretation]
+Infinitesimally, a Riemannian metric $g_m$ allows us to measure lengths of tangent vectors ($||v||_m = \sqrt{g_m(v,v)}$) and angles between them ($\cos \theta = g_m(v, w) / (||v||_m ||w||_m)$). An almost symplectic form $\omega_m$ allows us to measure the signed area of the parallelogram spanned by two tangent vectors $v, w$ as $\omega_m(v, w)$. The non-degeneracy ensures that for any non-zero $v$, there exists some $w$ such that this area is non-zero.
+\end{remark}
+
+\subsubsection{Existence of Structures}
+
+The question of existence of these global structures reveals a big difference between Riemannian and symplectic geometry. The former demonstrates remarkable flexibility, while the latter encounters significant topological obstructions.
+
+\begin{theorem}[Universal Existence of Riemannian Metrics]
+Every smooth manifold $M$ admits a Riemannian metric.
+\end{theorem}
+
+\begin{proof}[Detailed Sketch]
+The proof is based on the ability to patch together locally defined structures using partitions of unity, guaranteed by the paracompactness of $M$.
+
+Local Existence: Let $\{ (U_\alpha, \phi_\alpha) \}_{\alpha \in I}$ be an atlas for $M$. On each chart domain $U_\alpha$, we can define a local Riemannian metric $g_\alpha$. A standard choice is to pull back the Euclidean metric $g_{\text{std}} = \sum_{i=1}^n (dy^i)^2$ from the target space $\phi_\alpha(U_\alpha) \subseteq \R^n$: define $g_\alpha = \phi_\alpha^* g_{\text{std}}$. This yields a smooth, symmetric, positive-definite tensor field on $U_\alpha$.
+
+Partition of Unity: Since $M$ is paracompact and Hausdorff, there exists a partition of unity subordinate to the open cover $\{U_\alpha\}$. This is a collection of smooth functions $\{\psi_\alpha: M \to [0, 1]\}_{\alpha \in I}$ such that:
+\begin{itemize}
+    \item The support $\text{supp}(\psi_\alpha) = \overline{\{m \in M \mid \psi_\alpha(m) \neq 0\}}$ is compact and contained in $U_\alpha$ for each $\alpha$.
+    \item The collection of supports is locally finite (every point $m \in M$ has a neighborhood intersecting only finitely many supports).
+    \item For every $m \in M$, $\sum_{\alpha \in I} \psi_\alpha(m) = 1$. (Note: the sum is finite due to local finiteness).
+\end{itemize}
+
+Gluing: Define a global symmetric tensor field $g$ of type (0, 2) by the formula:
+    \[ g_m = \sum_{\alpha \in I} \psi_\alpha(m) (g_\alpha)_m \]
+    for each $m \in M$. Note that $(g_\alpha)_m$ is only defined if $m \in U_\alpha$; however, if $m \notin \text{supp}(\psi_\alpha)$, then $\psi_\alpha(m) = 0$, so the term vanishes. Thus, the sum is well-defined and involves only finitely many non-zero terms in a neighborhood of any $m$. Smoothness follows from the smoothness of $\psi_\alpha$ and $g_\alpha$. Symmetry is clear as each $g_\alpha$ is symmetric.
+
+Positive-Definiteness: For any $m \in M$ and any non-zero $v \in T_m M$, we need to show $g_m(v, v) > 0$. We have $g_m(v, v) = \sum_{\alpha \in I} \psi_\alpha(m) (g_\alpha)_m(v, v)$. Since $\sum \psi_\alpha(m) = 1$ and $\psi_\alpha(m) \ge 0$, there must be at least one index $\beta$ such that $\psi_\beta(m) > 0$. For this $\beta$, $m \in \text{supp}(\psi_\beta) \subset U_\beta$, so $(g_\beta)_m$ is defined. Since $(g_\beta)_m$ is positive-definite and $v \neq 0$, we have $(g_\beta)_m(v, v) > 0$. Also, for all $\alpha$ where $\psi_\alpha(m) \neq 0$, we have $m \in U_\alpha$, so $(g_\alpha)_m(v, v) \ge 0$. Therefore, $g_m(v, v) = \sum \psi_\alpha(m) (g_\alpha)_m(v, v) \ge \psi_\beta(m) (g_\beta)_m(v, v) > 0$.
+
+\end{proof}
+
+The situation for almost symplectic structures contrasts sharply with that of Riemannian metrics. While every smooth manifold admits a Riemannian metric (thanks to the convexity of the space of positive-definite inner products and the existence of partitions of unity), the existence of an almost symplectic form is not guaranteed—even on even-dimensional manifolds. This is because non-degeneracy is not a convex condition: convex combinations of non-degenerate 2-forms need not be non-degenerate. In contrast, positive-definiteness (a condition on Riemannian metrics) is convex, allowing smooth patching via partitions of unity.
+
+\begin{proposition}[Obstructions to Almost Symplectic Structures]
+Let $M$ be a smooth manifold of dimension $2k$. Necessary conditions for the existence of an almost symplectic structure $\omega$ include:
+\begin{enumerate}
+    \item \textbf{Even Dimension:} Trivial by definition.
+    \item \textbf{Orientability:} An almost symplectic form $\omega$ determines a volume form $\Omega = \frac{(-1)^{k(k-1)/2}}{k!} \omega^k = \frac{(-1)^{k(k-1)/2}}{k!} \omega \wedge \dots \wedge \omega$. Since $\omega$ is non-degenerate, $\Omega$ is nowhere vanishing. The existence of a nowhere-vanishing top-degree form is equivalent to the orientability of $M$. Thus, any almost symplectic manifold must be orientable.
+    \item \textbf{Higher-Order Topological Obstructions:} Even if $M$ is orientable, further obstructions can exist, often related to characteristic classes of the tangent bundle $TM$. For example, the existence of an almost symplectic structure implies certain relations among Stiefel-Whitney classes and Pontryagin classes.
+\end{enumerate}
+\end{proposition}
+
+\begin{example}[Obstructions Illustrated]
+    \label{ex:almost_symp_obs}
+    \,
+    \begin{itemize}
+        \item $\mathbb{RP}^2$ (Real Projective Plane): As a non-orientable 2-manifold, it cannot admit an almost symplectic structure due to obstruction (2). Topologically, $T(\mathbb{R}P^2)$ is non-trivial in a way that prevents a global non-degenerate skew form (related to $w_1(T\mathbb{R}P^2) \neq 0$).
+        \item Orientable Surfaces ($M^2$): Every orientable surface admits an almost symplectic structure. As noted earlier, any area form suffices. For example, the sphere $S^2$ with its standard volume form is almost symplectic (and in fact, symplectic). The torus $T^2 = S^1 \times S^1$ with $d\theta_1 \wedge d\theta_2$ is another example.
+        \item The 4-sphere $S^4$: This is orientable ($H_4(S^4, \mathbb{Z}) \cong \mathbb{Z}$). However, $S^4$ famously does \textit{not} admit an almost symplectic structure. This is a deeper result. It is related to the fact that $TS^4$ does not admit an \textit{almost complex structure} (an endomorphism $J: TS^4 \to TS^4$ with $J^2 = -\text{id}$). While almost symplectic structures do not necessarily require almost complex structures, their obstructions are linked via characteristic classes. For spheres, only $S^2$ and $S^6$ admit almost complex structures (related to the existence of complex and octonion multiplications). The non-existence for $S^4$ can be shown using arguments involving Pontryagin classes or K-theory, demonstrating that topology beyond simple orientability plays a critical role. The argument using $H^2(S^4)=0$, presented later, applies specifically to ruling out \textit{closed} forms (symplectic), not just non-degenerate ones (almost symplectic).
+        \item Complex Projective Space $\mathbb{C}P^n$: This space, of real dimension $2n$, \textit{does} admit an almost symplectic structure. In fact, it admits a Kähler structure, which includes a symplectic form (the Fubini-Study form $\omega_{FS}$) compatible with a complex structure $J$ and a Riemannian metric $g$. The existence here highlights that suitable complex geometry often provides a route to constructing (almost) symplectic structures.
+    \end{itemize}
+\end{example}
+
+\subsubsection{The Symplectic Condition: Integrability}
+
+The definition of an almost symplectic structure involves only the algebraic condition of non-degeneracy at each point, varying smoothly. Symplectic geometry properly imposes an additional, important differential condition: the closure of the 2-form $\omega$.
+
+\begin{definition}[Symplectic Manifold]
+A \textbf{symplectic manifold} is a pair $(M, \omega)$ where $M$ is a smooth manifold (necessarily even-dimensional and orientable) and $\omega \in \Omega^{2}(M)$ is a differential 2-form that is both:
+\begin{enumerate}
+    \item \textbf{Non-degenerate} (pointwise): $\omega_m: T_m M \times T_m M \to \R$ is non-degenerate for all $m \in M$.
+    \item \textbf{Closed}: $d\omega = 0$.
+\end{enumerate}
+The 2-form $\omega$ satisfying these conditions is called the \textbf{symplectic form} of $M$.
+\end{definition}
+
+The condition $d \omega = 0$ fundamentally distinguishes symplectic geometry from Riemannian geometry. It acts as an \emph{integrability condition}, ensuring a high degree of local uniformity, as captured by Darboux's Theorem. The closedness condition $d\omega=0$ establishes a direct link to the topology of the manifold via de Rham cohomology.
+
+\begin{remark}[Cohomological Obstructions and Properties]
+\label{rem:cohom_obs}
+The condition $d\omega=0$ means $\omega$ represents a cohomology class $[\omega] \in H^2_{\text{dR}}(M)$. This class, and its powers, carry significant information.
+\begin{itemize}
+    \item \textbf{Fundamental Class:} $[\omega]$ is a fundamental topological invariant of the symplectic structure. Symplectic diffeomorphisms must preserve this class.
+    \item \textbf{Volume and Top Class:} If $M$ is compact with $\dim M = 2k$, the non-degeneracy ensures the volume form $\omega^k/k!$ is nowhere zero. Since $d\omega = 0$, the volume form is also closed: $d(\omega^k) = k \omega^{k-1} \wedge d\omega = 0$. Its integral $\text{Vol}(M) = \int_M \omega^k/k!$ is non-zero. This implies the top cohomology class $[\omega^k] = [\omega]^k \in H^{2k}_{\text{dR}}(M)$ must be non-zero (as it pairs non-trivially with the fundamental homology class $[M]$).
+    \item \textbf{Obstruction via $H^2$:} If $H^2_{\text{dR}}(M) = 0$, then any closed 2-form $\omega$ must be exact ($\omega = d\alpha$). As explored below for $S^4$, this can prevent the existence of a symplectic structure on a compact manifold, as $[\omega]^k$ would necessarily be zero in cohomology if $[\omega]=0$.
+    \item \textbf{Hard Lefschetz Property:} On a compact Kähler manifold (a special class of symplectic manifolds admitting a compatible complex structure and Riemannian metric), the map $L: H^p(M) \to H^{p+2}(M)$ given by cup product with $[\omega]$, $L(\beta) = [\omega] \wedge \beta$, satisfies the Hard Lefschetz theorem: $L^{k-p}: H^p(M) \to H^{2k-p}(M)$ is an isomorphism for $p \le k$. This property, while specific to Kähler geometry, highlights the deep structural role played by the symplectic class $[\omega]$. Symplectic manifolds satisfying Hard Lefschetz are often called Lefschetz manifolds.
+\end{itemize}
+\end{remark}
+
+\begin{example}[$S^4$ revisited: Symplectic Obstruction via $H^2$]
+As established, $S^4$ does not even admit an almost symplectic structure. However, we can provide an independent argument showing it does not admit a symplectic structure using cohomology, which relies only on $d\omega=0$ and non-degeneracy.
+
+Suppose $\omega \in \Omega^2(S^4)$ were a symplectic form. It must be closed ($d\omega=0$). The second de Rham cohomology of $S^4$ is trivial: 
+\[
+H^2_{\text{dR}}(S^4) = \{0\}.
+\]
+By definition of cohomology, any closed form on a space with trivial cohomology must be exact. Thus, 
+\[
+\omega = d\alpha \quad \text{for some } \alpha \in \Omega^1(S^4).
+\]
+
+Now consider the 4-form $\omega^2 = \omega \wedge \omega$. Since $\omega = d\alpha$, 
+\[
+\omega^2 = d\alpha \wedge d\alpha.
+\]
+Using the property 
+\[
+d(A \wedge B) = dA \wedge B + (-1)^{\deg A} A \wedge dB,
+\]
+we find
+\[
+d(\alpha \wedge d\alpha) = d\alpha \wedge d\alpha - \alpha \wedge d^2\alpha = d\alpha \wedge d\alpha = \omega^2.
+\]
+Thus, $\omega^2 = d(\alpha \wedge \omega)$ is an exact 4-form.
+
+By Stokes' Theorem, the integral of an exact form over a compact manifold without boundary is zero:
+\[
+\int_{S^4} \omega^2 = \int_{\partial S^4} (\alpha \wedge \omega) = 0.
+\]
+
+However, for $\omega$ to be symplectic on the compact 4-manifold $S^4$, $\omega^2$ must be a volume form, and its integral 
+\[
+\int_{S^4} \omega^2
+\]
+must be non-zero (twice the symplectic volume). This contradiction demonstrates that $S^4$ cannot admit a symplectic structure.
+
+Compare this to the 4-torus $T^4$, where 
+\[
+H^2_{\text{dR}}(T^4) \cong \mathbb{R}^6 \neq \{0\},
+\]
+allowing for non-exact closed 2-forms like 
+\[
+d\theta_1 \wedge d\theta_2 + d\theta_3 \wedge d\theta_4,
+\]
+which is a symplectic form.
+\end{example}
+
+So far, we've encountered several examples of manifolds that are not symplectic. Naturally, it's time to explore some sources of symplectic manifolds as well.
+
+\begin{example}[Sources of Symplectic Manifolds]
+    \label{ex:symp_sources}
+    \,
+    \begin{itemize}
+        \item \textbf{Orientable Surfaces ($M^2$):} Any area form $\omega$ is non-degenerate and automatically closed ($d\omega \in \Omega^3(M^2) = 0$). Examples include $(S^2, \omega_{\text{std}})$ and $(T^2, d\theta_1 \wedge d\theta_2)$.
+        \item \textbf{Cotangent Bundles ($T^*M$):} As detailed below, these carry the canonical symplectic form $\omega_{\text{can}} = -d\theta$, providing phase spaces for mechanics.
+        \item \textbf{Kähler Manifolds:} These are complex manifolds $(M, J)$ equipped with a Riemannian metric $g$ such that the associated Kähler form $\omega(X, Y) = g(JX, Y)$ is closed ($d\omega = 0$) and non-degenerate (which follows from $g$ and $J$). Complex projective spaces $\mathbb{C}P^n$ with the Fubini-Study metric are prime examples. Kähler geometry lies at the intersection of Riemannian, complex, and symplectic geometry.
+        \item \textbf{Coadjoint Orbits:} For a Lie group $G$ with Lie algebra $\mathfrak{g}$, the coadjoint orbits in the dual space $\mathfrak{g}^*$ carry canonical symplectic structures (the Kirillov-Kostant-Souriau form). These are important in representation theory and geometric quantization.
+    \end{itemize}
+\end{example}
+
+\subsubsection{Canonical Example: The Cotangent Bundle $T^*M$}
+
+Among the sources of symplectic manifolds, the cotangent bundle holds a privileged position due to its universality and its role as the natural phase space in Hamiltonian mechanics.
+
+Let $M$ be any smooth manifold of dimension $n$. The cotangent bundle $\pi: T^*M \to M$ is the vector bundle whose fiber over $m \in M$ is the dual space $T^*_m M = (T_m M)^*$, the space of linear functionals (covectors) on the tangent space $T_m M$. A point $p \in T^*M$ can be thought of as a pair $(m, \alpha)$ where $m = \pi(p) \in M$ and $\alpha \in T^*_m M$.
+
+\begin{definition}[Tautological One-Form]
+The \textbf{tautological one-form} (or Liouville form) $\theta \in \Omega^{1}(T^*M)$ is defined as follows: For any point $p \in T^*M$ and any tangent vector $\eta \in T_p(T^*M)$ to the cotangent bundle at $p$,
+\[
+\theta_p(\eta) := \langle \alpha, \pi_* \eta \rangle = \alpha( \pi_* \eta )
+\]
+where $\alpha \in T^*_{\pi(p)} M$ is the covector component represented by the point $p$, and $\pi_*: T_p(T^*M) \to T_{\pi(p)}M$ is the pushforward (differential) of the projection map $\pi$.
+The name \dq{tautological} reflects the definition: $\theta$ at $p=(m, \alpha)$ evaluates the covector $\alpha$ on the projection (to the base manifold $M$) of tangent vectors $\eta$ starting at $p$. It naturally extracts the \dq{covector information} inherent in the point $p \in T^*M$ and applies it to the \dq{base component} of tangent vectors at $p$.
+\end{definition}
+
+To understand $\theta$ in coordinates, let $(q^1, \dots, q^n)$ be local coordinates on an open set $U \subseteq M$. These induce canonical coordinates $(q^1, \dots, q^n, p_1, \dots, p_n)$ on the corresponding domain $T^*U = \pi^{-1}(U) \subseteq T^*M$. A point $z \in T^*U$ has coordinates $(q(z), p(z))$, representing the covector $\alpha = \sum_{i=1}^n p_i(z) (dq^i)_{q(z)} \in T^*_{q(z)}M$. Let $\eta \in T_z(T^*M)$. We can write $\eta = \sum a^j (\frac{\partial}{\partial q^j})_z + \sum b_j (\frac{\partial}{\partial p_j})_z$. The projection map is $\pi(q, p) = q$. Its differential is $\pi_*(\frac{\partial}{\partial q^j}) = \frac{\partial}{\partial q^j}$ (viewed as a vector at $q$) and $\pi_*(\frac{\partial}{\partial p_j}) = 0$. Thus, $\pi_* \eta = \sum a^j (\frac{\partial}{\partial q^j})_{q(z)}$.
+Applying the definition of $\theta$:
+\[
+\theta_z(\eta) = \alpha(\pi_* \eta) = \left( \sum_i p_i(z) dq^i \right) \left( \sum_j a^j \frac{\partial}{\partial q^j} \right) = \sum_i p_i(z) a^i.
+\]
+Now consider the coordinate expression for $\theta = \sum A_i dq^i + \sum B^j dp_j$. Evaluating this on $\eta$: $\theta_z(\eta) = \sum A_i a^i + \sum B^j b_j$. Comparing, we must have $A_i = p_i(z)$ and $B^j = 0$. Therefore, in these canonical coordinates:
+\[
+\theta = \sum_{i=1}^n p_i dq^i
+\]
+
+\begin{definition}[Canonical Symplectic Form on $T^*M$]
+The \textbf{canonical symplectic form} on the cotangent bundle $T^*M$ is the 2-form $\omega_{\text{can}} \in \Omega^{2}(T^*M)$ defined by
+\[
+\omega_{\text{can}} := -d\theta
+\]
+The choice of sign is conventional in physics and ensures that Hamilton's equations take their standard form when using $\omega_{\text{can}}$ and coordinates $(q, p)$. With this sign, $\omega_{\text{can}} = -d(\sum p_i dq^i) = -\sum dp_i \wedge dq^i = \sum dq^i \wedge dp_i$.
+\end{definition}
+
+\begin{theorem}
+For any smooth manifold $M$, the cotangent bundle $T^*M$ equipped with the canonical form $\omega_{\text{can}} = -d\theta$ is a symplectic manifold.
+\end{theorem}
+\begin{proof}
+Closedness: $\omega_{\text{can}} = -d\theta$. Therefore, $d\omega_{\text{can}} = -d(d\theta) = -d^2\theta = 0$, since the exterior derivative squares to zero. Closedness is automatic from the definition as an exact form (up to sign).
+
+Non-degeneracy: We check this in the canonical local coordinates $(q^1, \dots, q^n, p_1, \dots, p_n)$ derived above. In these coordinates, $\omega_{\text{can}} = \sum_{i=1}^n dq^i \wedge dp_i$. The matrix representation of this bilinear form with respect to the basis $\{\frac{\partial}{\partial q^1}, \dots, \frac{\partial}{\partial q^n}, \frac{\partial}{\partial p_1}, \dots, \frac{\partial}{\partial p_n}\}$ for the tangent space $T_z(T^*M)$ is the $2n \times 2n$ block matrix:
+    \[ J = \begin{pmatrix} 0_n & I_n \\ -I_n & 0_n \end{pmatrix} \]
+    where $0_n$ is the $n \times n$ zero matrix and $I_n$ is the $n \times n$ identity matrix. The determinant of $J$ is $\det(I_n) = 1$, which is non-zero. Since the determinant is non-zero, the bilinear form is non-degenerate. As this holds in local coordinates covering $T^*M$, $\omega_{\text{can}}$ is non-degenerate everywhere.
+Thus, $(T^*M, \omega_{\text{can}})$ is a symplectic manifold.
+\end{proof}
+
+The existence of this canonical structure makes $T^*M$ the prototypical example of a symplectic manifold and the natural setting for Hamiltonian mechanics, where $q^i$ are generalized positions and $p_i$ are conjugate momenta.
+
+\subsubsection{Dynamics on Symplectic Manifolds: Hamiltonian Formalism}
+
+The framework of vector fields, flows, and gradients developed in the affine setting finds its natural generalization and richest expression on symplectic manifolds.
+
+\begin{definition}[Symplectic and Hamiltonian Vector Fields on Manifolds]
+Let $(M, \omega)$ be a symplectic manifold.
+\begin{enumerate}
+    \item A vector field $\xi \in \mathfrak{X}(M)$ is \textbf{symplectic} if it preserves the symplectic form under its flow, i.e., $\mathcal{L}_\xi \omega = 0$. As $d\omega = 0$, Cartan's formula $\mathcal{L}_\xi \omega = d(\iota_\xi \omega) + \iota_\xi(d\omega)$ reduces this condition to $d(\iota_\xi \omega) = 0$. Thus, $\xi$ is symplectic if and only if the 1-form $\alpha_\xi := \iota_\xi \omega$ is closed. The set of all symplectic vector fields forms a Lie subalgebra $\mathfrak{X}_{\omega}(M) \subset \mathfrak{X}(M)$ under the standard commutator bracket.
+    \item A vector field $\xi \in \mathfrak{X}(M)$ is \textbf{Hamiltonian} if the closed 1-form $\alpha_\xi = \iota_\xi \omega$ is furthermore exact. That is, if there exists a smooth function $f \in C^\infty(M)$ (the \textbf{Hamiltonian function} or simply \textbf{Hamiltonian}) such that $\alpha_\xi = \iota_\xi \omega = -df$. Such a vector field is uniquely determined by $f$ (up to addition of a locally constant function to $f$) and is denoted $\xi_f$. The space of Hamiltonian vector fields $\mathfrak{X}_{\mathrm{Ham}}(M)$ is also a Lie subalgebra of $\mathfrak{X}(M)$.
+\end{enumerate}
+\end{definition}
+
+Clearly, every Hamiltonian vector field is symplectic ($\iota_{\xi_f}\omega = -df \implies d(\iota_{\xi_f}\omega) = -d^2f = 0$). The converse depends on the topology of $M$, specifically its first de Rham cohomology group $H^1_{\text{dR}}(M)$.
+
+\begin{remark}[The Fundamental Exact Sequence]
+The relationship between functions, Hamiltonian fields, symplectic fields, and topology is captured by the following sequence of vector spaces and linear maps:
+\[
+0 \longrightarrow \R \longrightarrow C^\infty_{\text{loc.const}}(M) \stackrel{i}{\longrightarrow} C^\infty(M) \stackrel{\delta}{\longrightarrow} \mathfrak{X}_{\mathrm{Ham}}(M) \stackrel{j}{\longrightarrow} \mathfrak{X}_{\omega}(M) \stackrel{\Phi}{\longrightarrow} H^1_{\text{dR}}(M)
+\]
+Here:
+\begin{itemize}
+    \item $C^\infty_{\text{loc.const}}(M)$ are the locally constant functions (isomorphic to $\R$ if $M$ is connected). The map $i$ is inclusion. The $0 \to \dots \to C^\infty(M)$ part shows constants map to zero under $\delta$.
+    \item $\delta: C^\infty(M) \to \mathfrak{X}_{\mathrm{Ham}}(M)$ is the map $f \mapsto \xi_f$, where $\xi_f$ is defined by $\iota_{\xi_f}\omega = -df$. The kernel of $\delta$ consists precisely of the locally constant functions (since $df=0$ if and only if $f$ is locally constant).
+    \item $j: \mathfrak{X}_{\mathrm{Ham}}(M) \to \mathfrak{X}_{\omega}(M)$ is the inclusion map, as every Hamiltonian field is symplectic.
+    \item $\Phi: \mathfrak{X}_{\omega}(M) \to H^1_{\text{dR}}(M)$ maps a symplectic vector field $\xi$ to the de Rham cohomology class of the closed 1-form $\alpha_\xi = \iota_\xi \omega$, i.e., $\Phi(\xi) = [\iota_\xi \omega]$.
+\end{itemize}
+The sequence is exact at $C^\infty(M)$ ($\ker \delta = \text{im } i$) and at $\mathfrak{X}_{\mathrm{Ham}}(M)$ ($\ker j = 0$, image of $\delta$ is $\mathfrak{X}_{\mathrm{Ham}}(M)$). Exactness at $\mathfrak{X}_{\omega}(M)$ means $\ker \Phi = \text{im } j = \mathfrak{X}_{\mathrm{Ham}}(M)$. This precisely states that a symplectic vector field $\xi$ is Hamiltonian if and only if the cohomology class $[\iota_\xi \omega]$ is zero, i.e., if $\iota_\xi \omega$ is exact. The map $\Phi$ is sometimes related to the \textit{flux homomorphism}. The sequence clarifies that $H^1_{\text{dR}}(M)$ measures the obstruction for a symplectic vector field to be Hamiltonian. If $H^1_{\text{dR}}(M) = 0$ (e.g., if $M$ is simply connected), then every symplectic vector field is Hamiltonian. Furthermore, $\mathfrak{X}_{\mathrm{Ham}}(M)$ is known to be an ideal in $\mathfrak{X}_{\omega}(M)$ under suitable conditions (e.g., $M$ compact).
+\end{remark}
+
+
+\begin{example}[Symplectic but not Hamiltonian Vector Field on $T^2$]
+\label{ex:t2_symp_non_ham2}
+The distinction between symplectic and Hamiltonian vector fields is not merely formal; it manifests concretely on manifolds with non-trivial first cohomology. Consider the 2-torus $M = T^2 = \R^2 / (2\pi\mathbb{Z})^2$, with angular coordinates $(\theta_1, \theta_2)$. Let the symplectic form be the standard area form $\omega = d\theta_1 \wedge d\theta_2$. This form is clearly closed ($d\omega = 0$) and non-degenerate.
+
+Consider the vector field $\xi = \frac{\partial}{\partial\theta_1}$. This vector field generates the flow $\varphi_t(\theta_1, \theta_2) = (\theta_1 + t \pmod{2\pi}, \theta_2)$, representing rigid rotation along the first circle factor.
+
+Is $\xi$ symplectic? We compute the 1-form $\alpha_\xi = \iota_\xi \omega$:
+\begin{align*} \alpha_\xi = \iota_{\partial/\partial\theta_1} (d\theta_1 \wedge d\theta_2) &= (\iota_{\partial/\partial\theta_1} d\theta_1) \wedge d\theta_2 - d\theta_1 \wedge (\iota_{\partial/\partial\theta_1} d\theta_2) \\ &= (d\theta_1(\tfrac{\partial}{\partial\theta_1})) d\theta_2 - d\theta_1 (d\theta_2(\tfrac{\partial}{\partial\theta_1})) \\ &= (1) d\theta_2 - d\theta_1 (0) = d\theta_2. \end{align*}
+Since $d\alpha_\xi = d(d\theta_2) = 0$, the 1-form $\alpha_\xi$ is closed. Therefore, by definition, the vector field $\xi = \frac{\partial}{\partial\theta_1}$ is symplectic ($\mathcal{L}_\xi \omega = d(\iota_\xi \omega) = 0$).
+
+Is $\xi$ Hamiltonian? For $\xi$ to be Hamiltonian, the 1-form $\alpha_\xi = d\theta_2$ would need to be exact. That is, there would have to exist a globally defined smooth function $f \in C^\infty(T^2)$ such that $\alpha_\xi = d\theta_2 = -df$. However, $d\theta_2$ is not exact on the torus $T^2$. We can see this by integrating $d\theta_2$ over the closed loop $\gamma: [0, 2\pi] \to T^2$ defined by $\gamma(t) = (0, t)$:
+\[ \int_\gamma d\theta_2 = \int_0^{2\pi} (d\theta_2)_{\gamma(t)}(\dot{\gamma}(t)) dt \]
+Since $\dot{\gamma}(t) = (0, 1)$ in velocity coordinates, corresponding to the vector $\frac{\partial}{\partial\theta_2}$ at $\gamma(t)$, the integrand is $(d\theta_2)(\frac{\partial}{\partial\theta_2}) = 1$. Thus,
+\[ \int_\gamma d\theta_2 = \int_0^{2\pi} 1 dt = 2\pi \neq 0. \]
+Since the integral of $d\theta_2$ over a closed loop is non-zero, $d\theta_2$ cannot be exact (by Stokes' Theorem, or the definition of exactness via path integrals). Therefore, $\xi = \frac{\partial}{\partial\theta_1}$ is a symplectic vector field that is not Hamiltonian.
+
+This aligns perfectly with the fundamental exact sequence. The first de Rham cohomology of the torus is $H^1_{\text{dR}}(T^2) \cong \R^2$, with basis classes $[d\theta_1]$ and $[d\theta_2]$. The map $\Phi: \mathfrak{X}_{\omega}(T^2) \to H^1_{\text{dR}}(T^2)$ sends our vector field $\xi = \frac{\partial}{\partial\theta_1}$ to the cohomology class $\Phi(\xi) = [\iota_\xi \omega] = [d\theta_2]$. Since $[d\theta_2]$ is a non-zero element of $H^1_{\text{dR}}(T^2)$, $\xi$ lies in $\mathfrak{X}_{\omega}(T^2)$ but not in the kernel of $\Phi$, which is $\mathfrak{X}_{\mathrm{Ham}}(T^2)$. Similarly, the vector field $\frac{\partial}{\partial\theta_2}$ is symplectic but not Hamiltonian, mapping via $\Phi$ to the class $[\iota_{\partial/\partial\theta_2}\omega] = [-d\theta_1]$, which is also non-zero. This example illustrates how the topology of the manifold ($H^1 \neq 0$) creates a distinction between the broader class of structure-preserving vector fields (symplectic) and the subclass generated by scalar functions (Hamiltonian).
+\end{example}
+
+Just as functions generate Hamiltonian vector fields, they inherit an algebraic structure reflecting the symplectic geometry.
+
+\begin{definition}[Poisson Bracket]
+Let $(M, \omega)$ be a symplectic manifold. The \textbf{Poisson bracket} is a bilinear operation $\{\cdot, \cdot\}: C^\infty(M) \times C^\infty(M) \to C^\infty(M)$ defined for any $f, g \in C^\infty(M)$ by:
+\[
+\{f, g\} := \omega(\xi_f, \xi_g)
+\]
+Using the definition $\iota_{\xi_f}\omega = -df$ and properties of contraction and the Lie derivative, we derive equivalent expressions:
+\[
+\{f, g\} = \iota_{\xi_g}(\iota_{\xi_f} \omega) = \iota_{\xi_g}(-df) = -df(\xi_g) = -\mathcal{L}_{\xi_g} f
+\]
+\[
+\{f, g\} = -\iota_{\xi_f}(\iota_{\xi_g} \omega) = -\iota_{\xi_f}(-dg) = dg(\xi_f) = \mathcal{L}_{\xi_f} g
+\]
+The Poisson bracket $\{f, g\}$ quantifies the infinitesimal rate of change of the function $g$ along the flow generated by the Hamiltonian $f$.
+\end{definition}
+
+\begin{proposition}[Properties of the Poisson Bracket]
+The Poisson bracket endows the vector space $C^\infty(M)$ with the structure of an infinite-dimensional Lie algebra over $\R$. Specifically, it satisfies:
+\begin{enumerate}
+    \item \textbf{Bilinearity:} $\{a f_1 + b f_2, g\} = a \{f_1, g\} + b \{f_2, g\}$ and $\{f, a g_1 + b g_2\} = a \{f, g_1\} + b \{f, g_2\}$ for $a, b \in \R$.
+    \item \textbf{Skew-symmetry:} $\{f, g\} = -\{g, f\}$. (Follows directly from $\omega(\xi_f, \xi_g) = -\omega(\xi_g, \xi_f)$).
+    \item \textbf{Jacobi Identity:} $\{f, \{g, h\}\} + \{g, \{h, f\}\} + \{h, \{f, g\}\} = 0$.
+    \item \textbf{Leibniz Rule (Derivation Property):} $\{f, gh\} = g\{f, h\} + \{f, g\}h$. This means that for fixed $f$, the map $g \mapsto \{f, g\} = \mathcal{L}_{\xi_f} g$ is a derivation of the associative algebra $(C^\infty(M), \cdot)$.
+\end{enumerate}
+Furthermore, the map $\delta: f \mapsto \xi_f$ is a Lie algebra homomorphism from $(C^\infty(M), \{\cdot,\cdot\})$ to $(\mathfrak{X}_{\mathrm{Ham}}(M), [\cdot,\cdot])$, where $[\cdot,\cdot]$ is the commutator of vector fields:
+\[
+[\xi_f, \xi_g] = \xi_{\{f, g\}}
+\]
+\end{proposition}
+\begin{proof}[Sketch of Jacobi Identity]
+The Jacobi identity for the Poisson bracket is a direct consequence of the closedness of $\omega$ and the relationship between brackets. One way to see this is to use the homomorphism property $\xi_{\{f,g\}} = [\xi_f, \xi_g]$. Applying $\xi$ again: $\xi_{\{f, \{g, h\}\}} = [\xi_f, \xi_{\{g,h\}}] = [\xi_f, [\xi_g, \xi_h]]$. Summing cyclically and using the Jacobi identity for the vector field commutator $[\xi_f, [\xi_g, \xi_h]] + [\xi_g, [\xi_h, \xi_f]] + [\xi_h, [\xi_f, \xi_g]] = 0$, we get $\xi_{\{f, \{g, h\}\} + \{g, \{h, f\}\} + \{h, \{f, g\}\}} = 0$. Since the map $\delta: f \mapsto \xi_f$ has only locally constant functions as its kernel, this implies $\{f, \{g, h\}\} + \{g, \{h, f\}\} + \{h, \{f, g\}\}$ must be locally constant. A more direct calculation using $d\omega=0$ shows it is indeed zero.
+\end{proof}
+
+The Poisson bracket provides the algebraic foundation for Hamiltonian mechanics. Observables are represented by functions $f \in C^\infty(M)$, and the time evolution under a Hamiltonian $H$ is given by Hamilton's equation: $\frac{df}{dt} = \{f, H\}$. This structure is also the starting point for deformation quantization, where the commutative algebra $(C^\infty(M), \cdot)$ is deformed into a non-commutative algebra whose commutator approximates the Poisson bracket as $\hbar \to 0$.
+
+\subsection{Symmetries and Moment Maps}
+
+
+The concept of symmetry provides a powerful lens through which to analyze mathematical structures and physical systems. Symmetries often reveal hidden simplicities, lead to fundamental conservation laws, and constrain the possible dynamics. Within the framework of symplectic geometry, which forms the foundations of Hamiltonian mechanics, the study of symmetries takes on a particular elegance and importance. It leads to the theory of moment maps, a construction that precisely quantifies the relationship between continuous symmetries and conserved quantities, thereby providing a geometric version of Noether's celebrated theorem. We provide an in-depth exploration of symmetries in the symplectic context, from the basic definitions to the construction, properties, obstructions, and interpretation of moment maps.
+
+Throughout this section, let $(N, \omega)$ denote a connected symplectic manifold of dimension $2k$.
+
+\subsubsection{Finite Symmetries: Symplectomorphism Groups}
+
+The most direct notion of symmetry for a geometric object is a transformation that leaves the object invariant. For a symplectic manifold $(N, \omega)$, this corresponds to diffeomorphisms of $N$ that preserve the symplectic form $\omega$.
+
+Earlier, we introduced the notion of a symplectomorphism. Let's define it slightly more rigorously.
+
+\begin{definition}[Symplectomorphism]
+A diffeomorphism $\varphi: N \to N$ is termed a \textbf{symplectic diffeomorphism}, or \textbf{symplectomorphism}, if it preserves the symplectic form $\omega$. Mathematically, this means the pullback of $\omega$ by $\varphi$ coincides with $\omega$ itself:
+\[ \varphi^* \omega = \omega \]
+Recall that the pullback acts on forms via $(\varphi^* \omega)_n(v, w) = \omega_{\varphi(n)}(d\varphi_n(v), d\varphi_n(w))$ for $n \in N$ and $v, w \in T_n N$.
+\end{definition}
+
+\begin{remark}[Consequences and Properties]
+\,
+\begin{itemize}
+    \item \textbf{Volume Preservation:} Since $\omega$ is non-degenerate, its $k$-th exterior power $\omega^k = \omega \wedge \dots \wedge \omega$ (up to a normalization factor $1/k!$) defines a volume form on $N$. As pullback commutes with the wedge product, $\varphi^*(\omega^k) = (\varphi^*\omega)^k$. If $\varphi$ is a symplectomorphism, then $\varphi^*(\omega^k) = \omega^k$. This demonstrates that symplectomorphisms are necessarily volume-preserving diffeomorphisms. This is the geometric statement of Liouville's theorem asserting the conservation of phase space volume under Hamiltonian evolution (which, as we shall see, consists of symplectomorphisms).
+    \item \textbf{The Symplectomorphism Group:} The set of all symplectomorphisms of $(N, \omega)$ forms a group under composition, denoted $\text{Symp}(N, \omega)$. This group captures the global symmetries of the symplectic structure. Unlike the isometry group of a compact Riemannian manifold, which is always a finite-dimensional Lie group (Myers-Steenrod theorem), the group $\text{Symp}(N, \omega)$ is typically infinite-dimensional. For instance, on $(\R^{2n}, \omega_{\text{std}})$, the group $\text{Symp}(\R^{2n})$ contains not only linear symplectic transformations but also Hamiltonian flows of arbitrary non-linear functions. Understanding the structure (e.g., topology, homotopy type) of $\text{Symp}(N, \omega)$ and its subgroups (like the group of Hamiltonian diffeomorphisms) is a major focus of modern symplectic topology.
+\end{itemize}
+\end{remark}
+
+\begin{example}[Basic Symplectomorphisms]
+    \,
+\begin{itemize}
+    \item Let $N = \R^{2n}$ with $\omega = \sum dq^i \wedge dp_i$. Any translation $\varphi_a(q,p) = (q+a, p+b)$ is a symplectomorphism if and only if $b=0$. Position translations $\varphi_a(q,p) = (q+a, p)$ are symplectomorphisms. Additionally, a linear map $\varphi_A(x) = Ax$ is a symplectomorphism if and only if $A \in \text{Sp}(2n, \R)$, meaning $A^T J A = J$ where $J$ is the matrix of $\omega$.
+    \item Let $N = S^2$ with its standard rotationally invariant area form $\omega = \sin\phi \, d\phi \wedge d\theta$ (in spherical coordinates). Any rotation $R \in SO(3)$ acts on $S^2$ and preserves $\omega$, hence $SO(3) \subset \text{Symp}(S^2, \omega)$.
+\end{itemize}
+\end{example}
+
+\subsubsection{More on Symplectic Vector Fields}
+
+Earlier, we discussed symplectic and Hamiltonian vector fields. Naturally, this leads to Noether's theorem. But before that, we need one more motivating proposition.
+
+\begin{proposition}
+The space $\mathfrak{X}_{\mathrm{Ham}}(N)$ is a Lie subalgebra of $\mathfrak{X}_{\omega}(N)$. In fact, under suitable conditions (e.g., $N$ compact), $\mathfrak{X}_{\mathrm{Ham}}(N)$ is an ideal in $\mathfrak{X}_{\omega}(N)$.
+\end{proposition}
+\begin{proof}[Sketch for subalgebra]
+We need to show that if $\xi_f, \xi_g \in \mathfrak{X}_{\mathrm{Ham}}(N)$, then $[\xi_f, \xi_g] \in \mathfrak{X}_{\mathrm{Ham}}(N)$. It can be shown (often using $d\omega=0$) that the commutator of two Hamiltonian vector fields is itself Hamiltonian, generated by (minus) the Poisson bracket of the functions: $[\xi_f, \xi_g] = \xi_{\{f, g\}}$, where $\{f,g\} = \omega(\xi_f, \xi_g)$. Since $\{f,g\} \in C^\infty(N)$, the commutator is indeed Hamiltonian.
+\end{proof}
+
+The connection between symmetries and conserved quantities, intuited by Noether, finds a precise formulation in the Hamiltonian setting.
+
+\begin{theorem}[Noether's Theorem - Hamiltonian Version]
+\label{thm:noether_hamiltonian}
+Let $(N, \omega)$ be a symplectic manifold and let $H \in C^\infty(N)$ define a Hamiltonian system whose flow $\varphi_t$ is generated by the vector field $-\xi_H$. Suppose $\xi \in \mathfrak{X}_{\omega}(N)$ is an infinitesimal symmetry of the system such that:
+\begin{enumerate}
+    \item The symmetry preserves the Hamiltonian function: $\mathcal{L}_\xi H = 0$.
+    \item The symmetry is generated by a momentum function: $\xi = \xi_f$ for some $f \in C^\infty(N)$.
+\end{enumerate}
+Then the momentum function $f$ is a conserved quantity along the flow $\varphi_t$ generated by $-\xi_H$; that is, $f(\varphi_t(n)) = f(n)$ for all $n$ and $t$. Equivalently, the Poisson bracket of $f$ and $H$ vanishes: $\{f, H\} = 0$.
+\end{theorem}
+\begin{proof}
+We compute the time derivative of $f$ along the flow $\varphi_t$ generated by $-\xi_H$. This rate of change is given by the Lie derivative $\mathcal{L}_{-\xi_H} f$.
+\[ \frac{d}{dt} (f \circ \varphi_t) = (\mathcal{L}_{-\xi_H} f) \circ \varphi_t \]
+We need to show $\mathcal{L}_{-\xi_H} f = 0$. Using the definition of the Poisson bracket $\{f, H\} = \mathcal{L}_{\xi_f} H = -\mathcal{L}_{\xi_H} f$, we can write:
+\[ \mathcal{L}_{-\xi_H} f = - \mathcal{L}_{\xi_H} f = \{f, H\} \]
+Now, we use the assumptions. Assumption (1) is that the symmetry $\xi$ preserves $H$, i.e., $\mathcal{L}_\xi H = 0$. Assumption (2) is that $\xi = \xi_f$. Substituting this into the symmetry condition gives $\mathcal{L}_{\xi_f} H = 0$.
+Recalling the alternative definition of the Poisson bracket, $\{f, H\} = \mathcal{L}_{\xi_f} H$.
+Combining these, we get:
+\[ \mathcal{L}_{-\xi_H} f = \{f, H\} = \mathcal{L}_{\xi_f} H = 0 \] 
+Since the time derivative of $f$ along the flow is zero, $f$ is constant along the integral curves of $-\xi_H$, meaning it is a conserved quantity of the Hamiltonian evolution. This theorem elegantly establishes that Hamiltonian symmetries correspond precisely to conserved quantities.
+\end{proof}
+
+\begin{example}[Linear and Angular Momentum Conservation]
+\,
+\begin{itemize}
+    \item \textbf{Linear Momentum:} Consider a particle in $\R^n$ with Hamiltonian $H(q, p) = \frac{|p|^2}{2m} + V(q)$ on $T^*\R^n$. Suppose the potential $V$ is invariant under translation in the $q^j$ direction, i.e., $\frac{\partial V}{\partial q^j} = 0$. The generator of infinitesimal translation in $q^j$ is $\xi = \frac{\partial}{\partial q^j}$. We know $\xi = \xi_{-p_j}$ (using $\omega = \sum dq^i \wedge dp_i$). The momentum function is $f = -p_j$. We check if $\xi$ preserves $H$: $\mathcal{L}_{\partial/\partial q^j} H = \frac{\partial H}{\partial q^j} = \frac{\partial V}{\partial q^j} = 0$. By Noether's theorem, the momentum $f = -p_j$ (or simply $p_j$) is conserved.
+    \item \textbf{Angular Momentum:} Consider a particle in $\R^3$ with a central potential $V(q) = V(|q|)$. The Hamiltonian $H = \frac{|p|^2}{2m} + V(|q|)$ is invariant under rotations $R \in SO(3)$. Let $\xi \in \mathfrak{so}(3)$ generate an infinitesimal rotation, with corresponding fundamental vector field $\alpha(\xi)$ on $T^*\R^3$. We know $\mathcal{L}_{\alpha(\xi)} H = 0$. The momentum function corresponding to $\alpha(\xi)$ is $\mu_\xi = \langle L, \xi \rangle$, where $L = q \times p$ is the angular momentum vector. Noether's theorem implies that each component of angular momentum $\mu_\xi$ is conserved.
+\end{itemize}
+\end{example}
+
+
+\subsubsection{Lie Algebra Actions and the Moment Map Problem}
+
+Often, a system possesses a whole family of continuous symmetries described by a Lie group $G$.
+
+\begin{definition}[Symplectic $G$-Action and Infinitesimal Action]
+A (left) action $\rho: G \times N \to N$ of a Lie group $G$ on $(N, \omega)$ is \textbf{symplectic} if $\varphi_g: n \mapsto g \cdot n$ is a symplectomorphism for all $g \in G$. This action induces an \textbf{infinitesimal action} $\alpha: \mathfrak{g}\to \mathfrak{X}_{\omega}(N)$ of the Lie algebra $\mathfrak{g}= T_e G$, defined by
+\[ \alpha(\xi)_n = \left. \frac{d}{dt} \right|_{t=0} ( \exp(-t\xi) \cdot n ) \]
+where $\xi \in \mathfrak{g}$. The map $\alpha$ is a Lie algebra antihomomorphism: $\alpha([\xi, \eta]) = -[\alpha(\xi), \alpha(\eta)]$. The minus sign convention ensures that left group actions correspond to antihomomorphisms into vector fields. Importantly, $\alpha(\xi)$ is always a symplectic vector field if the $G$-action is symplectic.
+\end{definition}
+
+Given such an action $\alpha: \mathfrak{g}\to \mathfrak{X}_{\omega}(N)$, we seek a way to systematically associate conserved quantities (momentum functions) to the generators $\xi \in \mathfrak{g}$.
+
+\textbf{The Moment Map Problem:} Can we find a map $\mu: N \to \mathfrak{g}^*$ such that for each $\xi \in \mathfrak{g}$, the function $\mu_\xi := \langle \mu, \xi \rangle$ is a momentum function for the infinitesimal symmetry $\alpha(\xi)$? That is, does $\alpha(\xi) = \xi_{\mu_\xi}$ hold (requiring $\iota_{\alpha(\xi)}\omega = -d\mu_\xi$)? Furthermore, can this map $\mu$ be chosen to respect the algebraic structures involved, i.e., to be $G$-equivariant?
+
+The existence and properties of such a map $\mu$, called the moment map, are governed by the topology of $N$ and the structure of $\mathfrak{g}$.
+
+\begin{definition}[Moment Map via Lift]
+\label{def:moment_map_lift}
+Consider the infinitesimal action $\alpha: \mathfrak{g}\to \mathfrak{X}_{\omega}(N)$ and the fundamental exact sequence linking functions to Hamiltonian and symplectic vector fields:
+\[ 0 \to H^0(N;\R) \to C^\infty(N) \stackrel{\delta}{\longrightarrow} \mathfrak{X}_{\mathrm{Ham}}(N) \hookrightarrow \mathfrak{X}_{\omega}(N) \stackrel{\Phi}{\longrightarrow} H^1_{\text{dR}}(N) \to 0 \]
+where $\delta(f) = \xi_f$ (defined by $\iota_{\xi_f}\omega = -df$) and $\Phi(\eta) = [\iota_\eta \omega]$. The action $\alpha$ \textbf{admits a lift} to $C^\infty(N)$ if the image of $\alpha$ lies entirely within $\mathfrak{X}_{\mathrm{Ham}}(N)$ (i.e., $\Phi(\alpha(\xi))=0$ for all $\xi$) and if there exists a linear map $\tilde{\alpha}: \mathfrak{g}\to C^\infty(N)$ such that $\delta \circ \tilde{\alpha} = \alpha$. Such a map $\tilde{\alpha}$ assigns a momentum function $\mu_\xi = \tilde{\alpha}(\xi)$ to each $\xi \in \mathfrak{g}$. The \textbf{moment map} is then the map $\mu: N \to \mathfrak{g}^*$ defined by duality:
+\[ \langle \mu(n), \xi \rangle := \mu_\xi(n) \]
+Usually, one also requires $\tilde{\alpha}$ to be compatible with the Lie algebra structures (equivariance), possibly up to terms related to $H^0$.
+\end{definition}
+
+\begin{remark}[Obstructions to Existence of Moment Maps]
+\label{rem:moment_map_obstructions}
+As mentioned before, there are two main obstructions:
+\begin{enumerate}
+    \item \textbf{Obstruction in $H^1$:} The primary obstruction is the vanishing of the map $\Phi \circ \alpha: \mathfrak{g}\to H^1_{\text{dR}}(N)$. For a moment map to exist, every fundamental vector field $\alpha(\xi)$ must be Hamiltonian, which means the closed 1-form $\iota_{\alpha(\xi)}\omega$ must be exact, i.e., $[\iota_{\alpha(\xi)}\omega] = 0$ in $H^1_{\text{dR}}(N)$. If $H^1_{\text{dR}}(N) = 0$, this obstruction always vanishes.
+
+    \begin{example}[Revisiting Torus $T^2$ Obstruction]
+    Let $N=T^2 = (\R/2\pi\Z)^2$ with $\omega = d\theta_1 \wedge d\theta_2$. Consider the action of $\mathfrak{g}= \R$ by translation along the first factor: $\rho_t(\theta_1, \theta_2) = (\theta_1+t, \theta_2)$. The generator is $\xi = 1 \in \R$, and the infinitesimal action is $\alpha(1) = \frac{\partial}{\partial\theta_1}$. We calculated $\iota_{\alpha(1)}\omega = d\theta_2$. The map $\Phi: \mathfrak{X}_{\omega}(T^2) \to H^1_{\text{dR}}(T^2)$ sends $\alpha(1)$ to $\Phi(\alpha(1)) = [d\theta_2]$. Since $H^1_{\text{dR}}(T^2) \cong \R^2$ with basis $[d\theta_1], [d\theta_2]$, the class $[d\theta_2]$ is non-zero. Thus, the $H^1$ obstruction does not vanish. The symplectic vector field $\alpha(1)=\partial/\partial\theta_1$ is not Hamiltonian, and therefore this action does not admit a moment map in the sense defined above (no function $f$ exists such that $\xi_f = \partial/\partial\theta_1$).
+    \end{example}
+
+    \item \textbf{Obstruction in $H^2$ (Central Extension)}: Even if $\Phi \circ \alpha = 0$, ensuring that each $\alpha(\xi)$ is Hamiltonian ($\alpha(\xi) = \xi_{\mu_\xi}$ for some $\mu_\xi$), we still need to know if the map $\tilde{\alpha}: \xi \mapsto \mu_\xi$ can be chosen to be a Lie algebra antihomomorphism (up to constants). The failure of this is measured by the Lie algebra cocycle $c(\xi, \eta) = \{\mu_\xi, \mu_\eta\} - \mu_{[\xi, \eta]_{\text{inf}}}$. If this cocycle is non-zero (but maps to constants), it defines a class in $H^2(\mathfrak{g}; H^0(N;\R))$ and corresponds to a non-trivial central extension:
+    \[ 0 \longrightarrow H^0(N;\mathbb{R}) \longrightarrow \overline{\mathfrak{g}} \longrightarrow \mathfrak{g}\longrightarrow 0 \]
+    A lift $\tilde{\alpha}: \mathfrak{g}\to C^\infty(N)/H^0$ respecting the Lie algebra structure exists if and only if this central extension splits (is trivial). For semisimple Lie algebras $\mathfrak{g}$, $H^2(\mathfrak{g}; \R) = 0$, so this obstruction often vanishes if $H^0(N;\R)=\R$.
+\end{enumerate}
+\end{remark}
+
+\subsubsection{Properties and Characterization of Moment Maps}
+
+While the definition via lifting is conceptually important, the following characterization is often more practical.
+
+\begin{definition}[Moment Map (via equation)]
+\label{def:moment_map_eqn}
+Let $\alpha: \mathfrak{g}\to \mathfrak{X}_{\omega}(N)$ be an infinitesimal action. A smooth map $\mu: N \to \mathfrak{g}^*$ is called a \textbf{moment map} for this action if for every $\xi \in \mathfrak{g}$, the corresponding component function $\mu_\xi := \langle \mu, \xi \rangle \in C^\infty(N)$ satisfies the differential equation:
+\[ d\mu_\xi = -\iota_{\alpha(\xi)}\omega \]
+This equation elegantly encodes both the requirement that each $\alpha(\xi)$ is Hamiltonian and that $\mu_\xi$ is its corresponding momentum function (up to a globally consistent choice of constants inherent in $\mu$).
+\end{definition}
+
+A important property sought in moment maps is compatibility with the group action.
+
+\begin{definition}[Equivariance of Moment Maps]
+\label{def:equivariance}
+Let a Lie group $G$ with Lie algebra $\mathfrak{g}$ act symplectically on $(N, \omega)$ via $\rho$, inducing $\alpha: \mathfrak{g}\to \mathfrak{X}_{\omega}(N)$. A moment map $\mu: N \to \mathfrak{g}^*$ for $\alpha$ is \textbf{$G$-equivariant} if for all $g \in G$ and $n \in N$:
+\[ \mu(\rho(g, n)) = \text{Ad}^*_g (\mu(n)) \]
+where $\text{Ad}^*_g: \mathfrak{g}^* \to \mathfrak{g}^*$ is the coadjoint action of $G$ on $\mathfrak{g}^*$. Infinitesimally, this corresponds to the condition:
+\[ \mathcal{L}_{\alpha(\xi)} \mu_\eta = \mu_{[\xi, \eta]_{\text{inf}}} \]
+where $\mu_\zeta = \langle \mu, \zeta \rangle$ and $[\cdot, \cdot]_{\text{inf}}$ is the bracket associated with $\alpha$ (caution with signs depending on conventions). Using the Poisson bracket and the relation $\alpha(\xi) = \xi_{\mu_\xi}$, the infinitesimal condition, up to constants related to the $H^2$ obstruction, becomes:
+\[ \{\mu_\xi, \mu_\eta\} \approx \mu_{[\xi, \eta]} \]
+More precisely, a moment map satisfying $d\mu_\xi = -\iota_{\alpha(\xi)}\omega$ is equivariant if and only if the map $\tilde{\alpha}: \xi \mapsto \mu_\xi$ satisfies $\tilde{\alpha}([\xi, \eta]) - \{\tilde{\alpha}(\xi), \tilde{\alpha}(\eta)\}$ is a constant function (related to the cocycle $c(\xi, \eta)$). If an equivariant moment map exists, this cocycle must vanish.
+\end{definition}
+
+\begin{example}[Moment Maps Calculations - Revisited]
+\,
+\begin{itemize}
+    \item \textbf{Translations on $T^*\R^n$}: $\alpha(e_j) = \partial/\partial q^j$. $\omega = \sum dq^i \wedge dp_i$. Defining equation $d\mu_j = -\iota_{\partial/\partial q^j}\omega = dp_j$. Choose $\mu_j = p_j$. Moment map $\mu(q, p) = (p_1, \dots, p_n)$. Coadjoint action of $G=\R^n$ on $\mathfrak{g}^*=\R^n$ is trivial ($\text{Ad}^*_a(p) = p$). Equivariance requires $\mu(q+a, p) = \text{Ad}^*_a(\mu(q,p))$, i.e., $p = p$. It is equivariant. Infinitesimally, $\mathfrak{g}$ is abelian, $[\xi, \eta]=0$. We need $\{\mu_\xi, \mu_\eta\}=0$. If $\xi = \sum a^j e_j, \eta = \sum b^k e_k$, then $\mu_\xi = \sum a^j p_j, \mu_\eta = \sum b^k p_k$. $\{ \sum a^j p_j, \sum b^k p_k \} = \sum_{j,k} a^j b^k \{p_j, p_k\} = 0$ since $\{p_j, p_k\}=0$. Equivariance holds.
+    
+    \item \textbf{Rotations on $T^*\R^3$}: $\alpha(\xi)$ is generator of rotation. $\mu(q, p) = q \times p$. We need $d\langle q \times p, \xi \rangle = -\iota_{\alpha(\xi)}\omega$. This requires calculation using exterior derivatives and properties of the cross product, confirming it holds. Equivariance $\mu(Rq, Rp) = \text{Ad}^*_R(\mu(q,p)) = R(q \times p)$ holds because $R(q \times p) = (Rq) \times (Rp)$ for $R \in SO(3)$. Infinitesimally, this corresponds to $\{\mu_\xi, \mu_\eta\} = \mu_{[\xi, \eta]}$ (where bracket is cross product in $\R^3 \cong \mathfrak{so}(3)$), which holds for angular momentum components.
+\end{itemize}
+\end{example}
+
+\subsubsection{Geometric Interpretation: Prequantization Bundles}
+
+A geometric understanding of the moment map emerges from the framework of geometric quantization, which seeks to construct quantum theories from classical Hamiltonian systems. A key preliminary step is \dq{prequantization.}
+
+Assume the symplectic form $\omega$ satisfies the \textbf{Weil integrality condition}: the cohomology class $[\omega / (2\pi i \hbar)]$ (often simplified to $[\omega/2\pi]$ by setting $\hbar=1$ and ignoring $i$) is an integral class, i.e., lies in the image of $H^2(N; \mathbb{Z}) \to H^2_{\text{dR}}(N)$. This topological condition is necessary and sufficient for the existence of a \textbf{prequantization line bundle}, typically a principal $S^1$-bundle (or $\mathbb{R}$-bundle if we ignore periodicity) $\pi: T \to N$, equipped with a connection 1-form $\Theta \in \Omega^{1}(T)$ whose curvature $F_\Theta = d\Theta$ satisfies
+\[ F_\Theta = d\Theta = \pi^* \omega \].
+The connection $\Theta$ provides the link between the geometry of the bundle $T$ and the symplectic structure on the base $N$.
+
+Now, consider a symplectic action of a Lie group $G$ on $(N, \omega)$. This action is said to \textbf{lift} to the prequantization bundle $T$ if there is a $G$-action $\tilde{\rho}: G \times T \to T$ on the total space such that:
+\begin{enumerate}
+    \item It covers the action on $N$: $\pi(\tilde{\rho}(g, z)) = \rho(g, \pi(z))$.
+    \item It preserves the connection form $\Theta$: $\tilde{\rho}_g^* \Theta = \Theta$ for all $g \in G$.
+\end{enumerate}
+The existence of such a lift is related to group cohomology $H^2(G; \dots)$.
+
+If a lift exists, let $\tilde{\xi} \in \mathfrak{X}(T)$ be the fundamental vector field on $T$ corresponding to $\xi \in \mathfrak{g}$ via the lifted action $\tilde{\rho}$. Since the action preserves the connection, the Lie derivative vanishes: $\mathcal{L}_{\tilde{\xi}} \Theta = 0$.
+Consider the function defined by contracting the connection with the lifted vector field: $\iota_{\tilde{\xi}} \Theta$. This function on $T$ turns out to be constant along the fibers of $\pi$ (it is \dq{basic}) and therefore defines a unique function $\mu_\xi \in C^\infty(N)$ such that 
+\[ \pi^* \mu_\xi = \iota_{\tilde{\xi}} \Theta \]
+We can now verify that the map $\mu: N \to \mathfrak{g}^*$ defined by $\langle \mu, \xi \rangle = \mu_\xi$ is indeed a moment map. We compute the exterior derivative:
+\begin{align*} 
+\pi^*(d\mu_\xi) &= d(\pi^*\mu_\xi) \quad (\text{pullback commutes with } d) \\ 
+&= d(\iota_{\tilde{\xi}}\Theta) \quad (\text{by definition of } \mu_\xi) \\ 
+&= \mathcal{L}_{\tilde{\xi}}\Theta - \iota_{\tilde{\xi}}(d\Theta) \quad (\text{Cartan's formula}) \\ 
+&= 0 - \iota_{\tilde{\xi}}(\pi^*\omega) \quad (\text{using } \mathcal{L}_{\tilde{\xi}}\Theta = 0 \text{ and } d\Theta = \pi^*\omega) \\ 
+&= -\pi^*(\iota_{\alpha(\xi)}\omega) \quad (\text{relating contractions under } \pi_*) 
+\end{align*}
+Since $\pi^*$ is injective on functions (forms pulled back from base), we deduce
+\[ d\mu_\xi = -\iota_{\alpha(\xi)}\omega \]
+This recovers the defining equation for the moment map. This construction demonstrates that the momentum function $\mu_\xi$ can be interpreted as the vertical component (measured by $\Theta$) of the lifted symmetry generator $\tilde{\xi}$ on the prequantization bundle. This perspective is important for geometric quantization, where wave functions are sections of $T$ (or associated bundles) and operators corresponding to observables $f$ involve both multiplication by $f$ and differentiation along $\xi_f$, tied together by the connection $\Theta$.

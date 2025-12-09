@@ -1,0 +1,152 @@
+\section{Necessity of the Regular Condition}
+Let's study the theorem in the restriction when the image of $J$ is no longer regular. Using the Fubini-Study metric, we are able to find the image of the moment map $J$, arising from the Lie group action of $\mathrm{SO}(3)$ on $(\mathbb{C}P^{2}, \omega_{FS})$, and study the unique properties of this construction.
+
+\subsection{Fubini-Study Metric and Symplectic Structure}
+
+To develop this construction, let $V$ be a complex vector space, with dimension $\dim_{\mathbb{C}} V = n+1$ with a Hermitian inner product $\langle \cdot, \cdot \rangle$ and $\pi: V \setminus \{0\} \to \mathbb{P}V$. 
+
+\begin{lemma}[Symplectic form on $V$]
+$V$ is a vector space with symplectic form $\Omega(v,w) = \Im \langle v, w \rangle$
+\end{lemma}
+
+\begin{proof}
+We verify that $\Omega$ is skew-symmetric:
+\begin{equation}
+\Omega(w, v) = \Im \langle w, v \rangle = \Im \overline{\langle v, w \rangle} = - \Im \langle v, w \rangle = - \Omega(v,w)
+\end{equation}
+Where we use conjugate symmetry to get that $\langle v, w \rangle = \overline{\langle w, v \rangle}$. Replacing $w$ with $iw$, this form is also non-degenerate since if $\Omega(v, \cdot) = 0$, then $\Im \langle v, w \rangle = 0$ and for choices of $iw$, $\Re \langle v, w \rangle = 0$ as well, showing that $v = 0$ using that $\langle \cdot, \cdot \rangle$ is non-degenerate.
+\end{proof}
+
+\begin{remark}
+Now, we want to find a symplectic form $\omega_{FS}$ for $(\mathbb{P} V, \omega_{FS})$
+\end{remark}
+
+Note that in the construction $\pi: V \setminus \{0\} \to \mathbb{P} V$, orthogonal complements survive in the projectivization: $d\pi_{v}$ maps $(\mathbb{C} v)^{\perp}$ isomorphically onto $T_{\pi(v)} \mathbb{P}V$. Therefore, we work backwards, and consider a symplectic built from the orthogonal complements of $\xi_{1}, \xi_{2}$ with respect to $v$ on $V$. These are $\xi_{i} - \frac{\langle \xi_{i}, v \rangle}{\langle v, v \rangle}v \in (\mathbb{C} v)^{\perp}$ for $i \in \{1,2 \}$. 
+
+\begin{remark}
+Therefore, we suspect that $$\omega_{v}(\zeta_{1}, \zeta_{2}) = \Im \left\langle \xi_{1} - \frac{\langle \xi_{1}, v \rangle}{\langle v, v \rangle}v, \xi_{2} - \frac{\langle \xi_{2}, v \rangle}{\langle v, v \rangle}v \right\rangle$$ would be a symplectic form for $\mathbb{P} V$. However, this form doesn't yet survive in the quotient. Consider the diffeomorphism given by $m_{\lambda}: V \setminus \{0\} \to V \setminus \{0\}$ given by $m_{\lambda}(v) = \lambda v$. We note that we need $m_{\lambda}^{*} \omega = \omega$. Yet, observe that: $m_{\lambda}^{*} \omega_v = |\lambda|^2 \omega_{v}(\zeta_{1}, \zeta_{2})$. It suffices to take the Fubini-Study metric to be a normalized $\frac{1}{\langle v, v \rangle}$ expression of the proposed two-form. The reason for this normalization is that $\langle \lambda v, \lambda v \rangle$ cancels out the $|\lambda|^2$ term.
+\end{remark}
+
+
+\begin{lemma}[Symplectic form on $\mathbb{P} V$]
+$(\mathbb{P} V, \omega_{FS})$ is a symplectic manifold with:
+\begin{equation}
+\left( \omega_{FS} \right)_{[v]}(\zeta_{1}, \zeta_{2}) = \frac{1}{\langle v, v \rangle} \Im \left\langle \xi_{1} - \frac{\langle \xi_{1}, v \rangle}{\langle v, v \rangle}v, \xi_{2} - \frac{\langle \xi_{2}, v \rangle}{\langle v, v \rangle}v \right\rangle 
+\end{equation}
+\noindent where $\xi_{j} \in V$ are such that $d \pi_{v} \xi_{j} = \zeta_{j}$
+\end{lemma}
+
+Now note that $\omega_{FS}$ is well defined and, mimicking the above argument, it is non-degenerate, while closedness follows from $PU(V, \langle \cdot, \cdot \rangle)$ invariance according to \textcite{Arnold2010}. \bigskip 
+
+\noindent \textbf{References}: \textcite{Arnold2010}
+
+\subsection{Moment Map for Unitary Representations}
+We are now able to apply Proposition 1.1 in \textcite{Wildberger1992}. 
+
+\begin{lemma}[\textcite{Wildberger1992}]
+If $G \to U(V, \langle \cdot, \cdot \rangle)$ is a unitary representation of a Lie group $G$, the induced action of $G$ on $\mathbb{P}V$ is Hamiltonian, with moment map: 
+\begin{equation}
+J^{X}([v]) = \frac{1}{2i} \frac{\langle X \cdot v, v \rangle}{\langle v, v \rangle}
+\end{equation}
+\noindent for \([v] \in \mathbb{P}V\) and \(X \in \mathfrak{g}\).
+\end{lemma}
+
+\noindent \textbf{References}: \textcite{Wildberger1992}
+
+\subsection{Moment Map for $\mathrm{SO}(3)$ Action on $\mathbb{C}P^2$}
+Now, consider the action of $G = \mathrm{SO}(3)$ on $V = \mathbb{C}^{3}$ given by evaluations, that is: $A \cdot z = Az$, where $A$ is the $\mathbb{C}$-linear extension of $A: \mathbb{R}^{3} \to \mathbb{R}^{3}$. In other words, we compose with the inclusion $\mathrm{SO}(3)$ into $\mathrm{SU}(3)$. The Hermitian inner product in $\mathbb{C}^{3}$ is:
+\begin{equation}
+\langle (z_{1}, z_{2}, z_{3}), (w_{1}, w_{2}, w_{3}) \rangle = z_{1} \overline{w_{1}} + z_{2} \overline{w_{2}} + z_{3} \overline{w_{3}}
+\end{equation}
+Now, we compute the moment image of the Hamiltonian action of $\mathrm{SO}(3)$ on $(\mathbb{C}P^{2}, \omega_{FS})$. With the usual identification of $\mathfrak{so}(3)^{*} \cong \mathbb{R}^{3}$ we note that $J: \mathbb{C}P^{2} \to \mathbb{R}^{3}$.
+We want to use the moment map formula to compute the moment-image of the resulting Hamiltonian action 
+of $\mathrm{SO}(3)$ on $(\mathbb{C}P^2,\omega_{\mathrm{FS}})$ \textcite{Wildberger1992}. 
+With the usual identification of $\mathfrak{so}(3)^*$ with $\mathbb{R}^3$ in place.
+
+\begin{lemma}[Moment Map $\mu$ for $\mathbb{C} P^{2}$]
+We claim the moment map $\mu$ is:
+
+\begin{equation}
+\mu \bigl([z_1 : z_2 : z_3]\bigr) = 
+\left(
+\frac{\mathrm{Im}(z_2 \overline{z_3})}{|z_1|^2 + |z_2|^2 + |z_3|^2},\;
+\frac{\mathrm{Im}(z_3 \overline{z_1})}{|z_1|^2 + |z_2|^2 + |z_3|^2},\;
+\frac{\mathrm{Im}(z_1 \overline{z_2})}{|z_1|^2 + |z_2|^2 + |z_3|^2}
+\right).
+\end{equation}
+    
+\end{lemma}
+
+\begin{proof}
+The following are bases on $\mathfrak{so}(3)^{*}$ with the usual identification:
+\begin{equation}
+E_1 =
+\begin{pmatrix}
+0 & 0 & 0 \\
+0 & 0 & -1 \\
+0 & 1 & 0
+\end{pmatrix},
+\quad
+E_2 =
+\begin{pmatrix}
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+-1 & 0 & 0
+\end{pmatrix},
+\quad
+E_3 =
+\begin{pmatrix}
+0 & -1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 0
+\end{pmatrix}.
+\end{equation}
+To show the formula for the moment map, we apply Wildberger's formula to each of the basis elements and use linearity: 
+\begin{equation}
+E_1 z =
+\begin{pmatrix}
+0 & 0 & 0 \\
+0 & 0 & -1 \\
+0 & 1 & 0
+\end{pmatrix}
+\begin{pmatrix}
+z_1 \\[6pt]
+z_2 \\[6pt]
+z_3
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 \\ -z_3 \\ z_2
+\end{pmatrix},
+\end{equation}
+so that
+\begin{align}
+\frac{1}{2i}\,\frac{\langle E_1 z,\,z\rangle}{\langle z,\,z\rangle}
+&=
+\frac{1}{2i}
+\frac{\bigl(-\,z_3\,\overline{z_2} + z_2\,\overline{z_3}\bigr)}%
+     {|z_1|^2 + |z_2|^2 + |z_3|^2} \\&=
+\frac{1}{2i}\,\frac{2\,i\,\mathrm{Im}(z_2 \overline{z_3})}{|z_1|^2 + |z_2|^2 + |z_3|^2} =
+\frac{\mathrm{Im}(z_2 \overline{z_3})}{|z_1|^2 + |z_2|^2 + |z_3|^2}.
+\end{align}
+Similarly, we have that
+\begin{equation}
+\frac{1}{2i}\,\frac{\langle E_2 z,\,z\rangle}{\langle z,\,z\rangle} =
+\frac{\mathrm{Im}(z_3 \overline{z_1})}{|z_1|^2 + |z_2|^2 + |z_3|^2}
+\quad\text{and}\quad
+\frac{1}{2i}\,\frac{\langle E_3 z,\,z\rangle}{\langle z,\,z\rangle} =
+\frac{\mathrm{Im}(z_1 \overline{z_2})}{|z_1|^2 + |z_2|^2 + |z_3|^2}.
+\end{equation}
+\end{proof}
+
+\subsection{Significance for Delzant Correspondence}
+
+\begin{remark}
+Therefore, our formula for the moment map holds. Yet, the action does not have regular momenta, since $\mu([0:0:1]) = (0,0,0)$ is the origin. As we have proven, this means that the image of $J$ is a closed ball. Furthermore, as we will see below, another space which has the closed ball as its moment map image is $S^{2}(r) \times S^{2}(r)$. Therefore, we see that regular momenta is a necessary assumption in the statement of our theorem. Without it, we would have concluded that $S^{2}(r) \times S^{2}(r) \cong \mathbb{C}P^2$. But this is impossible, as the cohomology is wrong: $H^2_{dR}(\mathbb{C}P^2) = \mathbb{R}$ while $H^2_{dR}(S^2 \times S^2) = \mathbb{R}^2$.
+\end{remark}
+
+
+
+\newpage
+
+\setcounter{section}{9}

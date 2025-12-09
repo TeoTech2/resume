@@ -1,0 +1,626 @@
+
+
+\theoremstyle{plain} %italicizes text
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{cor}[theorem]{Corollary}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem*{claim}{Claim}
+\newtheorem*{question}{Question}
+\newtheorem*{conv}{Convention}
+
+\theoremstyle{remark}
+\newtheorem{exr}{Exercise}
+\newtheorem*{rmk}{Remark}
+
+\theoremstyle{defn}
+
+\newtheorem*{FTA}{Fundamental Theorem of Algebra}
+
+
+\section{Symplectic Manifolds and Hamiltonian Actions}
+
+In this section, we will see the prototypical examples for symplectic manifolds, and discuss with more precision the definitions that guide the subject. This section will answer the questions:
+
+\begin{enumerate}
+    \item How does one define classical Mechanics?
+    \item What is a symplectic manifold and what are its technicalities?
+    \item How does one define rigorously a Lie group action?
+    \item How to define Hamiltonian actions?
+\end{enumerate}
+
+\subsection{Classical Mechanics}
+Classical mechanics studies rigid bodies. Symplectic geometry is modeled after classical mechanics. Therefore, we define several notions in classical mechanics. Each classical mechanical system has an underlying geometry $Q$. This is where motion takes place:
+
+\begin{defn}[Configuration Space of a Mechanical System]
+The configuration space of a mechanical system is a smooth manifold $Q$, called the configuration manifold. 
+\end{defn}
+
+\noindent Furthermore, for motion to occur, we require both position and momentum to be well defined:
+
+\begin{defn}[Positions and Momenta]
+Given a configuration space $Q$, the position $q = (q^{1}, \dots, q^{n})$ 
+of a mechanical element is a coordinate pair made up of smoothly valued chart functions on $Q$. Given a chart $(U, q)$ on $Q$, we have that $q: U \to \mathbb{R}^{k}$, where $k = \dim U$. Momenta of the mechanical system on the other hand are are linear maps on the cotangent space: $(T_{x} Q)^{*}$. Identifying basis vectors of the cotangent space $(T_{x} Q)^{*}$ in charts as $\frac{\partial}{\partial q^{i}}$, we have that: $p = \sum_{i} p_{i} \frac{\partial}{\partial q^{i}}$ and $p: T_{x} U \to \mathbb{R}^{k}$. 
+\end{defn}
+
+\noindent One key distinction in symplectic geometry versus classical Newtonian mechanics is that in symplectic geometry, when we work on a configuration space $Q$, position coordinates are valued in $Q$, while momentum vectors to $x \in Q$ are valued in $(T_{x} Q)^{*}$, the dual space to $T_{x} Q$. The reason for this distinction comes from Riemannian geometry. When our manifold $Q$ has a Riemannian metric $g$, we will show that momentum is valued in $(T_{x} Q)^{*}$, where $x \in Q$. 
+
+\begin{defn}[Kinetic Energy using $g$]
+Given a Riemannian manifold $(Q, g)$, kinetic energy $E$ is an inner product valued on its tangent space $T_{x} Q$. The inner product is:
+
+$$E = T_{x} Q \times T_{x} Q \to \mathbb{R}, \; E = \frac{m}{2} \langle \cdot, \cdot \rangle$$
+\end{defn}
+
+\begin{remark}
+Let $q, \dot{q}$ be the position and velocity of a particle. This definition of kinetic energy generalises the formula $E = \frac{m}{2} |\dot{q}|^2$ to configuration space $Q$. In classical mechanics, it is also common to write $E = \frac{1}{2} pv$. We require a new definition of momentum, $p$.  
+\end{remark}
+
+\begin{defn}[Momentum as a Linear Map]
+Define momentum to be: $p = \langle \dot{q}, \cdot \rangle$. Therefore, $p \in T_{x} Q^{*}$, and $E = \frac{1}{2} p(\dot{q})$ 
+\end{defn}
+
+\begin{remark}
+When $(Q,g)$ is a Riemannian manifold, it is clear that for $x \in Q$, momentum is $p \in (T_{x} Q)^{*}$. This definition also allows us to define momentum even if the configuration space $Q$ does not possess a Riemannian metric. 
+\end{remark}
+
+\begin{defn}[Phase Space of a Mechanical System]
+The phase space of a mechanical system is the manifold which contains all of the information necessary to describe mechanical motion. The phase space of classical mechanical system is $T^{*} Q$:
+
+$$T^{*} Q = \bigsqcup_{q \in Q} T^{*}_{q} Q = \{(q, d \phi) \in T_{q} Q^{*} \}$$ 
+\end{defn}
+
+\begin{lemma}
+\label{CotangentBundle}
+The phase space of a classical mechanical system is a vector bundle $\pi: T^{*} Q \to Q$, where $\pi (q, d \phi) = q$
+\end{lemma}
+
+\begin{proof}
+For a chart $(x, U)$ on $Q$, we must define a bundle chart, $h_{x}: \pi^{-1}(U) \to U \times \mathbb{R}^{n}$. The following choice of bundle chart suffices:
+
+$$h_{x}: \pi^{-1}(U) \to U \times (\mathbb{R}^{n})^{*} \cong U \times (\mathbb{R}^{n}): (q, d \phi) \to (q, D(\phi x^{-1}) \circ x(q))$$ 
+using the definition of $d \phi$ in coordinates. For the next isomorphism, we use the canonical isomorphism between $\mathbb{R}^{n}$ and $(\mathbb{R}^{n})^{*}$. In addition, it must be shown that the map $h_{x}$ also induces an isomorphism between fibres $\pi^{-1}(q) \cong \mathbb{R}^{n}$. This occurs as the map $D(\phi x^{-1}) \circ x(q)$ has full rank. Therefore, for each $p \in Q$, there is an open set $U$, a homeomorphism $h: \pi^{-1} U \to U \times \mathbb{R}^{n}$ such that
+\[
+\begin{tikzcd}
+& U \times \mathbb{R}^{n} \arrow[d, "\pi"] \\
+\pi^{-1}(U) \arrow[ru, "h"] \arrow[r, "\pi|_{\pi^{-1}(U)}"] & U
+\end{tikzcd}
+\]
+\noindent Such that the diagram commutes, and the composite map: $h_{q}: \pi^{-1}(q) \to \{q\} \times \mathbb{R}^{n} \to \mathbb{R}^{n}$ is a vector space isomorphism. 
+\end{proof}
+
+\begin{defn}[Definition of a Mechanical System]
+A mechanical system $(Q, H)$ is a configuration space $Q$, a phase space $T^{*} Q$, and a smooth scalar function on the phase space $H: T^{*} Q \to \mathbb{R}$. Time evolution of the mechanical system is governed by the \textit{Hamilton Equations}:
+
+$$\dot{q} = \frac{\partial H}{\partial p}, \; \dot{p} = -\frac{\partial H}{\partial q}$$
+
+\noindent Alternatively, we can write them in each coordinate as: $\dot{q}^{i} = \frac{\partial H}{\partial p_{i}}, \; \dot{p}_{i} = -\frac{\partial H}{\partial q^{i}}$.
+
+\end{defn}
+
+\begin{lemma}[Model Space for Symplectic Geometry]
+\label{VecDefn}
+Consider the mechanical system $(Q, H)$, and its phase space $T^{*} Q$. Consider the vector field: 
+
+\begin{equation}
+X_{H} = \frac{\partial H}{\partial p_{i}} \frac{\partial}{\partial q^{i}} - \frac{\partial H}{\partial q^{i}} \frac{\partial}{\partial p_{i}}
+\end{equation}
+\noindent Define the symplectic form $\omega$, on $T^{*} Q$ to be:
+$$\omega = \sum_{i \geq 1} dq^{i} \wedge dp_{i}$$
+\noindent Then we have the following: $\omega(X_{H}, \cdot) = dH$.
+\end{lemma}
+
+\begin{proof}
+Writing out the evaluation: 
+$$\omega(X_{H}, \cdot) = \sum_{i \geq 1} \left( \frac{\partial H}{\partial p_{i}} \frac{\partial}{\partial q^{i}} - \frac{\partial H}{\partial q^{i}} \frac{\partial}{\partial p_{i}} \right) \left[ dq^{i} \wedge dp_{i} \right] = \frac{\partial H}{\partial p_{k}} dp_{k} + \frac{\partial H}{\partial q^{k}} dq^{k} = dH $$
+
+\noindent The last step follows from the chain rule, appLied to $H: T^{*} Q \to \mathbb{R}$.
+\end{proof}
+
+\begin{remark}
+This reformulation of Hamilton's equations also works in the reverse direction. 
+\end{remark}
+
+Now, we would like to show the opposite direction. To do so, we want to be able to invert $\omega(X_{H}, \cdot) = dH$. Therefore, we make the following definition:
+
+\begin{defn}
+A symplectic form $\omega$ is non-degenerate if when vector field $Z$ satisfies $\omega(Z, X) = 0$ for all $X \in \mathfrak{X}(T^{*} Q)$, then $Z = 0$ everywhere. Namely, if $\omega$ is non-degenerate, then for any $x \in Q$
+
+\begin{align}
+\omega_{x}^{-1}: (T_{x} Q)^{*} \to T_{x} Q \text{ given by } \left [ \omega(v, \cdot) \to v \right] \text{ is an isomorphism}.
+\end{align}
+\end{defn}
+
+\begin{remark}
+When a symplectic form is non-degenerate, this has the unique consequence that its inverse, $\omega^{-1}$ is well-defined and therefore unique. 
+\end{remark}
+
+\begin{lemma}[Non-degeneracy of $\omega$]
+Given a configuration space $Q$, for its phase space $T^{*} Q$, the symplectic form:
+$$\omega = \sum_{i \geq 1} dq^{i} \wedge dp_{i}$$
+is non-degenerate. 
+\end{lemma}
+
+\begin{proof}
+Suppose a vector field $Z$ satisfies $\omega(Z, X) = 0$ for all $X \in \mathfrak{X}(T^{*} Q)$. Let $Z = \alpha(q, p) \frac{\partial}{\partial q^{i}} + \beta \frac{\partial}{\partial p_{i}}$. Then, we choose $X^{1} = \frac{\partial}{\partial q^{i}}$ and $X^{1} = \frac{\partial}{\partial p_{i}}$. We note that: 
+
+\begin{align}
+\omega(Z, X^{1}) = \alpha(q,p) = 0 && \omega(Z, X^{2}) = \beta(q,p) = 0  
+\end{align}
+
+\noindent Therefore, $Z = 0$ and $\omega$ is non-degenerate
+\end{proof}
+
+\begin{defn}[Integral Curve on $T^{*} Q$]
+Consider the configuration manifold $Q$, and its phase space $T^{*} Q$. 
+Given a vector field $X_{H} \in \mathfrak{X}(T^{*} Q)$, the integral curve of that vector field is $\gamma(t) = (\gamma_{1}, \dots, \gamma_{n})$, such that: $\dot{\gamma_{j}} = X_{H}(\gamma)_{j}$.
+\end{defn}
+
+\begin{lemma}[Reverse Implication]
+Consider the mechanical system $(Q, H)$, and its phase space $T^{*} Q$. Let  $\omega$ be defined as above, such that: $\omega(X_{H}, \cdot) = dH$. Then the integral curve of $X_{H}$, $\gamma(t)$ satisfies Hamilton's equations. 
+\end{lemma}
+Let: $\gamma(t) = (q^{1}(t), \dots, q^{n}(t), p_{1}(t), \dots, p_{n}(t))$
+be the integral curve of $X_{H}$. Since $\omega$ is non-degenerate, its inverse is unique. So, we have that $X_{H}$ has the same definition as in \ref{VecDefn}.
+
+\begin{proof}
+\noindent Now, according to the definition of an integral curve: $\dot{\gamma_{j}} = \left[ X_{H}(\gamma) \right]_{j}$
+
+\noindent Matching coefficients, we have:
+\begin{align}
+\dot{\gamma}_{i} \frac{\partial}{\partial q^{i}} = \frac{\partial H}{\partial p_{i}} \frac{\partial}{\partial q^{i}} && \dot{\gamma}_{i+n} \frac{\partial}{\partial p_{i}} = -\frac{\partial H}{\partial q^{i}} \frac{\partial}{\partial p_{i}}
+\end{align}
+
+\noindent Unraveling the definition $\dot{\gamma}_{i} = \frac{dq^{i}}{dt}$ and $\dot{\gamma}_{i+n} = \frac{dp_{i}}{dt}$, we have that: 
+
+\begin{align}
+\dot{q}^{i} = \frac{\partial H}{\partial p_{i}} && \dot{p_{i}}  = -\frac{\partial H}{\partial q^{i}} 
+\end{align}
+
+\noindent Therefore, the equations of motion of a classical mechanical system $(Q, H)$ and the equation $\omega(X_{H}, \cdot) = dH$ on $T^{*} Q$ are equivalent.
+\end{proof}
+
+\begin{remark}
+\label{OverviewOfSymp}
+A generalization of classical mechanics would to be study a manifold $M$, with a closed, non-degenerate two form $\omega$, a smooth function $H: M \to \mathbb{R}$, and vector fields $X_{H}$ such that $\omega(X_{H}, \cdot) = dH$. This would mimic a classical system and replicate it in the case that $M = T^{*} Q$, and $\omega = \sum_{i \geq 1} dq^{i} \wedge dp_{i}$. This generalization of classical mechanics is symplectic geometry and will be developed in the following section. 
+\end{remark}
+
+\noindent \textbf{References}: \textcite{Bjorn2018}, \textcite{Terek2020}, \textcite{Arnold2010}
+
+\subsection{Symplectic Structures}
+As in \ref{OverviewOfSymp}, symplectic geometry studies manifolds equipped with a two form $(M, \omega)$ which have the model geometry of $T^{*} Q$. As usual in differential geometry, for this construction we must describe objects on the linear level before moving to the global level.  
+
+\begin{defn}[Symplectic Vector Space]
+A symplectic vector space $V$ is a pairing $(V,\Omega)$, where $V$ is a vector space, and $\Omega: V \times V \to \mathbb{R}$ is a non-degenerate skew-symmetric bilinear form. Here, non-degeneracy means that $\Omega(v, w) = 0$ for all $w \in V$ if and only if $v = 0$.
+\end{defn}
+
+\begin{remark}
+The symplectic prototype resembles $T^{*} Q$, as that geometry came equipped with another skew-symmetric, bilinear form, namely $\omega$.
+\end{remark}
+
+\begin{remark}[A Bilinear Form is just a Skew-Symmetric Matrix]
+A non-degenerate skew-symmetric bilinear form is just a skew-symmetric matrix, when we fix a choice of basis. Therefore, we can take the prototypical symplectic manifold to have the off-diagonal skew-symmetric identity matrix. 
+\end{remark}
+
+\begin{example}[Symplectic Vector Space Prototype of $\mathbb{R}^{2n}$]
+\label{SymVectorPrototype}
+The prototypical symplectic vector space is the vector space $(\mathbb{R}^{2n}, \Omega = \begin{bmatrix}
+    0 & \operatorname{Id}_{n} \\
+    -\operatorname{Id}_{n} & 0
+\end{bmatrix})$ with the standard bases. One computes $\Omega(v,w)$ according to the following prescription: $\omega(v,w) = v^{T} \Omega w \in \mathbb{R}$.
+\end{example}
+
+\begin{lemma}[Vector Space Prototype is Well-defined]
+The symplectic vector space prototype is non-degenerate, bilinear and skew-symmetric.
+\end{lemma}
+
+\begin{proof}
+The expression $\left[ (v,w) \to v^{T} \Omega w \right]$ is bilinear, by matrix composition of the row space, versus the column space. Now, to show the symplectic prototype $\Omega$ is skew-symmetric. Consider the standard basis for $\mathbb{R}^{2n}$, that is $\mathcal{B} = \{ (1, 0, \dots, 0), (0, 1, \dots, 0), \dots (0, 0, \dots, 1) \}$ written as: 
+$$\mathcal{B} = \{ e_{1}, \dots e_{n}, h_{1}, \dots, h_{n} \} $$
+We note that on bases, $\Omega$ is:
+\begin{align}
+\Omega(e_{j}, h_{j}) = 1 && \Omega(h_{j}, e_{j}) = -1 && \Omega(h_{i}, h_{j}) = \Omega(e_{i}, e_{j}) = 0
+\end{align}
+
+\noindent Therefore, $\Omega$ is skew-symmetric on bases. By bilinearity, it is skew symmetric on $V \times V$. Additionally, as $\Omega$ has determinant $1$, it establishes an isomorphism $\Omega^{-1}: V^{*} \to V$, and we note that as a result, $\Omega$ is non-degenerate.
+\end{proof}
+
+\begin{remark}
+To build a symplectic manifold, the generalization of classical mechanics based on the model geometry $T^{*} Q$, we want each of the tangent spaces to a manifold $M$, to be isomorphic the symplectic prototype, and the symplectic form on our manifold $M$, $\omega$ to be the prototype symplectic form in each tangent space as well.
+\end{remark}
+
+\begin{remark}
+In \ref{SymplecticPot}, we took an approach to the symplectic form in a different way, where we defined it as negative the exterior derivative of the symplectic potential $\theta$. From this intuition, we require another condition on $\omega$, which is that it is closed. This is because the exterior derivative operator satisfies $d^2 = 0$. In general, whenever a two form is closed, we can always write it as an exterior derivative of a one form locally, so the symplectic potential will always make sense. To understand this further see: \textcite{Terek2020}. 
+\end{remark}
+
+\begin{defn}[Definition of a Symplectic Manifold]
+A symplectic manifold $(M, \omega)$ is a smooth manifold $M$, equipped with a two form $\omega \in \Omega^2(M)$, that is closed, non-degenerate, and skew-symmetric. 
+\end{defn}
+
+\begin{example}[Sympletic Geometry of $(\mathbb{C}^{n}, \omega)$]
+\label{ComplexForm}
+Let $z = (z_{1}, \dots, z_{n})$, where each $z_{j} = x_{j} + i y_{j}$. 
+Making note of the isomorphism $\mathbb{C}^{n} \cong \mathbb{R}^{2n}$, there exists the non-degenerate, skew-symmetric, bilinear form inherited from $\mathbb{R}^{2n}$ \ref{SymVectorPrototype}. Then: $\omega_{\mathbb{R}^{2n}} = dx_{1} \wedge dy_{1} + \dots + dx_{2} \wedge dy_{n}$. It is an observation that:
+
+$$d \overline{z}_{j} \wedge dz_{j} = \left[ dx_{j} - i dy_{j} \right] \cdot \left[ dx_{j} + i dy_{j} \right] = i dx_{j} \wedge dy_{j}$$
+
+\noindent Therefore, we define $\omega_{\mathbb{C}^{n}} = \frac{-i}{2} \sum_{j \geq 1} \overline{dz}_{j} \wedge dz_{j}$. 
+\end{example}
+
+\begin{example}[Sympletic Geometry of a Surface in $\mathbb{R}^{3}$]
+\label{SurfaceForm}
+Let $M \subset \mathbb{R}^3$ be a orientable surface, $M$ is an embedded manifold in $\mathbb{R}^{3}$. Since $M$ is an orientable surface, it admits a normal vector field $x \to N_{x}$. Therefore, a skew-symmetric form on $M$ is the area form of $M$: $\omega_{x}(v,w) = \langle N_{x}, v \times w \rangle$. 
+\end{example}
+
+\begin{lemma}[Surface Form]
+The area form on a surface $\omega$ \ref{SurfaceForm} is a skew-symmetric, non-degenerate, bilinear form
+\end{lemma}
+
+\begin{proof}
+Let's prove $\omega$ is non-degenerate. Let $v, w \in \mathfrak{X}(M)$. Let $v_{x}, w_{x}$ be the tangent vectors at $x \in M$. Suppose $\omega(v, w) = 0$ for all $w \in \mathfrak{X}(M)$. Then:
+
+$$\langle N_{x}, v_{x} \times w_{x} \rangle = 0$$
+
+\noindent Since $\langle \; \cdot, \cdot \; \rangle$ is non-degenerate, and $N_{x} \neq 0$, we have for all $w_{x} \in T_{x} M$
+
+$$v_{x} \times w_{x} = 0$$
+
+\noindent Choose $w_{x}$ perpendicular to $v_{x}$ in the plane of $T_{x} M$. Then, $v_{x} = 0$. Therefore, $v = 0 \in \mathfrak{X}(M)$. It follows from an observation that $\omega$ is skew-symmetric. We observe that:
+
+$$\omega(v,w) = -\omega(w,v)$$
+
+\noindent Finally, since the cross product is bilinear, we conclude. 
+\end{proof}
+
+\noindent \textbf{References}: \textcite{Terek2020}, \textcite{Bjorn2018}
+
+\subsection{No Local Invariants of Symplectic Manifolds}
+
+It is important to see how diffeomorphisms alter the symplectic form. As usual in differential geometry, we study the case when diffeomorphisms preserve the symplectic form:
+
+\begin{defn}[Pullback of a symplectic form]
+Suppose we are given a symplectic manifolds $(M', \omega')$ and $(M', \omega')$, vectors $v, w \in T_{x} M$, and a point $x \to \phi(x) = x'$. If we have a diffeomorphism $\phi: M \to M'$, the pullback of $\omega'$, denoted $\phi^{*} \omega'$ is the map:
+
+$$\phi^{*} \omega_{x'}'(v,w) = \omega_{x'}'(d \phi_{x} v, d \phi_{x} w)$$
+\end{defn}
+
+\begin{defn}[Symplectomorphism]
+Given two symplectic manifolds $(M, \omega)$ and $(M', \omega')$, a symplectomorphism $\phi$ between them is a diffeomorphism $\phi$ such that for any point $x \in M$, $v, w \in T_{x} M$:
+$$\left[ \phi^{*} \omega_{x'}' \right](v,w) = \omega_{x}(v,w)$$
+
+\begin{center}
+\begin{tikzcd}[row sep=large, column sep=large]
+    M \arrow[r, "\phi"] \arrow[d, "x \to \; \omega_{x}"'] & M' \arrow[d, "x' \to \; \omega_{x'}'"] \\
+    \Lambda^2(T^*M) & \Lambda^2(T^*M') \arrow[l, "\phi^*"]
+\end{tikzcd}
+
+\end{center}
+
+\noindent A symplectomorphism is a map $\phi$ which makes the following diagram commute.
+\end{defn}
+
+\noindent In each of the above examples \ref{SurfaceForm} and \ref{ComplexForm}, the symplectic forms all were (up to relabeling):
+\[ \omega = \sum_{j \geq 1} dq^{j} \wedge dp_{j} \]
+
+\begin{remark}[No Local Invariants]
+Was this by accident? One observation early on in symplectic geometry was that all symplectic manifolds are in fact locally symplectomorphic, we will see this in the following theorem \ref{Darboux}.
+\end{remark}
+
+\begin{theorem}[Darboux's Theorem -- All Symplectic Manifolds are Locally Symplectomorphic]
+\label{Darboux}
+Let \((M, \omega)\) be a symplectic manifold, and \(p \in M\) be any point. Then, there is a chart \((U, (x^1, \dots, x^n, y^1, \dots, y^n))\) around \(p\) for which: $\omega = \sum_{j \geq 1} dx_{j} \wedge dy_{j}$
+All symplectic manifolds locally look the same, and there are no local invariants in symplectic geometry. 
+\end{theorem}
+
+For a proof of \ref{Darboux}, see \cite{Arnold2010}. This is an important result, since it allows us to take the canonical local coordinates when we need to do so.  
+
+\subsection{Algebras of Vector Fields}
+
+We defined a symplectic manifold $(M, \omega)$ based on the model geometry of the bundle: $T^{*} Q \to Q$. On the manifold $T^{*} Q$, we reformulated classical mechanics in terms of the symplectic form there \ref{VecDefn}.
+
+\begin{remark}
+This reformulation of classical mechanics can also be done for a symplectic manifold $(M, \omega)$. 
+\end{remark}
+
+The generalization of Hamilton's equations becomes the definition of a Hamilitonian vector field.
+
+\begin{defn}[Hamiltonian Vector Field]
+\label{HamilitonianVectorField}
+Let $(M, \omega)$ be a symplectic manifold, then, a vector field $X_{H} \in \mathfrak{X}(M)$ is called Hamiltonian if there exists a smooth Hamilitonian function $H: M \to \mathbb{R}$ such that $\omega(X_{H}, \cdot) = dH$.
+\end{defn}
+
+\noindent Since $\omega$ is non-degenerate, $\omega^{-1}$ exists and 
+$X_{H} = \omega^{-1} dH$. A weaker notion than a Hamilitonian vector field is a symplectic vector field. Such a vector field does not necessarily derive from a Hamilitonian function $H$. 
+
+\begin{defn}[Symplectic Vector Field]
+Let $(M, \omega)$ be a symplectic manifold, then, a vector field $X \in \mathfrak{X}(M)$ is called symplectic if $\omega(X, \cdot)$ is closed. 
+\end{defn}
+
+\begin{lemma}[Inclusion Law]
+Every Hamilitonian vector field is a symplectic vector field.
+\end{lemma}
+
+\begin{proof}
+Note that $\omega(X_{H}, \cdot) = dH$, which is closed. 
+\end{proof}
+
+\begin{remark}
+Symplectic vector fields and Hamilitonian vector fields form algebras with composition laws. To see these, we first define function composition on our symplectic manifold. Function composition occurs via the Poisson-bracket $\{\cdot, \cdot \}$
+\end{remark}  
+
+\begin{defn}[Poisson Bracket]
+\label{PoissonBracket}
+Consider a symplectic manifold $(M, \omega)$. Let $f, g$ be two smooth functions $f, g: M \to \mathbb{R}$, and $X_{f}$ and $X_{g}$ be the corresponding Hamilitonian vector fields. The Poisson bracket between $f$ and $g$ is a map: 
+\begin{align}
+\{\cdot, \cdot\}: C^{\infty}(M) \times C^{\infty}(M) \to C^{\infty}(M) && \{f, g \} = \omega(X_{f}, X_{g})
+\end{align}
+
+\end{defn}
+
+\begin{lemma}[Lie Bracket is the Poisson Bracket]
+
+Given Hamilitonian vector fields $X_{f}$ and $X_{g}$, as defined in \ref{PoissonBracket}, we have that:
+
+$$[X_{f}, X_{g}] = X_{f} X_{g} - X_{g} X_{f} = -X_{\{f, g \}}$$ 
+\end{lemma}
+
+\begin{proof}
+Lemma is proved in appendix: \ref{PoissonIsLie}
+\end{proof}
+
+\begin{defn}[Algebras of Vector Fields]
+Consider a symplectic manifold $(M, \omega)$. Let $\mathcal{S}(M, \omega, [\cdot, \cdot])$ and $\mathcal{H}(M, \omega, [\cdot, \cdot])$ denote the algebras of Symplectic and Hamilitonian vector fields on $M$
+\end{defn}
+
+\begin{lemma}[Sym Algebra is Well-Defined]
+
+Let $(M, \omega)$ be a symplectic manifold as above. We first show that $\mathcal{S}(M, \omega, [\cdot, \cdot])$ is closed under the Lie-bracket $[\cdot, \cdot]$. 
+\end{lemma}
+
+\begin{proof}
+Note that if $X, Y \in \mathfrak{X}(M)$ is symplectic, $\omega(X, \cdot)$ is closed. For some $x \in M$, consider a small neighborhood $V$, where $x \in V$. Since $X$ is symplectic, we write: $\omega(X, \cdot) = df'$, where $df': V \to \mathbb{R}$ is a smooth function. We do the same for $Y$, writing $\omega(X, \cdot) = dg'$. Therefore, we understand that $X$ and $Y$ are locally Hamilitonian, and so we write: $[X, Y] = -X_{\{f', g' \}}$. It suffices to note that $\{f', g' \}$ now is the symplectic function for $[X, Y]$. 
+\end{proof}
+
+\begin{lemma}[Ham Algebra is Well-Defined]
+
+Let $(M, \omega)$ be a symplectic manifold as above. We show that $\mathcal{H}(M, \omega, [\cdot, \cdot])$ is closed under the Lie-bracket $[\cdot, \cdot]$. 
+\end{lemma}
+
+\begin{proof}
+This proof follows from the above argument for $\mathcal{S}(M, \omega, [\cdot, \cdot])$, noting that now when $f, g$ are functions $M \to \mathbb{R}$, $\{f, g \}$ is also a function $M \to \mathbb{R}$
+\end{proof}
+
+\noindent \textbf{References:} \textcite{Terek2020}, \textcite{Bjorn2018}, \textcite{Arnold2010}
+
+\subsection{Lie Group Actions}
+One natural question in manifold theory is whether a Hamilitonian $H$ can generate a symmetry from its dynamics. 
+
+\begin{remark}
+These are made explicit by having a Lie group $G$, act on the manifold. The Lie group action, establishes a method of studying the action of symmetry.
+\end{remark}
+
+\begin{defn}[Lie Group Action]
+Let $G$ be a Lie group, and $M$ be a manifold. A smooth, left action of $G$ on $M$, denoted $G \circlearrowright M$ is a smooth map: $G \times M \to M$ given by $(g,x) \mapsto g \cdot x$ satisfying $e \cdot x = x$ and $g \cdot (h \cdot x) = (gh) \cdot x$.
+\end{defn}
+
+\begin{example}[Toric Action $T^{n} \circlearrowright \mathbb{C}^{n}$]
+One common Lie group action is that of the torus, $T^{n}$ acting on $\mathbb{C}^{n}$: 
+\begin{equation}
+(e^{i \beta_{1}}, \dots, e^{i \beta_{n}}) \cdot (e^{i \theta_{1}}, \dots, e^{i \theta_{n}}) = (e^{i (\theta_{1} + \beta_{1})}, \dots, e^{i (\theta_{n} + \beta_{n})})
+\end{equation}
+The toric action is given by phase rotation in each of the complex coordinates. 
+\end{example}
+
+\noindent To each Lie group element $G$, there exists an associated mapping:
+
+\begin{defn}[Orbit Map]
+Consider a symplectic manifold $(M, \omega)$ with a Lie-group action $G \circlearrowright M$. Given any point $x \in M$, we define the orbit map $\sigma_{x}: G \to M$ to be the map $[g \to g \cdot x]$. 
+\end{defn}
+
+\begin{defn}[Classifying Lie Group Actions]
+\noindent Let $G \circlearrowright M$ be a Lie group action on a manifold:
+\begin{enumerate}
+    \item Given $x \in M$, $G \cdot x = \{g \cdot x: g \in G \}$ is the \textit{orbit} of $x$.
+    \item Given $x \in M$, $G_{x} = \{g \in G: g \cdot x = x\}$ is the \textit{stabilizer} of $x$.
+    \item The action is \textit{transitive} if there is an $x \in M$ such that $G \cdot x = M$.
+    \item The action is \textit{free} if $G_{x} = e$ for all $x \in M$.
+    \item The action is \textit{proper} if the enriched action $G \times M \to M \times M$ is a proper map.
+    \item The action is \textit{effective} if $g \cdot x = x$ for all $x \in M$ impLies that $g = e_{G}$.
+\end{enumerate}
+\end{defn}
+
+\noindent Since a Lie-group action $G \circlearrowright M$ is smooth, the orbit map is differentiable. 
+
+\begin{defn}[Lie Algebra of $G$, $\mathfrak{g}$]
+The Lie Algebra of $G$, $(\mathfrak{g}, [ \cdot, \cdot])$ is the tangent space to $G$ at the identity, $e$: $\mathfrak{g} = T_{e} G$. The composition rule in $\mathfrak{g}$ is given by $[ \cdot, \cdot]$, which is the Lie bracket on $\mathfrak{g}$.
+\end{defn}
+
+\noindent Consider the conjugation map: $\Psi_{g}: G \to G$ given by:  
+
+$$\Psi_{g}(h) = gh g^{-1}$$
+
+\noindent Since the action of $G \circlearrowright G$ is smooth, we take its derivative at the identity:
+
+$$\left(d \Phi_{g}(X)\right)_{e}: T_{e} G \to T_{e} G$$
+
+\noindent Then, the map: $g \to \left(d \Phi_{g}(X)\right)_{e}$ can be differentiated at the identity.
+
+\begin{align}
+\operatorname{ad}_{X}(Y): T_{e} G \times T_{e} G \to \mathbb{R} && \operatorname{ad}_{X}(Y) = \left[X, Y \right]    
+\end{align}
+
+\begin{defn}{Lie bracket on $G$, $[ \cdot, \cdot ]$}
+The Lie-bracket is the quantity: 
+
+$$\operatorname{ad}_{X}(Y) = \left[X, Y \right]$$
+\end{defn}
+
+\noindent The Lie bracket will be important in the study of the Lie algebra of $\mathfrak{so}(3)$. Since $G \circlearrowright M$ is smooth, the derivative of the orbit map at the identity is well defined:
+
+\begin{defn}[Derivative of the Orbit Map]
+Given a symplectic manifold $(M, \omega)$, and a Lie group action $G \circlearrowright M$, and a point $x \in M$, the orbit map $\sigma_{x}$ can be differentiated at the identity to yield the map:
+
+$$\left( d \sigma_{x} \right)_{e}: \mathfrak{g} \to T_{x} M$$
+\end{defn}
+
+\begin{defn}[Fundamental Vector Field]
+Let $X \in T_{e} G$. The vector field $X^{\#}$ is the image of $X$, as $x$ ranges over $M$:
+
+$$X^{\#} = \bigsqcup_{x \in M} \left( d \sigma_{x} \right)_{e}(X) $$
+\end{defn}
+
+\begin{example}[Action of $S^{1} \circlearrowright S^{1}$, What is $X^{\#}_{\theta_{1}}$]
+
+Consider a symplectic manifold $(S^{1}, \omega)$, acted on by a Lie-group action 
+
+\begin{align}
+S^{1} \circlearrowright S^{1} \text{ via } [e^{i \theta} \cdot e^{i \theta_{1}} \to e^{i(\theta + \theta_{1})} ]
+\end{align}
+
+\noindent In this case, $\sigma_{x}(\theta) = e^{i \theta} x$, and $(d \sigma_{x})_{e} = ix$. Since $ix = X^{\#}_{\theta_{1}}(x)$, we deduce that $X^{\#}_{\theta_{1}} = \frac{\partial}{\partial \theta_{1}}$.
+\end{example}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+    % Draw the circle S^1
+    \draw[thick] (0,0) circle (1);
+    
+    % Add coordinate axes for reference
+    \draw[gray,dashed,->] (-1.3,0) -- (1.3,0);
+    \draw[gray,dashed,->] (0,-1.3) -- (0,1.3);
+    
+    % Draw tangent vectors at fewer points
+    \foreach \angle in {0, 45, 90, 135, 180, 225, 270, 315} {
+        % Calculate position on circle
+        \coordinate (P\angle) at (\angle:1);
+        
+        % Draw point
+        \fill (P\angle) circle (1.5pt);
+        
+        % Draw longer tangent vector (rotated 90 degrees from radius)
+        % The vector field X^#_θ = i·e^{iθ} points perpendicular to the radius
+        \draw[->,thick,blue] (P\angle) -- +({90+\angle}:0.5);
+    }
+\end{tikzpicture}
+
+\end{center}
+
+\begin{remark}
+We want to study which Hamiltonian-type functions generate a $X^{\#}$ field. These questions we will begin to answer in the next section. 
+\end{remark}
+
+\subsection{Hamiltonian Actions}
+
+\begin{defn}[Comoment Map $\mu_{c}$]
+
+Consider a symplectic manifold $(M, \omega)$, and a Lie group action $G \circlearrowright M$. Denote the Lie algebra of $G$ as $\mathfrak{g}$. Then, the comoment map generates fundamental vector fields $X^{\#}$ on $\mathfrak{X}(M)$. 
+
+\begin{align}
+\mu_{c}: \mathfrak{g} \to C^{\infty}(M) && X_{\mu_{c}(X)} = X^{\#}
+\end{align}
+
+\noindent An equivalent condition is that $d \mu_{c}(X) = \omega(X^{\#}, \cdot)$.
+\end{defn}
+
+\begin{remark}
+The co-moment map $\mu_{c}$ contains the information about every Hamilitonian function generating fundamental vector fields on $M$. 
+\end{remark}
+
+\begin{defn}[Moment Map $\mu$]
+There is a natural dual to $\mu: M \to \mathfrak{g}$
+\end{defn}
+
+\begin{lemma}[Moment-Comoment Duality]
+\noindent The comoment and moment maps are connected via the relation:
+
+$$\left[\mu_{c}(X) \right](p) = \mu^{X}(p)$$
+\end{lemma}
+
+\begin{defn}[Symplectic Action]
+Let $(M, \omega)$ be a symplectic manifold, with a smooth Lie group action $G \circlearrowright M$. A smooth action $G \circlearrowright M$ is a symplectic action if for each $g \in G$, the map $g: M \to M$ is a symplectomorphism. We denote a symplectic action $(M, \omega, G)$
+\end{defn}
+
+\begin{defn}
+ A symplectic action $G \circlearrowright (M, \omega)$ is called a Hamiltonian action if there exists a linear $\mu_{c}: \mathfrak{g} \to C^{\infty}(M)$, the comoment map, such that the diagram commutes:
+\begin{center}
+\begin{tikzcd}
+(\mathfrak{g}, [\cdot, \cdot]) \arrow[r, "\mu_c"] \arrow[d, "\#"] &
+(C^\infty(M), \{\cdot, \cdot\}_\omega) \arrow[d, "X_{\cdot}"] \\
+(\mathcal{S}(M, \omega), [\cdot, \cdot]) & \arrow[l, hook]
+(\mathcal{H}(M, \omega), [\cdot, \cdot])
+\end{tikzcd}
+\end{center}
+\end{defn}
+\noindent Therefore, a symplectic action is Hamiltonian if its corresponding vector field is itself Hamiltonian, such that the diagram commutes. 
+\begin{example}[Symplectic Action but not Hamilitonian]
+An action that is not Hamiltonian is rotation on the torus, $S^{1} \circlearrowright T^{2}$:
+\begin{equation}
+S^{1} \circlearrowright T^{2}: \theta \circ (\theta_{1}, \theta_{2}) = (\theta_{1} + \theta, \theta_{2})
+\end{equation}
+\end{example}
+The vector field induced by this action is $\frac{\partial}{\partial \theta_{1}}$. Taking $\omega = d\theta_{1} \wedge d\theta_{2}$, we have that $\omega(\frac{\partial}{\partial \theta_{1}}, \cdot) = d\theta_{2}$. Note $i_{\frac{\partial}{\partial \theta_{1}}} \omega = d\theta_{2}$ cannot be everywhere written as the exterior derivative of a Hamiltonian function. Otherwise, we would have for all $z \in S^{1}$, that $d\theta_{2}$ is exact, violating the cohomological restriction $H^{1}_{dR}(S^{1}) = \mathbb{R}$. 
+\begin{example}[Rotation on $S^{2}$]
+An action that is Hamiltonian is rotation on the sphere $S^2$, around the $\hat{z}$ axis.
+Let $S^{2} \subset \mathbb{C} \times \mathbb{R}$, where $S^{2} = \{(z, h): |z|^2 + h^2 = 1 \}$. Define the action of $S^{1} \circlearrowright S^{2}$ by: 
+\begin{equation}
+S^{1} \circlearrowright S^{2}: \theta \circ (z, h) = (e^{i \theta} z, h) 
+\end{equation}
+The symplectic form for this action is $d\theta \wedge dh$, where this is the area form in polar coordinates. The vector field is $\frac{\partial}{\partial \theta}$. Therefore, we may declare that $\mu_{c} = h$, and $d\mu_{c} = \omega(X_{\theta}, \cdot)$.
+\end{example}
+
+
+\begin{example}[Generalization of Angular Momentum]
+The Lie group action $S^1 \circlearrowright \mathbb{C}$ generates the black arrows as a vector field. The action is explicitly: 
+\begin{equation}
+S^1 \circlearrowright \mathbb{C}: e^{i\beta} \cdot re^{i\theta} \mapsto re^{i(\theta + \beta)}
+\end{equation}
+As in differential geometry, vectors are the directional derivatives they induce. Therefore, in polar coordinates the black arrows are the vector field such that:
+\begin{equation}
+X(e^{i\theta}) = i \cdot e^{i\theta}
+\end{equation}
+Therefore, $X^{\#}(\theta, r) = \frac{\partial}{\partial \theta}$. The symplectic form on $\mathbb{R}^2$ is the canonical area form in polar coordinates, $\omega = r d\theta \wedge dr$. Now, $d\mu_{c} = r dr$. We find that $\mu_{c} = \frac{r^2}{2}$. Considering a particle moving along the path with mass $1/2$, we note that in fact our expression $\mu_{c}$ is the classical angular momentum of the particle.
+\begin{equation}
+|\mu_{c}| = L_{\theta}
+\end{equation}
+
+\end{example}
+
+\noindent \textbf{References:} \textcite{Terek2020}, \textcite{Bjorn2018}, \textcite{Arnold2010}, \textcite{Silva2001}
+
+\subsection{Properties of Hamiltonian G-Spaces}
+
+An important operation when establishing moment map images is the following:
+
+\begin{defn}[Minkowski Sum]
+Given two vector spaces $A, B$, their Minkowski sum is $A + B = \{a + b: a \in A, b \in B \}$, where $+$ is the vector space addition operator.
+\end{defn}
+
+\begin{remark}
+A key lemma we will use throughout this thesis is the following: for the product of two manifolds, the moment image of the sum of spaces will be the Minkowski sum of the individual moment images. This is proven below:
+\end{remark} 
+
+\begin{lemma}[Moment of Product is Minkowski Sum]
+Let \((M_1, \omega_1, G, \mu_1)\) and \((M_2, \omega_2, G, \mu_2)\) be two Hamiltonian \(G\)-spaces. It holds that 
+\((M_1 \times M_2, \omega_1 \oplus \omega_2, G, \mu_1 \oplus \mu_2)\) is also a Hamiltonian \(G\)-space, where the action of $G$ on \(M_1 \times M_2\) is diagonal and the action of the new moment map $\mu_1 \oplus \mu_2: M_1 \times M_2 \rightarrow \mathfrak{g}^*$ is given by $(\mu_1 \oplus \mu_2)(x, y) \doteq \mu_1(x) + \mu_2(y)$. In particular, $(\mu_1 \oplus \mu_2)(M_1 \times M_2) = \mu_1(M_1) + \mu_2(M_2)$, an observation that we will apply later \end{lemma}
+Let $i_{x_{2}}(x) = (x, x_{2})$, and $i_{x_{1}}(x) = (x_{1}, x)$ be the inclusion maps. Using the fact that $T(M_{1} \times M_{2}) = \pi_{1}^{*}TM_{1} \oplus \pi_{2}^{*}TM_{2}$, we have that if $f \in C^{\infty}(M_{1} \times M_{2})$ then:
+\begin{equation}
+X_f|_{(x_1, x_2)} = X_{f \circ i_{x_2}}^{\omega_1} + X_{f \circ i_{x_1}}^{\omega_2}
+\end{equation}
+\begin{equation}
+d(\mu_1 \oplus \mu_2)_{(x_{1}, x_{2})}(\cdot) = (\pi_{1}^{*}\omega_{1} \oplus \pi_{2}^{*}\omega_{2})(X_{f(i_{x_{2}})}^{\omega_{1}} + X_{f(i_{x_{1}})}^{\omega_{2}}, \cdot)
+\end{equation}
+Since opposite projections cancel, i.e., $d\pi_{1}d\pi_{2} = 0$, we have that the moment map is diagonal, and:
+\begin{equation}
+(\mu_1 \oplus \mu_2)_{(x_{1}, x_{2})} = \mu_{1}(x_{1}) + \mu_{2}(x_{2})
+\end{equation}
+
+\begin{example}[Moment Image of $S^{2}(r_{2}) \times S^{2}(r_{1})$]
+
+Consider $(S^{2}(r_{2}), \mu_{2})$ where $\mu_{2}(r) = r$, and $(S^{2}(r_{1}), \mu_{1})$ given by $\mu_{2}(r) = r$. This is proven here \ref{MomentMapIsInclusion}. Then, $(\mu_1 \oplus \mu_2)_{(x_{1}, x_{2})} = \mu_{1}(x_{1}) + \mu_{2}(x_{2})$. 
+
+\begin{align}
+(\mu_1 \oplus \mu_2)(S^{2}(r_{2}) \times S^{2}(r_{1})) = B(r_{2} + r_{1}) \setminus B(|r_{2} - r_{1}|) 
+\end{align}
+
+\end{example}
+
+\noindent \textbf{References:} \textcite{Arnold2010}, \textcite{Silva2001}, \textcite{Terek2020}

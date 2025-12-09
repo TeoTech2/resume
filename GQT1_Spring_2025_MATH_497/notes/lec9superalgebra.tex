@@ -1,0 +1,808 @@
+\newpage 
+
+\section{Lecture 9: Introduction to Super Algebra}
+
+\subsection{Quantum}
+
+\textcolor{red}{working on this now - gary}
+\subsection{Introduction}
+Thus far, we have discussed mechanical systems that are bosonic. In the real world, there are two species of particles:
+    \begin{itemize}
+        \item Bosons: Particles that obey Bose–Einstein statistics (e.g. photons, gluons). Multiple identical bosons can occupy the same quantum state.
+        \item Fermions: Particles that obey Fermi–Dirac statistics (e.g. electrons, protons). Governed by the Pauli exclusion principle: no two identical fermions may occupy the same quantum state.
+    \end{itemize}
+
+However, there are several limitations of our current framework. For example, our axioms have so far only involved time, but to do supersymmetry, we need to modify the spacial structure. Without incorporating spatial structure (e.g., spacetime manifold, spin structures), we can't rigorously derive why particles are only bosons or fermions. In two spatial dimensions, more exotic possibilities (e.g., anyons) arise. In 2d, The braid group replaces the symmetric group in classifying identical particles, allowing for exotic statistics: particles called anyons that acquire a phase or even a noncommutative matrix under exchange. Despite this, we begin with a heuristic discussion of the boson/fermion dichotomy.
+
+ Superalgebra encodes the boson/fermion dichotomy algebraically. ‘Super’ is synonymous with $\mathbb{Z}/2\mathbb{Z}$-graded. The Koszul sign rule governs signs: commuting odd elements introduces a minus sign. This changes associativity and commutativity in superalgebras, skew-symmetry and Jacobi identity in super Lie algebras, and Hermitian structures and adjoints in super Hilbert spaces.
+
+To review, a QM system is a pair $(\mathcal{H}, U)$ with a complex Hilbert space $\mathcal{H}$ and a strongly continuous unitary 1-parameter group $U$. Here, $\mathcal{H}$ is a Hilbert space of 1-states, $U:\mathbb{R}\to U(\mathcal{H})$ is the time evolution operator, with $U(t)=e^{itH}$ where $H$ is a self-adjoint operator (Hamiltonian), and strong continuity ensures that $t\mapsto U(t)\psi$ is continuous for each $\psi$ which is a useful assumption for things like Stone's theorem.  While $(\mathcal{H}, U)$ could represent a general system, we interpret it here as describing a single particle. 
+
+This sets up the language for discussing multi-particle systems. We consider a non-interacting 2-particle system formed by tensoring two copies of the 1-particle system. Earlier, we saw that the composition of two identical systems is given by:
+    \[
+        (\mathcal{H} \otimes \mathcal{H}, U \otimes U)
+    \]
+For a QM system of two identical particles, $\psi_1 \otimes \psi_2$ and $\psi_2 \otimes \psi_1$ represent the same state. So the exchange map
+    \begin{align*}
+        \mathcal{H}\otimes \mathcal{H} &\to \mathcal{H}\otimes \mathcal{H} \\ 
+        \psi_1 \otimes \psi_2 &\mapsto \psi_2\otimes \psi_1
+    \end{align*}
+    reduces to scalar multiplication:
+    \[\psi_2 \otimes \psi_1 \otimes \lambda \psi_1 \otimes \psi_2 \]
+Applying this map twice gives $\lambda = \pm 1$:
+    \[
+        \psi_2 \otimes \psi_1 = 
+        \begin{cases}
+            \psi_1 \otimes \psi_2 & \text{(bosons)} \\
+            -\psi_1 \otimes \psi_2 & \text{(fermions)}
+        \end{cases}
+    \]
+
+This allows us to factor the state space:
+    \[
+        \mathcal{H} \otimes \mathcal{H} \to 
+        \begin{cases}
+            \mathrm{Sym}^2 \mathcal{H} & \text{(bosons)} \\
+            \wedge^2 \mathcal{H} & \text{(fermions)}
+        \end{cases}
+    \]
+    where symmetric and exterior tensor algebras are:
+    \[\mathrm{Sym}^2 \mathcal{H} =\frac{\mathcal{H}\otimes \mathcal{H}}{\langle \psi_1 \otimes \psi_2 - \psi_2 \otimes \psi_1 \rangle}\]
+    \[\wedge^2 \mathcal{H} =\frac{\mathcal{H}\otimes \mathcal{H}}{\langle \psi_1 \otimes \psi_2 + \psi_2 \otimes \psi_1 \rangle} \]
+
+\begin{remark}
+\,
+    \begin{enumerate}
+        \item Exterior algebra encodes the Pauli exclusion principle.
+        \item QM systems may have both bosonic and fermionic states, superalgebra formulates these together. There are also states that are mixtures of the two.
+        \item Superalgebra allows us to handle both types of states, but only bosonic observables can be measured.
+        \item Presence of bosons and fermions $\not\Rightarrow$ supersymmetric system. Supersymmetric systems must \textbf{exchange} the two.
+    \end{enumerate}
+\end{remark}
+
+\subsection{Structures in Super Algebra}
+
+We begin with a potpourri of definitions for super vector spaces
+\begin{definition}
+    \,
+    \begin{itemize}
+        \item A \emph{super vector space} $V = V^0 \oplus V^1$ is a \(\mathbb{Z}/2\mathbb{Z}\)-graded vector space.
+        \item A \emph{homogeneous element} $v \in V^i$ has \emph{parity} $i \in \mathbb{Z}/2\mathbb{Z}$.
+        \item A \emph{morphism of super vector spaces} is a parity-preserving linear map. 
+        \item The \emph{grading automorphism} of $V$ is
+    \begin{equation*}
+        \varepsilon_V = \mathrm{id}_{V^0} \oplus (-\mathrm{id}_{V^1})
+    \end{equation*}
+    \item If $V$ is finite dimensional, then its dimension is written as $\dim V = n_0 \,|\, n_1$, where $n_i = \dim V^i$, $i \in \mathbb{Z}/2\mathbb{Z}$.
+    \item The standard super vector space of dimension $n^0|n^1$ is denoted $\mathbb{F}^{n^0|n^1}$
+    \end{itemize}
+\end{definition}
+
+Now, we can define the operations: Let $U, V, W$ be super vector spaces.
+\begin{itemize}
+    \item The \emph{tensor product} $V \otimes W$ is the usual tensor product with \(\mathbb{Z}/2\mathbb{Z}\)-grading
+    \begin{equation*}
+        (V \otimes W)^k = \bigoplus_{i + j = k} (V^i \otimes W^j), \quad k \in \mathbb{Z}/2\mathbb{Z}
+    \end{equation*}
+    \item The associativity isomorphism for the tensor product of super vector spaces $U, V, W$ is
+    \begin{equation*}
+        (U \otimes V) \otimes W \xrightarrow{\sim} U \otimes (V \otimes W), \quad (u \otimes v) \otimes w \mapsto u \otimes (v \otimes w)
+    \end{equation*}
+        \item The commutativity isomorphism for the tensor product of super vector spaces $V, W$ is
+    \begin{equation*}
+        \sigma_{V, W} : V \otimes W \to W \otimes V, \quad v \otimes w \mapsto (-1)^{|v||w|} w \otimes v 
+    \end{equation*}
+    \item This symmetry is the \emph{Koszul sign rule}; it satisfies 
+    \[\sigma_{W, V} \circ \sigma_{V, W} = \mathrm{id}_{V \otimes W} \]
+    \end{itemize}
+
+Now, we have the foundations to define other algebraic structures:
+\begin{itemize}
+\item A \emph{superalgebra} is a super vector space $A$ with a multiplication
+\[
+    A \otimes A \to A
+\]
+that is associative and unital. The unit is even. $A$ is commutative if
+\[
+    ab = (-1)^{|a||b|} ba
+\]
+for homogeneous $a, b \in A$.
+
+\item \textcolor{red}{THIS DEFINITION IS WRONG} A left (resp. right) \textit{$A$-super module} $M$ is a super algebra $A$ with a product morphism $A\otimes M\to M$ (resp. $M\otimes A\to M$) that makes the standard diagrams commute.
+\item A \textit{super Lie algebra} $\mathfrak{g}$ is equipped with a morphism $[\cdot,\cdot]: \mathfrak{g}\otimes \mathfrak{g}\to \mathfrak{g}$, satisfying:
+\begin{itemize}
+    \item Antisymmetry:
+    \[[x, y] + (-1)^{p(x)p(y)} [y, x] = 0\]
+\item Jacobi identity
+\begin{align*}
+&[x, [y, z]]  \\ 
++& (-1)^{p(x)p(y)+p(x)p(z)} [y, [z, x]]  \\ 
++& (-1)^{p(x)p(z)+p(y)p(z)} [z, [x, y]]  \\ 
+=& 0.
+\end{align*}
+\end{itemize}
+\end{itemize}
+
+Very strangely, Freed presents super Lie algebras in the following way: A super Lie algebra gives rise to:
+\begin{itemize}
+  \item a Lie algebra $\mathfrak{g}_0$,
+  \item a $\mathfrak{g}_0$-module $\mathfrak{g}_1$,
+  \item a map $\mathrm{Sym}^2(\mathfrak{g}_1) \to \mathfrak{g}_0$ of $\mathfrak{g}_0$-modules,
+\end{itemize}
+and these data satisfy
+\begin{equation*}
+[x, [x, x]] = 0, \quad x \in \mathfrak{g}_1.
+\end{equation*}
+In the other direction, this data determines a super Lie algebra!
+
+Now we move on to discuss four examples:
+
+\begin{example}[Exterior Algebra]
+    Let $U$ be a vector space. The exterior algebra
+\[
+A = \wedge^\bullet U
+\]
+has a natural $\mathbb{Z}$-grading:
+\[
+A = \bigoplus_{n=0}^\infty \wedge^n U
+\]
+which induces a $\mathbb{Z}/2\mathbb{Z}$-grading:
+\[
+A^{0} := \bigoplus_{n \text{ even}} \wedge^n U, \quad
+A^{1} := \bigoplus_{n \text{ odd}} \wedge^n U
+\]
+The resulting superalgebra is \emph{supercommutative}:
+\[
+\alpha \wedge \beta = (-1)^{|\alpha||\beta|} \beta \wedge \alpha
+\]
+\end{example}
+
+\begin{example}[Endomorphism Algebra]
+    Let $V = V^0 \oplus V^1$ be a super vector space. Then:
+\[
+\operatorname{End}(V) = \operatorname{End}^0(V) \oplus \operatorname{End}^1(V)
+\]
+is a superalgebra where:
+\begin{itemize}
+    \item $\operatorname{End}^0(V)$: even endomorphisms (preserve parity),
+    \item $\operatorname{End}^1(V)$: odd endomorphisms (reverse parity).
+\end{itemize}
+This grading makes $\operatorname{End}(V)$ into a \emph{noncommutative} superalgebra.
+
+\end{example}
+
+\begin{example}[Polynomial Algebra in Even Variables]
+    Let $x_1, \dots, x_N$ be even indeterminates. Then:
+\[
+\mathbb{R}[x_1, \dots, x_N]
+\]
+is a commutative algebra as an ungraded object. However: If we declare the parity of a monomial by its total degree modulo 2, the induced $\mathbb{Z}/2\mathbb{Z}$-grading does \emph{not} make it supercommutative.
+
+\begin{itemize}
+    \item The multiplication does not respect the Koszul sign rule.
+    \item Therefore, it is not a supercommutative superalgebra under this grading.
+\end{itemize}
+\end{example}
+
+\begin{example}[Polynomial Algebra in Odd Variables]
+    Let $\eta_1, \dots, \eta_N$ be \emph{odd} indeterminates. Then:
+\[
+\mathbb{R}[\eta_1, \dots, \eta_N]
+\]
+is the free supercommutative algebra generated by the $\eta_i$, satisfying:
+\[
+\eta_i \eta_j = -\eta_j \eta_i, \quad \eta_i^2 = 0
+\]
+
+\vspace{0.5em}
+This algebra is canonically isomorphic to:
+\[
+\wedge^\bullet \mathbb{R}^N
+\]
+i.e., the exterior algebra on the real vector space with basis $\{ \eta_1, \dots, \eta_N \}$.
+\end{example}
+
+\subsection{$\text{Sym}^2 H$ and the Fock Space}
+
+Let $H = H^0 \oplus H^1$ be a super vector space.
+
+The \emph{symmetric square} of $H$, denoted $\mathrm{Sym}^2 H$, is defined as:
+\[
+\mathrm{Sym}^2 H := \frac{H \otimes H}{S}
+\]
+where $S \subset H \otimes H$ is the subspace generated by the elements:
+\[
+\psi_1 \otimes \psi_2 - (-1)^{|\psi_1||\psi_2|} \psi_2 \otimes \psi_1
+\]
+for all homogeneous $\psi_1, \psi_2 \in H$.
+
+This quotient identifies pairs of tensors that differ by a Koszul sign.
+
+
+Let $H = H^0 \oplus H^1$ be a super vector space.
+\begin{lemma}
+There is a natural isomorphism of vector spaces:
+\[
+\mathrm{Sym}^2 H \cong 
+\left( \mathrm{Sym}^2 H^0 \oplus \wedge^2 H^1 \right)
+\oplus \left( H^0 \otimes H^1 \right)
+\]
+\end{lemma}
+Notice that
+\begin{itemize}
+    \item $\mathrm{Sym}^2 H^0$: symmetric tensors in even subspace.
+    \item $\wedge^2 H^1$: antisymmetric tensors in odd subspace (fermions).
+    \item $H^0 \otimes H^1$: mixed parity states (odd under flip).
+\end{itemize}
+This decomposition reflects the interaction of parities in tensor symmetrization.
+
+
+Let $H$ be the 1-particle Hilbert space of a quantum mechanical system. Then $\mathrm{Sym}^2 H$ describes the 2-particle sector of the system:
+
+\begin{itemize}
+    \item Bosonic states are symmetric under exchange:
+    \[
+    \psi \otimes \phi = + \phi \otimes \psi
+    \]
+    \item Fermionic states are antisymmetric under exchange:
+    \[
+    \psi \otimes \phi = - \phi \otimes \psi
+    \]
+\end{itemize}
+
+So the key insight is that superalgebra allows both to coexist: $\mathrm{Sym}^2 H$ encodes:
+\begin{itemize}
+    \item Two bosons: $\mathrm{Sym}^2 H^0$
+    \item Two fermions: $\wedge^2 H^1$
+    \item One boson + one fermion: $H^0 \otimes H^1$
+\end{itemize}
+
+Now we move onto discuss topological structures and the Fock space. So far $H$ is a purely algebraic super vector space. If $H$ has a topology (e.g., Hilbert structure):
+\begin{itemize}
+    \item The symmetric algebra $\mathrm{Sym}^\bullet H$ admits a natural topological completion.
+    \item Each $\mathrm{Sym}^n H$ can be completed to a Hilbert space.
+    \item The direct sum completion:
+    \[
+    \widehat{\mathrm{Sym}}^\bullet H := \widehat{\bigoplus}_{n \geq 0} \mathrm{Sym}^n H
+    \]
+    is called the \emph{Fock space}.
+\end{itemize}
+
+\textbf{Conclusion:} The Fock space packages all multi-particle bosonic and fermionic states into one topological super Hilbert space.
+
+\subsection{$*$-Structures}
+
+We begin with the Koszul Sign Rule in $*$-Operations:
+\begin{definition}
+\begin{enumerate}
+    \item A \textbf{$*$-operation} on a $\mathbb{C}$-algebra $A$ is a real linear map
+    \[
+        * : A \to A, \quad a \mapsto a^*
+    \]
+    such that
+    \begin{align*}
+        (a^*)^* &= a \\
+        (\lambda a)^* &= \bar{\lambda} a^* \\
+        (a_1 a_2)^* &= a_2^* a_1^*
+    \end{align*}
+    \item For a \textbf{superalgebra} over $\mathbb{C}$, the twisted identity is:
+    \[
+        (a_1 a_2)^* = (-1)^{|a_1||a_2|} a_2^* a_1^*
+    \]
+    for homogeneous $a_1, a_2$.
+\end{enumerate}
+\end{definition}
+
+Now we can discuss Hermitian inner products on a super vector space. 
+
+\begin{definition}
+Let $H = H^0 \oplus H^1$ be a complex super vector space. A \textbf{hermitian inner product} is a bilinear pairing
+\[
+    \langle -,- \rangle : H \times H \to \mathbb{C}
+\]
+satisfying for homogeneous $\psi_1, \psi_2 \in H$:
+\begin{align*}
+    \langle \psi_1, \psi_2 \rangle &= (-1)^{|\psi_1||\psi_2|} \overline{\langle \psi_2, \psi_1 \rangle} \\
+    \langle \psi, \psi \rangle &> 0 \text{ for } \psi \in H^0 \\
+    -i \langle \psi, \psi \rangle &> 0 \text{ for } \psi \in H^1
+\end{align*}
+\end{definition}
+Note that
+\begin{itemize}
+    \item $H^0 \perp H^1$
+    \item Restriction to $H^0$: standard hermitian form
+    \item Restriction to $H^1$: $-i\langle -,- \rangle$ is positive definite
+\end{itemize}
+
+Then, we move onto discuss adjoint operators in super Hilbert spaces:
+
+\begin{definition}
+Let $T : H \to H$ be a homogeneous endomorphism. Its \textbf{adjoint} $T^*$ satisfies:
+\[
+    \langle T^* \psi_1, \psi_2 \rangle = (-1)^{|T||\psi_1|} \langle \psi_1, T \psi_2 \rangle
+\]
+\end{definition}
+\begin{itemize}
+    \item The map $T \mapsto T^*$ is a $*$-structure.
+    \item End$\,H$ becomes a $*$-superalgebra.
+\end{itemize}
+
+\begin{remark}
+    If $T$ is odd, then it cannot have nonzero homogeneous eigenvectors.
+\end{remark}
+
+\subsection{Clifford Algebras}
+We now introduce an important example of a \emph{noncommutative superalgebra}:
+    \[
+    \textbf{the Clifford algebra.}
+    \]
+
+The classical orthogonal group $O(n)$ embeds into an algebra of matrices:
+    \[
+    O(n) \subset \mathrm{M}_n(\mathbb{R})
+    \]
+    via its action on $\mathbb{R}^n$ preserving the standard inner product.
+
+The Clifford algebra plays a similar structural role—but in the context of a double cover group of $O(n)$: The \textbf{Pin group} is a double cover of $O(n)$, realized inside the Clifford algebra. Its identity component is the \textbf{Spin group}, a double cover of the special orthogonal group $SO(n)$.
+
+These groups act naturally on spinor representations constructed from Clifford algebras.
+
+Recall that orthogonal transformations are products of reflections. For a unit vector $\xi \in \mathbb{R}^n$, we can define the reflection as:
+    \[
+        \rho_\xi(\eta) = \eta - 2 \langle \eta, \xi \rangle \xi
+    \]
+\begin{theorem}[Cartan–Dieudonné]
+    Any $g \in O(n)$ is a composition of at most $n$ reflections.
+\end{theorem}
+
+To motivate Clifford algebras, feflections satisfy $\rho_\xi = \rho_{-\xi}$. The square of a reflection is identity: $\rho_\xi^2 = \mathrm{id}$. Now, define algebraic generators $\xi \in \mathbb{R}^n$ with relation:
+    \[
+        \xi^2 = \pm |\xi|^2
+    \]
+If $\langle \xi_1, \xi_2 \rangle = 0$, then:
+    \[
+        \xi_1 \xi_2 + \xi_2 \xi_1 = 0
+    \]
+These generate the Clifford algebra.
+
+Now we can define the real and complex Clifford algebra. For $n \in \mathbb{Z}$:
+\begin{definition}
+\,
+\begin{itemize}
+    \item The \textbf{real Clifford algebra} $\mathrm{C}\ell_n$ is the unital associative $\mathbb{R}$-algebra with generators $e_1, \dots, e_{|n|}$ satisfying:
+    \[
+        e_i^2 = \pm 1, \quad e_i e_j + e_j e_i = 0 \quad (i \neq j)
+    \]
+    \item The \textbf{complex Clifford algebra} $\mathrm{C}\ell_n^{\mathbb{C}}$ is defined similarly over $\mathbb{C}$.
+\end{itemize}
+\end{definition}
+Note that there is a $\mathbb{Z}/2\mathbb{Z}$-grading: all $e_i$ are odd. Aditionally, here are the easiest cases: $\mathrm{C}\ell_0 = \mathbb{R}$, $\mathrm{C}\ell_0^{\mathbb{C}} = \mathbb{C}$
+
+\begin{example}[Complex Conjugation]
+    There is an isomorphism of complex Clifford algebras:
+\[
+\mathrm{Cl}^{\mathbb{C}}_{-n} \cong \mathrm{Cl}^{\mathbb{C}}_n
+\]
+This isomorphism is obtained by multiplying each generator $e_i$ of $\mathrm{Cl}^{\mathbb{C}}_{-n}$ by $i = \sqrt{-1}$:
+\[
+e_i^{(-)} \mapsto i e_i^{(+)}
+\]
+This transforms the relation $e_i^2 = -1$ into $(i e_i)^2 = -1 \cdot (-1) = +1$, matching the defining relation of $\mathrm{Cl}^{\mathbb{C}}_n$.
+\end{example}
+% \begin{frame}{Example: Complex Conjugation of Clifford Algebras}
+There is an isomorphism of complex Clifford algebras:
+\[
+\mathrm{Cl}^{\mathbb{C}}_{-n} \cong \mathrm{Cl}^{\mathbb{C}}_n
+\]
+This isomorphism is obtained by multiplying each generator $e_i$ of $\mathrm{Cl}^{\mathbb{C}}_{-n}$ by $i = \sqrt{-1}$:
+\[
+e_i^{(-)} \mapsto i e_i^{(+)}
+\]
+This transforms the relation $e_i^2 = -1$ into $(i e_i)^2 = -1 \cdot (-1) = +1$, matching the defining relation of $\mathrm{Cl}^{\mathbb{C}}_n$. So Clifford algebras with opposite signs are isomorphic.
+
+Let's do some examples:
+\begin{example}[Embedding $\mathrm{Cl}_{-1}$ in a Matrix Superalgebra]
+    We embed the real Clifford algebra $\mathrm{Cl}_{-1}$ into the supermatrix algebra:
+\[
+\mathrm{M}_{1|1}(\mathbb{R}) = \operatorname{End}(\mathbb{R}^{1|1})
+\]
+via:
+\[
+e_1 =
+\begin{pmatrix}
+0 & -1 \\
+1 & 0
+\end{pmatrix}
+\]
+This matrix squares to $-\mathrm{Id}$, as required for $\mathrm{Cl}_{-1}$.
+
+\textbf{Complexification:} The same matrix also defines an embedding:
+\[
+\mathrm{Cl}^{\mathbb{C}}_{-1} \hookrightarrow \operatorname{End}(\mathbb{C}^{1|1})
+\]
+
+This builds on the earlier example, where endomorphisms of a super vector space are themselves \emph{superalgebras}.
+\end{example}
+
+\begin{example}[$\mathrm{Cl}^{\mathbb{C}}_{-2} \cong \operatorname{End}(\mathbb{C}^{1|1})$]
+    We construct a complex superalgebra isomorphism:
+\[
+\mathrm{Cl}^{\mathbb{C}}_{-2} \cong \operatorname{End}(\mathbb{C}^{1|1})
+\]
+by mapping generators $e_1, e_2$ to:
+\[
+e_1 =
+\begin{pmatrix}
+0 & -1 \\
+1 & 0
+\end{pmatrix}, \quad
+e_2 =
+\begin{pmatrix}
+0 & i \\
+i & 0
+\end{pmatrix}
+\quad \text{where } i = \sqrt{-1}
+\]
+These satisfy:
+\[
+e_1^2 = e_2^2 = -\mathrm{Id}, \quad e_1 e_2 = - e_2 e_1
+\]
+
+\textbf{Observation:} The product
+\[
+e_1 e_2 =
+\begin{pmatrix}
+-i & 0 \\
+0 & i
+\end{pmatrix}
+= -i \cdot \gamma
+\]
+is proportional to a grading operator $\gamma$ on $\mathbb{C}^2$.
+\end{example}
+
+\begin{remark}
+    No such isomorphism exists over $\mathbb{R}$.
+\end{remark}
+
+\begin{example}[$\mathrm{Cl}_1 \not\cong \mathrm{Cl}_{-1}$ over $\mathbb{R}$]
+    The real Clifford algebras $\mathrm{Cl}_1$ and $\mathrm{Cl}_{-1}$ are \textbf{not} isomorphic.
+
+\begin{itemize}
+    \item $\mathrm{Cl}_1$: generated by $e_1$ with $e_1^2 = +1$
+    \item $\mathrm{Cl}_{-1}$: generated by $e_1$ with $e_1^2 = -1$
+\end{itemize}
+
+\textbf{Consequences:}
+\begin{itemize}
+    \item In $\mathrm{Cl}_1$, the subgroup $\{ \pm 1, \pm e_1 \} \subset \mathrm{Cl}_1$ forms a group isomorphic to:
+    \[
+    \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z} \quad (\text{Klein four-group})
+    \]
+    \item In $\mathrm{Cl}_{-1}$, the same set forms a \emph{cyclic group} of order 4:
+    \[
+    \mathbb{Z}/4\mathbb{Z}
+    \]
+\end{itemize}
+
+Thus, the two Clifford algebras are \emph{algebraically distinct} over $\mathbb{R}$.
+\end{example}
+
+\subsection{Bott Periodicity for Clifford Algebras}
+
+In future discussions, we may introduce Morita theory for superalgebras. The key idea: two algebras are \emph{Morita equivalent} if their module categories are equivalent. Under this equivalence:
+    \[
+    \text{Matrix algebras (e.g. } \mathrm{M}_{m|n}(A) \text{)}
+    \]
+    are often considered \emph{Morita trivial}.
+    
+    That is, they behave like the base algebra $A$ up to equivalence of representations.
+This viewpoint leads us into an algebraic version of Bott periodicity for Clifford algebras.
+
+\begin{theorem}[Bott Periodicity]
+There are isomorphisms of superalgebras:
+\[
+\mathrm{Cl}^{\mathbb{C}}_{-2} \cong \operatorname{End}(S), \quad \dim S = 1|1
+\]
+\[
+\mathrm{Cl}_{-8} \cong \operatorname{End}(S_{\mathbb{R}}), \quad \dim S_{\mathbb{R}} = 8|8
+\]
+\end{theorem}
+
+\begin{itemize}
+    \item These are isomorphisms of \(\mathbb{Z}/2\mathbb{Z}\)-graded algebras (superalgebras).
+    \item This means: both $\mathrm{Cl}_{-2}^{\mathbb{C}}$ and $\mathrm{Cl}_{-8}$ are \emph{Morita trivial}.
+    \item All of their representations can be modeled on $\mathbb{C}^{1|1}$ or $\mathbb{R}^{8|8}$, respectively.
+\end{itemize}
+
+\textcolor{red}{this part needs significant improvement bc it doesnt make sense}
+
+Now we discuss the quaternionic structure on $W^{\otimes 2}$.
+
+Let $W = \mathbb{C}^{1|1}$, the spinor representation for $\mathrm{Cl}_{-2}^{\mathbb{C}}$. Let $J : W \to W$ be an \emph{odd}, antilinear involution satisfying $J^2 = -\mathrm{id}$. This defines a \textbf{quaternionic structure}. Consider the tensor product $W^{\otimes 2}$. Define:
+    \[
+    J^{\otimes 2} = J \otimes J
+    \]
+By the Koszul sign rule, we must account for the parity of $J$. Since $J$ is \emph{odd}, we compute:
+    \[
+    (J \otimes J)^2 = -\mathrm{id}
+    \]
+Thus, $W^{\otimes 2}$ inherits a \textbf{quaternionic structure}. 
+
+We can explicitly check the sign. The minus sign arises from:
+\[
+(-1)^{|J||J|} = (-1)^1 = -1
+\]
+
+\subsection{Pin and Spin Groups}
+Let $\mathbb{R}^n \subset \mathrm{Cl}_{\pm n}$ via the canonical inclusion.
+
+Define the unit sphere:
+    \[
+    S(\mathbb{R}^n) := \left\{ v \in \mathbb{R}^n \subset \mathrm{Cl}_{\pm n} \;\middle|\; \|v\| = 1 \right\}
+    \]
+Since $\mathbb{R}^n \subset \mathrm{Cl}_{\pm n}$, we also have $S(\mathbb{R}^n) \subset \mathrm{Cl}_{\pm n}$.
+
+Define the \textbf{Pin group}:
+    \[
+    \mathrm{Pin}_{\pm n} := \left\langle S(\mathbb{R}^n) \right\rangle \subset \mathrm{Cl}_{\pm n}
+    \]
+    That is, the subgroup of the Clifford algebra generated by all unit norm vectors.
+
+\begin{proposition}
+    $\mathrm{Pin}_{\pm n}$ is a Lie group.
+\end{proposition}
+
+ Each reflection in $\mathbb{R}^n$ is realized via conjugation in $\mathrm{Cl}_{\pm n}$ by a unit vector $v \in S(\mathbb{R}^n)$:
+    \[
+    \rho_v(x) := -v x v^{-1}
+    \]
+ This gives a group homomorphism:
+    \[
+    \pi: \mathrm{Pin}_{\pm n} \longrightarrow O(n)
+    \]
+    defined by compositions of such reflections.
+The kernel of $\pi$ is $\{ \pm 1 \}$, so this is a \textbf{double cover}.
+
+Define the \textbf{Spin group} as:
+    \[
+    \mathrm{Spin}_{\pm n} := \mathrm{Pin}_{\pm n} \cap \mathrm{Cl}^0_{\pm n}
+    \]
+    i.e., elements of $\mathrm{Pin}_{\pm n}$ that lie in the even subalgebra.
+
+ Then:
+    \[
+    \mathrm{Spin}_{\pm n} \to SO(n)
+    \]
+    is a double cover of the special orthogonal group.
+
+\begin{proposition}
+    \[
+    \mathrm{Spin}_n \cong \mathrm{Spin}_{-n}
+    \]
+\end{proposition}
+
+This is not true for $\mathrm{Pin}_n$ vs $\mathrm{Pin}_{-n}$.
+
+\subsection{Dirac's Question: Find a Square Root of the Laplacian}
+
+ Let $E^n = \mathbb{R}^n$ be flat Euclidean space with standard metric. Let $x_1, \dots, x_n$ be standard affine coordinates. Define the Laplacian:
+    \[
+    \Delta := -\sum_{i=1}^n \frac{\partial^2}{\partial x_i^2}
+    \]
+\begin{problem}[Dirac]
+    Can we find a first-order differential operator $D$ such that
+\[
+D^2 = \Delta,
+\]
+where $\Delta$ is the Laplace operator?
+\end{problem}
+Try:
+    \[
+    D = \sum_{i=1}^n \gamma^i \frac{\partial}{\partial x_i}
+    \]
+where the $\gamma^i \in \operatorname{End}(S)$ are to be determined.
+
+We work on flat Euclidean space:
+\[
+E^n = \mathbb{A}^n \text{ with the standard translation-invariant metric from } \mathbb{R}^n
+\]
+Let $x_1, \dots, x_n$ be standard affine coordinates on $E^n$. The Laplace operator on $E^n$ is given by:
+    \begin{equation}
+    \Delta := -\sum_{i=1}^n \frac{\partial^2}{\partial x_i^2} 
+    \end{equation}
+
+Now, we propose a first-order differential operator of the form:
+    \begin{equation}
+    D := \sum_{i=1}^n \gamma^i \frac{\partial}{\partial x_i} 
+    \end{equation}
+
+For $D^2 = \Delta$, the coefficients $\gamma^i \in \operatorname{End}(S)$ must satisfy:
+    \begin{equation}
+    \gamma^i \gamma^j + \gamma^j \gamma^i = -2\delta_{ij} \cdot \mathrm{id} 
+    \end{equation}
+These are the defining relations of the Clifford algebra $\mathrm{Cl}_{-n}$.
+
+Let $S$ be a vector space with a representation of $\mathrm{Cl}_{-n}$. Then consider the space of smooth $S$-valued functions:
+    \[
+    C^\infty(E^n; S)
+    \]
+The Dirac operator acts on this space via:
+    \[
+    D = \gamma^i \partial_{x_i}
+    \]
+
+Since the $\gamma^i$ satisfy the Clifford relations, this implies:
+    \[
+    D^2 = \Delta
+    \]
+
+The conclusion is that the vector space $S$ must be a $\mathrm{Cl}_{-n}$-module.
+
+The key takeaway is that the algebraic structure of Clifford algebras arises naturally from analytic considerations involving first-order differential operators.
+
+\subsection{Abstract Clifford Algebras}
+
+Let $V$ be a vector space over a field $k$.
+
+\begin{definition}
+A function $Q: V \to k$ is a \emph{quadratic form} if the map:
+\[
+B(\xi_1, \xi_2) := Q(\xi_1 + \xi_2) - Q(\xi_1) - Q(\xi_2)
+\]
+is bilinear in $\xi_1, \xi_2$.
+\end{definition}
+
+$B$ is the \textbf{polarization} of $Q$. There is homogeneity condition: $Q(n\xi) = n^2 Q(\xi)$, $n \in k$. $B$ is symmetric if $\operatorname{char}(k) \ne 2$.
+
+\textcolor{red}{will do the rest of this lecture later - gary}
+
+% \begin{frame}{Definition of the Clifford Algebra}
+% Let $(V, Q)$ be a quadratic vector space.
+
+% \begin{block}{Definition}
+% The \emph{Clifford algebra} $\mathrm{Cl}(V, Q)$ is an algebra equipped with a linear map:
+% \[
+% i: V \to \mathrm{Cl}(V, Q)
+% \]
+% such that for any algebra $A$ and linear map $\varphi: V \to A$ with:
+% \[
+% \varphi(\xi)^2 = Q(\xi) \cdot 1_A \quad \text{for all } \xi \in V 
+% \]
+% there exists a unique algebra homomorphism:
+% \[
+% \widetilde{\varphi}: \mathrm{Cl}(V, Q) \to A \quad \text{such that} \quad \varphi = \widetilde{\varphi} \circ i.
+% \]
+% \end{block}
+% \end{frame}
+
+% \begin{frame}{Uniqueness and Injectivity of $i$}
+% \begin{itemize}
+%     \item The universal property implies:
+%     \begin{itemize}
+%         \item The Clifford algebra $\mathrm{Cl}(V, Q)$ is unique \textbf{up to unique isomorphism}.
+%         \item The linear map $i: V \to \mathrm{Cl}(V, Q)$ is \textbf{injective}.
+%     \end{itemize}
+
+%     \item The structure of $\mathrm{Cl}(V, Q)$ depends only on the quadratic form $Q$.
+%     \item The construction ensures that any algebra satisfying the Clifford relation factors uniquely through $\mathrm{Cl}(V, Q)$.
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Construction from the Tensor Algebra}
+% Let $T(V) := \bigoplus_{n \ge 0} V^{\otimes n}$ be the tensor algebra on $V$.
+
+% \begin{block}{Explicit construction}
+% There is a natural surjection:
+% \[
+% T(V) \twoheadrightarrow \mathrm{Cl}(V, Q) 
+% \]
+% \end{block}
+
+% \begin{itemize}
+%     \item Define $\mathrm{Cl}(V, Q)$ as the quotient:
+%     \[
+%     \mathrm{Cl}(V, Q) := \frac{T(V)}{\langle \xi^2 - Q(\xi) \cdot 1 \mid \xi \in V \rangle}
+%     \]
+%     \item This is a quotient by a 2-sided ideal generated by all $\xi^2 - Q(\xi)$.
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Grading and Filtration in $\mathrm{Cl}(V, Q)$}
+% \begin{itemize}
+%     \item $T(V)$ is naturally $\mathbb{Z}$-graded.
+%     \item The ideal $\langle \xi^2 - Q(\xi) \rangle$ lies in \textbf{even degree}.
+%     \item Thus, $\mathrm{Cl}(V, Q)$ inherits a $\mathbb{Z}/2\mathbb{Z}$-grading:
+%     \[
+%     \mathrm{Cl}(V, Q) = \mathrm{Cl}^0 \oplus \mathrm{Cl}^1
+%     \]
+
+%     \item There is also an increasing filtration:
+%     \[
+%     T^{\leq 0}(V) \subset T^{\leq 1}(V) \subset T^{\leq 2}(V) \subset \cdots
+%     \]
+%     which descends to a filtration on $\mathrm{Cl}(V, Q)$.
+
+%     \item The associated graded algebra is isomorphic to the exterior algebra:
+%     \[
+%     \mathrm{gr}\, \mathrm{Cl}(V, Q) \cong \wedge^\bullet V
+%     \]
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Canonical Tensor Decomposition}
+% \begin{block}{Canonical Isomorphism}
+% Let $V = V' \oplus V''$ and $Q = Q' \oplus Q''$. Then:
+% \[
+% \mathrm{Cl}(V, Q) \cong \mathrm{Cl}(V', Q') \otimes \mathrm{Cl}(V'', Q'')
+% \]
+% \end{block}
+
+% \begin{itemize}
+%     \item This decomposition is canonical and respects the superalgebra structure.
+%     \item It can be deduced directly from the universal property of Clifford algebras.
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Standard Clifford Algebras}
+% \begin{itemize}
+%     \item The Clifford algebras are instances of $\mathrm{Cl}(V, Q)$ where:
+%     \[
+%     V = \mathbb{R}^n \text{ or } \mathbb{C}^n, \quad Q(\xi) = \pm \|\xi\|^2
+%     \]
+%     \item These give:
+%     \[
+%     \mathrm{Cl}_n = \mathrm{Cl}(\mathbb{R}^n, Q_{\text{pos}}), \quad
+%     \mathrm{Cl}_{-n} = \mathrm{Cl}(\mathbb{R}^n, Q_{\text{neg}})
+%     \]
+%     \item $Q_{\text{pos}}(\xi) = \xi_1^2 + \cdots + \xi_n^2$, \quad
+%           $Q_{\text{neg}}(\xi) = -(\xi_1^2 + \cdots + \xi_n^2)$
+% \end{itemize}
+
+% \textbf{These algebras encode reflections, spinors, and Dirac operators.}
+% \end{frame}
+
+% % STOPPED HERE
+
+% \begin{frame}{Clifford Algebras are Central Simple}
+% \begin{itemize}
+%     \item The Clifford algebras $\mathrm{Cl}(V, Q)$ are \textbf{central simple superalgebras} over the base field $k$.
+%     \item Simplicity means: no nontrivial $\mathbb{Z}/2\mathbb{Z}$-graded 2-sided ideals.
+%     \item We now prove the \textbf{centrality}.
+% \end{itemize}
+
+% \begin{theorem}
+% The center of $\mathrm{Cl}(V, Q)$ is the base field:
+% \[
+% Z(\mathrm{Cl}(V, Q)) = k
+% \]
+% \end{theorem}
+% \end{frame}
+
+% \begin{frame}{Split Quadratic Form and Realization via $\wedge^\bullet L^*$}
+% Let $L$ be a vector space and $\theta \in L^*$, $\ell \in L$.
+
+% \begin{itemize}
+%     \item Define:
+%     \[
+%     \epsilon_\theta: \wedge^\bullet L^* \to \wedge^\bullet L^* \quad \text{(exterior multiplication)}
+%     \]
+%     \[
+%     \iota_\ell: \wedge^\bullet L^* \to \wedge^{\bullet - 1} L^* \quad \text{(contraction)}
+%     \]
+% \end{itemize}
+
+% \begin{theorem}
+% Let $V = L \oplus L^*$ with split form $Q(\ell + \theta) = \theta(\ell)$, and set:
+% \[
+% S := \wedge^\bullet L^*
+% \]
+% Then the map:
+% \[
+% \ell \mapsto \iota_\ell, \quad \theta \mapsto \epsilon_\theta
+% \]
+% extends to an isomorphism of superalgebras:
+% \[
+% \mathrm{Cl}(V, Q) \cong \operatorname{End}(S)
+% \]
+% \end{theorem}
+% \end{frame}

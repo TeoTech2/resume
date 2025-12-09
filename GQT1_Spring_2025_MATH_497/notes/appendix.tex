@@ -1,0 +1,61 @@
+\section{Appendix}
+\subsection{Real convex spaces} \label{subsec:real_convex_space}
+TODO: this subsection
+
+To a collection of states $x_1, \dots, x_n \in \cS$ and real numbers $p_1, \dots, p_n \in [0, 1]$,
+
+\subsection{Real structure on a complex vector space} \label{subsec:real_structure}
+How do we generalize the conjugation map $a + b \, i \mapsto a - b \, i$ to an arbitrary vector space? Let $V$ be an $n$-dimensional complex vector space, and let $e_1, \dots, e_n$ be a basis. Suppose there exists an $\R$-linear\footnote{$C(\lambda v) = \lambda \, C v$ whenever $v \in V$ and $\lambda \in \R$, although not necessarily if $\lambda \in \C$.} map $C: V \to V$ such that $C^2 = 1$ that we will interpret as the \emph{conjugation} operator.
+
+Since $C$ is $\R$-linear, it is natural to consider the $2n$-dimensional vector space $V'$ with basis $e_1, \dots, e_n, i \, e_1, \dots, i \, e_n$. Since $C$ is a linear operator over $V'$ satisfies the polynomial equation $(C - 1)(C + 1) = 0$, we may diagonalize $C$ over $V'$, and the eigenvalues will be $\pm 1$. Let $V_+$ be the eigenspace of $C$ over $V'$ with eigenvalue $1$, and let $V_-$ be the eigenspace of $C$ over $V'$ with eigenvalue $-1$. We may write $V$ as the direct sum
+\begin{equation}
+    V = V_+ \oplus V_-,
+\end{equation}
+where $V_+$ is the space of \emph{real} elements $v \in V$ satisfying $C \, v = v$ and $V_-$ is the space of \emph{imaginary} elements $v \in V$ satisfying $C \, v = -v$. That is, every $v \in V$ may be written as $v = a + b$, with $C \, a = a$ and $C \, b = -b$. (Note that $V_+$ and $V_-$ are real vector spaces but not necessarily complex vector spaces.)% This construction not only generalizes complex conjugation beyond the complex numbers, but also subsumes the notion of even and odd functions.
+
+\begin{example}[Usual complex conjugation]
+Suppose $V = \C$ is the field of complex numbers and $C$ is the map $a + b \, i \mapsto a - b \, i$. Then $V_+ = \R$ is the real line and $V_- = i \, \R$ is the imaginary line.
+\end{example}
+
+%\begin{example}[Hermitian conjugate]
+%Suppose $W$ is a complex vector space endowed with an inner product $\langle \cdot, %\cdot \rangle: W^2 \to \C$ satisfying
+%\begin{equation*}
+%    \langle u, \lambda \, v \rangle = \lambda \langle u, v \rangle \text{ and } \langle v, u \rangle = \langle u, v \rangle^*
+%\end{equation*}
+%for all $u, v \in W$ and $\lambda \in \C$, where $(a + b \, i)^* = a - b \, i$ denotes the usual complex conjugation. Let
+%\begin{equation*}
+%    V = \{\text{$A : W \to W$ linear}\}
+%\end{equation*}
+%be the space of $\C$-linear operators on $W$. 
+%\end{example}
+
+\begin{example}[Even and odd functions]
+Suppose $V$ is the vector field of complex-valued functions $f: \R \to \C$ and $C$ is the \dq{reflection} map that takes in a function $f(x)$ and outputs the function $f(-x)$ reflected around the $y$ axis, $(C f)(x) = f(-x)$. Then $V_+$ is the space of even functions and $V_-$ is the space of odd functions.
+\end{example}
+
+\begin{remark}
+The spaces $V_+$ and $V_-$ need not have the same dimension. As a trivial example, if $C = 1$ is the identity, then $V_+ = V$ and $V_- = \{0\}$. As another example, suppose $V = \C^3$ and $C$ is a $\C$-linear operator with eigenvalues $1, 1, -1$. Then, $V_+$ is a real vector space of dimension $4$ while $V_-$ is a real vector space of dimension $2$.
+\end{remark}
+
+\subsection{Complex structure on a real vector space} \label{subsec:complex_structure}
+Certain real vector spaces are \dq{secretly} also complex vector spaces. For example, $\R^2$ can be identified with $\C$ via $(a, b) \leftrightarrow a + b \, i$, and the multiplication of $(a, b) \in \R^2$ by $c + d \, i \in \C$ can be defined as $(a c - b d, a d + b c)$. Suppose $V$ is a real vector space and $J: V \to V$ is a linear operator satisfying $J^2 = -1$. For $v \in V$ and $\lambda = a + b \, i \in \C$, we may define $\lambda \, v \in V$ as
+\begin{equation*}
+    \lambda \, v \coloneqq a \, v + b \, J v.
+\end{equation*}
+Clearly this assignment is linear in both $\lambda$ and $v$, and it also satisfies $\lambda (\mu \, v) = (\lambda \, \mu) v$ for any $\lambda, \mu \in \C$ and $v \in V$. Endowed with this multiplication map $\C \times V \to V$, $V$ is a complex vector space.
+
+\begin{example}
+Suppose $V = \R^2$, and let $J$ be the counterclockwise right-angle rotation
+\begin{equation*}
+J = \begin{pmatrix}
+    0 & -1\\
+    1 & 0
+\end{pmatrix}.
+\end{equation*}
+Then, $i \, (a, b) = (-b, a)$ replicates complex number multiplication $i \, (a + b \, i) = -b + a\, i$, and $V$ basically becomes $\C$.
+\end{example}
+
+
+\nocite{*}
+\printbibliography
+
